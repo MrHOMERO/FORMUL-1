@@ -8,14 +8,14 @@
         :root {
             --f1-red: #e10600;
             --dark-bg: #0b0b0f;
-            --panel-bg: rgba(0, 0, 0, 0.7); 
+            --panel-bg: rgba(0, 0, 0, 0.75); 
             --text-light: #ffffff;
+            --text-muted: #aaaaaa;
         }
 
         body {
             font-family: 'Arial Black', 'Arial Strip', Impact, sans-serif;
             background-color: var(--dark-bg);
-            /* Tu imagen local del repositorio */
             background-image: url('fondo.jpg');
             background-position: center;
             background-size: cover;
@@ -28,30 +28,32 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            height: 100vh;
-            overflow: hidden;
+            min-height: 100vh;
+            overflow-x: hidden;
         }
 
-        /* CONTENEDOR DE LA PORTADA CON EFECTO CRISTAL ESMERILADO (DIFUMINADO) */
+        /* CONTENEDOR ESTILO CRISTAL */
         .portada {
             text-align: center;
-            width: 85%;
-            max-width: 380px;
-            padding: 45px 25px;
+            width: 90%;
+            max-width: 420px;
+            padding: 30px 20px;
             background-color: var(--panel-bg); 
-            
-            /* Filtro de desenfoque moderno */
             backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px); /* Compatibilidad con móviles */
-            
+            -webkit-backdrop-filter: blur(12px);
             border-radius: 16px;
             box-shadow: 0 15px 35px rgba(0, 0, 0, 0.8);
             border: 1px solid rgba(255, 255, 255, 0.1);
+            margin: 20px 0;
         }
 
-        /* TIPOGRAFÍA AGRESIVA F1 SENSATION */
+        /* ELEMENTOS DE PANTALLAS */
+        .pantalla { display: none; }
+        .activa { display: block; }
+
+        /* TIPOGRAFÍAS */
         .titulo-juego {
-            font-size: 42px;
+            font-size: 38px;
             line-height: 0.95;
             font-weight: 900;
             letter-spacing: -1px;
@@ -60,21 +62,30 @@
             background: linear-gradient(180deg, #ffffff 40%, #aaaaaa 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-            filter: drop-shadow(0px 4px 6px rgba(0,0,0,0.8));
         }
 
         .subtitulo-juego {
             font-family: 'Segoe UI', Arial, sans-serif;
-            font-size: 13px;
+            font-size: 12px;
             color: var(--f1-red);
             letter-spacing: 6px;
             text-transform: uppercase;
-            margin-bottom: 45px;
+            margin-bottom: 35px;
             font-weight: bold;
-            text-shadow: 0 2px 4px rgba(0,0,0,0.8);
         }
 
-        /* BOTÓN DE INICIO COMPETITIVO */
+        .titulo-pantalla {
+            font-family: 'Segoe UI', Arial, sans-serif;
+            font-size: 18px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 20px;
+            color: #ffffff;
+            border-bottom: 2px solid var(--f1-red);
+            padding-bottom: 8px;
+        }
+
+        /* BOTÓN DE INICIO */
         .btn-comenzar {
             font-family: 'Segoe UI', Arial, sans-serif;
             background-color: var(--f1-red);
@@ -89,11 +100,43 @@
             cursor: pointer;
             width: 100%;
             box-shadow: 0 4px 20px rgba(225, 6, 0, 0.6);
-            transition: transform 0.1s ease;
         }
 
-        .btn-comenzar:active {
-            transform: scale(0.98);
+        /* GRID EN DOS COLUMNAS PARA ESCUDERÍAS */
+        .grid-escuderias {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 10px;
+            margin-bottom: 10px;
+        }
+
+        /* BOTONES DE LAS ESCUDERÍAS */
+        .btn-escuderia {
+            font-family: 'Segoe UI', Arial, sans-serif;
+            background: rgba(25, 25, 35, 0.8);
+            border: 1px solid #333344;
+            color: white;
+            padding: 12px 8px;
+            font-size: 12px;
+            font-weight: bold;
+            border-radius: 6px;
+            cursor: pointer;
+            text-align: left;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            transition: transform 0.1s;
+        }
+
+        .btn-escuderia:active {
+            transform: scale(0.96);
+        }
+
+        .btn-escuderia span {
+            font-size: 9px;
+            color: var(--text-muted);
+            font-weight: normal;
+            margin-top: 2px;
         }
     </style>
 </head>
@@ -104,28 +147,90 @@
     </audio>
 
     <div class="portada">
-        <div class="titulo-juego">F1<br>Sensation</div>
-        <div class="subtitulo-juego">Simulación Pro</div>
         
-        <button class="btn-comenzar" onclick="comenzarJuego()">Comenzar a Jugar</button>
+        <div id="pantalla-inicio" class="pantalla activa">
+            <div class="titulo-juego">F1<br>Sensation</div>
+            <div class="subtitulo-juego">Simulación Pro</div>
+            <button class="btn-comenzar" onclick="comenzarJuego()">Comenzar a Jugar</button>
+        </div>
+
+        <div id="pantalla-escuderia" class="pantalla">
+            <div class="titulo-pantalla">Selecciona Escudería</div>
+            
+            <div class="grid-escuderias">
+                <button class="btn-escuderia" style="border-left: 5px solid #ff8700;" onclick="seleccionarEscuderia('McLaren Formula 1 Team')">
+                    McLaren
+                    <span>Pos. 2025: 1º</span>
+                </button>
+                
+                <button class="btn-escuderia" style="border-left: 5px solid #e10600;" onclick="seleccionarEscuderia('Scuderia Ferrari')">
+                    Ferrari
+                    <span>Pos. 2025: 2º</span>
+                </button>
+                
+                <button class="btn-escuderia" style="border-left: 5px solid #0c1f3c;" onclick="seleccionarEscuderia('Red Bull Racing')">
+                    Red Bull
+                    <span>Pos. 2025: 3º</span>
+                </button>
+                
+                <button class="btn-escuderia" style="border-left: 5px solid #00a19c;" onclick="seleccionarEscuderia('Mercedes-AMG F1 Team')">
+                    Mercedes
+                    <span>Pos. 2025: 4º</span>
+                </button>
+                
+                <button class="btn-escuderia" style="border-left: 5px solid #006f62;" onclick="seleccionarEscuderia('Aston Martin F1 Team')">
+                    Aston Martin
+                    <span>Pos. 2025: 5º</span>
+                </button>
+                
+                <button class="btn-escuderia" style="border-left: 5px solid #ff85b3;" onclick="seleccionarEscuderia('Alpine F1 Team')">
+                    Alpine
+                    <span>Pos. 2025: 6º</span>
+                </button>
+                
+                <button class="btn-escuderia" style="border-left: 5px solid #ffffff;" onclick="seleccionarEscuderia('Haas F1 Team')">
+                    Haas
+                    <span>Pos. 2025: 7º</span>
+                </button>
+                
+                <button class="btn-escuderia" style="border-left: 5px solid #1c34f4;" onclick="seleccionarEscuderia('Visa Cash App RB')">
+                    Racing Bulls
+                    <span>Pos. 2025: 8º</span>
+                </button>
+                
+                <button class="btn-escuderia" style="border-left: 5px solid #005aff;" onclick="seleccionarEscuderia('Williams Racing')">
+                    Williams
+                    <span>Pos. 2025: 9º</span>
+                </button>
+                
+                <button class="btn-escuderia" style="border-left: 5px solid #52e500;" onclick="seleccionarEscuderia('Kick Sauber F1 Team')">
+                    Kick Sauber
+                    <span>Pos. 2025: 10º</span>
+                </button>
+
+                <button class="btn-escuderia" style="border-left: 5px solid #cbd5e1;" onclick="seleccionarEscuderia('Cadillac Formula 1 Team')">
+                    Cadillac
+                    <span>Nueva Escudería</span>
+                </button>
+            </div>
+        </div>
+
     </div>
 
     <script>
-        function comenzarJuego() {
-            const musica = document.getElementById('musica-fondo');
-            
-            // Subimos sutilmente el volumen a 0.5 para que la guitarra se note con energía
-            musica.volume = 0.5; 
-            
-            // Arranca la reproducción inmediatamente tras pulsar el botón
-            musica.play().then(() => {
-                console.log("Música de Rock Épico iniciada.");
-            }).catch(error => {
-                console.log("Bloqueo temporal del navegador:", error);
-            });
+        let musica = document.getElementById('musica-fondo');
 
-            // Alerta de control
-            alert("¡Paso de inicio completado con Música Épica!");
+        function comenzarJuego() {
+            musica.volume = 0.5; 
+            musica.play().catch(error => console.log("Audio bloqueado:", error));
+
+            // Transición limpia de pantallas
+            document.getElementById('pantalla-inicio').style.display = 'none';
+            document.getElementById('pantalla-escuderia').style.display = 'block';
+        }
+
+        function seleccionarEscuderia(nombreReal) {
+            alert("Has seleccionado: " + nombreReal + "\n\n¡Estructura de la Pantalla 2 validada! Dime si se ven bien las dos columnas con las 11 escuderías en tu móvil y procedemos al siguiente paso.");
         }
     </script>
 
