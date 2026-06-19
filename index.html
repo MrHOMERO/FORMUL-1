@@ -168,6 +168,7 @@
             border: 1px dashed rgba(255, 255, 255, 0.2);
         }
         
+        /* CORREGIDO EL BUG DEL ALERÓN TRASERO AQUÍ */
         .f1-car-blueprint {
             width: 180px;
             height: 50px;
@@ -177,7 +178,7 @@
             border-radius: 30px 10px 10px 30px;
         }
         .f1-car-blueprint .wing-f { position: absolute; left: -15px; top: 5px; width: 20px; height: 40px; background: var(--f1-red); border-radius: 4px; }
-        .f1-car-blueprint .wing-r { position: absolute; right: -10px; top: 2px; width: 15px; height: 466px; max-height: 46px; background: var(--f1-red); border-radius: 2px; }
+        .f1-car-blueprint .wing-r { position: absolute; right: -10px; top: 2px; width: 15px; height: 46px; background: var(--f1-red); border-radius: 2px; }
         .f1-car-blueprint .wheel { position: absolute; width: 28px; height: 28px; background: #111; border-radius: 50%; border: 3px solid #222; }
         .f1-car-blueprint .w-fl { left: 15px; top: -12px; }
         .f1-car-blueprint .w-fr { left: 15px; bottom: -12px; }
@@ -185,7 +186,6 @@
         .f1-car-blueprint .w-rr { right: 20px; bottom: -12px; }
         .f1-car-blueprint .halo { position: absolute; left: 70px; top: 15px; width: 30px; height: 20px; border: 3px solid #fff; border-radius: 50% 50% 0 0; }
 
-        /* SECCIONES CONFIGURABLES */
         .categoria-item {
             background: rgba(15, 15, 25, 0.9);
             border: 1px solid #2a2a40;
@@ -216,7 +216,6 @@
             font-family: monospace;
         }
 
-        /* SELECTOR ESTILIZADO DE INGENIERÍA */
         .selector-ingenieria {
             width: 100%;
             background: #181824;
@@ -227,7 +226,6 @@
             border-radius: 4px;
             outline: none;
             cursor: pointer;
-            font-family: 'Segoe UI', Arial, sans-serif;
         }
         .selector-ingenieria:focus { border-color: var(--f1-red); }
 
@@ -255,7 +253,6 @@
 
     <div class="portada">
         
-        <!-- PANTALLA 1, 2 Y 3 SE MANTIENEN IGUAL -->
         <div id="pantalla-inicio" class="pantalla activa">
             <div class="titulo-juego">F1<br>Sensation</div>
             <div class="subtitulo-juego">Simulación Pro</div>
@@ -271,7 +268,7 @@
                 <button class="btn-escuderia" style="border-left: 5px solid #00a19c;" onclick="seleccionarEscuderia('Mercedes')">Mercedes<span>Pos. 2025: 4º</span></button>
                 <button class="btn-escuderia" style="border-left: 5px solid #006f62;" onclick="seleccionarEscuderia('Aston Martin')">Aston Martin<span>Pos. 2025: 5º</span></button>
                 <button class="btn-escuderia" style="border-left: 5px solid #ff85b3;" onclick="seleccionarEscuderia('Alpine')">Alpine<span>Pos. 2025: 6º</span></button>
-                <button class="btn-escuderia" style="border-left: 5px solid #ffffff;" onclick="haas=true; seleccionarEscuderia('Haas')">Haas<span>Pos. 2025: 7º</span></button>
+                <button class="btn-escuderia" style="border-left: 5px solid #ffffff;" onclick="seleccionarEscuderia('Haas')">Haas<span>Pos. 2025: 7º</span></button>
                 <button class="btn-escuderia" style="border-left: 5px solid #1c34f4;" onclick="seleccionarEscuderia('Racing Bulls')">Racing Bulls<span>Pos. 2025: 8º</span></button>
                 <button class="btn-escuderia" style="border-left: 5px solid #005aff;" onclick="seleccionarEscuderia('Williams')">Williams<span>Pos. 2025: 9º</span></button>
                 <button class="btn-escuderia" style="border-left: 5px solid #ff0044;" onclick="seleccionarEscuderia('Audi')">Audi<span>Pos. 2025: 10º</span></button>
@@ -292,7 +289,6 @@
             <div id="lista-pilotos"></div>
         </div>
 
-        <!-- PANTALLA 4: REVISADA CON REGLAMENTO COMPLETO FIA 2026 -->
         <div id="pantalla-taller" class="pantalla">
             <div class="titulo-pantalla">Taller de Ingeniería</div>
             
@@ -310,7 +306,6 @@
             </div>
 
             <div id="categorias-auto">
-                <!-- CATEGORÍA 1: POTENCIA -->
                 <div class="categoria-item">
                     <div class="fila-superior">
                         <div class="categoria-info">
@@ -326,7 +321,6 @@
                     </select>
                 </div>
 
-                <!-- CATEGORÍA 2: AERODINÁMICA -->
                 <div class="categoria-item">
                     <div class="fila-superior">
                         <div class="categoria-info">
@@ -342,7 +336,6 @@
                     </select>
                 </div>
 
-                <!-- CATEGORÍA 3: CHASIS -->
                 <div class="categoria-item">
                     <div class="fila-superior">
                         <div class="categoria-info">
@@ -358,7 +351,6 @@
                     </select>
                 </div>
 
-                <!-- CATEGORÍA 4: SUSPENSIÓN -->
                 <div class="categoria-item">
                     <div class="fila-superior">
                         <div class="categoria-info">
@@ -440,4 +432,12 @@
             document.getElementById('pr-pu').innerText = "PR. " + document.getElementById('select-pu').value;
             document.getElementById('pr-aero').innerText = "PR. " + document.getElementById('select-aero').value;
             document.getElementById('pr-chasis').innerText = "PR. " + document.getElementById('select-chasis').value;
-            document.getElementById('pr-suspension').innerText = "PR. " + document.getElementById('select-suspension').va
+            document.getElementById('pr-suspension').innerText = "PR. " + document.getElementById('select-suspension').value;
+        }
+
+        function comenzarSimulacion() {
+            alert("¡Estrategia cerrada!\n\nSe procesarán las variables técnicas elegidas para la grilla de largada.");
+        }
+    </script>
+</body>
+    </html>
