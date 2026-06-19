@@ -8,13 +8,15 @@
         :root {
             --f1-red: #e10600;
             --dark-bg: #0b0b0f;
-            --panel-bg: #14141c;
+            --panel-bg: rgba(20, 20, 28, 0.65); /* Fondo semi-transparente para el efecto */
             --text-light: #ffffff;
         }
 
         body {
             font-family: 'Arial Black', 'Arial Strip', Impact, sans-serif;
             background-color: var(--dark-bg);
+            /* Aquí colocamos la imagen de fondo en toda la pantalla */
+            background: url('https://images.unsplash.com/photo-1560674457-12073ed6c46b?q=80&w=1000') center/cover no-repeat fixed;
             color: var(--text-light);
             margin: 0;
             padding: 0;
@@ -25,17 +27,19 @@
             overflow: hidden;
         }
 
-        /* CONTENEDOR DE LA PORTADA */
+        /* CONTENEDOR DE LA PORTADA CON EFECTO DIFUMINADO TRASERO */
         .portada {
             text-align: center;
-            width: 90%;
-            max-width: 400px;
-            padding: 40px 20px;
-            background: linear-gradient(180deg, rgba(20,20,28,0.2) 0%, rgba(11,11,15,0.95) 90%), 
-                        url('https://images.unsplash.com/photo-1560674457-12073ed6c46b?q=80&w=1000') center/cover no-repeat;
+            width: 85%;
+            max-width: 380px;
+            padding: 45px 25px;
+            background-color: var(--panel-bg); 
+            /* Esta es la clave del efecto difuminado: */
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px); /* Compatibilidad en móviles */
             border-radius: 16px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.7), inset 0 0 100px rgba(0,0,0,0.8);
-            border: 1px solid #222230;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.6);
+            border: 1px solid rgba(255, 255, 255, 0.1); /* Borde sutil brillante */
         }
 
         /* TIPOGRAFÍA LLAMATIVA ESTILO F1 */
@@ -49,17 +53,18 @@
             background: linear-gradient(180deg, #ffffff 40%, #aaaaaa 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-            filter: drop-shadow(0px 4px 8px rgba(0,0,0,0.5));
+            filter: drop-shadow(0px 4px 6px rgba(0,0,0,0.6));
         }
 
         .subtitulo-juego {
             font-family: 'Segoe UI', Arial, sans-serif;
-            font-size: 14px;
+            font-size: 13px;
             color: var(--f1-red);
-            letter-spacing: 5px;
+            letter-spacing: 6px;
             text-transform: uppercase;
-            margin-bottom: 50px;
+            margin-bottom: 45px;
             font-weight: bold;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.5);
         }
 
         /* BOTÓN PRINCIPAL */
@@ -76,7 +81,7 @@
             border-radius: 6px;
             cursor: pointer;
             width: 100%;
-            box-shadow: 0 4px 20px rgba(225, 6, 0, 0.5);
+            box-shadow: 0 4px 20px rgba(225, 6, 0, 0.4);
             transition: transform 0.1s ease;
         }
 
@@ -96,7 +101,7 @@
 
     <script>
         function siguientePaso() {
-            alert("¡Estructura inicial verificada con éxito! Dime si se ve bien la imagen y la tipografía en tu celular y pasamos al menú de selección de equipos.");
+            alert("¡Efecto cristal difuminado verificado! Pruébalo y dime si pasamos a la siguiente pantalla.");
         }
     </script>
 
