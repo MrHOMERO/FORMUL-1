@@ -397,4 +397,54 @@
                     </div>
                     <div class="contenedor-opciones-botones">
                         <button class="btn-opcion-tecnica seleccionado" onclick="seleccionarOpcion('suspension', 80, 0, this)">Llantas 18"<span>$0</span></button>
-                        <button class="btn-opcion-tecnica" onclick="sele
+                        <button class="btn-opcion-tecnica" onclick="seleccionarOpcion('suspension', 83, 7000000, this)">Pull-Rod Del.<span>-$7M</span></button>
+                        <button class="btn-opcion-tecnica" onclick="seleccionarOpcion('suspension', 87, 11000000, this)">Push-Rod Tras<span>-$11M</span></button>
+                        <button class="btn-opcion-tecnica" onclick="seleccionarOpcion('suspension', 75, 2000000, this)">Bujes Carbono<span>-$2M</span></button>
+                    </div>
+                </div>
+
+            </div>
+
+            <button class="btn-simular" onclick="comenzarSimulacion()">Iniciar Simulación de Carrera</button>
+        </div>
+
+    </div>
+
+    <script>
+        let musica = document.getElementById('musica-fondo');
+        let equipoActual = "";
+
+        // Sistema de presupuesto dinámico
+        let presupuestoBase = 135000000;
+        let gastos = { pu: 0, aero: 0, chasis: 0, suspension: 0 };
+
+        const DATOS_F1 = {
+            "McLaren": { jefe: "Andrea Stella", color: "#ff8700", pilotos: ["Lando Norris", "Oscar Piastri"] },
+            "Ferrari": { jefe: "Frédéric Vasseur", color: "#e10600", pilotos: ["Charles Leclerc", "Lewis Hamilton"] },
+            "Red Bull": { jefe: "Christian Horner", color: "#0c1f3c", pilotos: ["Max Verstappen", "Isack Hadjar"] },
+            "Mercedes": { jefe: "Toto Wolff", color: "#00a19c", pilotos: ["George Russell", "Kimi Antonelli"] },
+            "Aston Martin": { jefe: "Mike Krack", color: "#006f62", pilotos: ["Fernando Alonso", "Lance Stroll"] },
+            "Alpine": { jefe: "Oliver Oakes", color: "#ff85b3", pilotos: ["Pierre Gasly", "Franco Colapinto"] },
+            "Haas": { jefe: "Ayao Komatsu", color: "#ffffff", pilotos: ["Esteban Ocon", "Oliver Bearman"] },
+            "Racing Bulls": { jefe: "Laurent Mekies", color: "#1c34f4", pilotos: ["Liam Lawson", "Arvid Lindblad"] },
+            "Williams": { jefe: "James Vowles", color: "#005aff", pilotos: ["Alexander Albon", "Carlos Sainz"] },
+            "Audi": { jefe: "Mattia Binotto", color: "#ff0044", pilotos: ["Nico Hülkenberg", "Gabriel Bortoleto"] },
+            "Cadillac": { jefe: "Mario Andretti", color: "#cbd5e1", pilotos: ["Sergio Pérez", "Valtteri Bottas"] }
+        };
+
+        function comenzarJuego() {
+            musica.volume = 0.5; 
+            musica.play().catch(error => console.log("Audio bloqueado:", error));
+            cambiarPantalla('pantalla-inicio', 'pantalla-escuderia');
+        }
+
+        function cambiarPantalla(ocultar, mostrar) {
+            document.getElementById(ocultar).style.display = 'none';
+            document.getElementById(mostrar).style.display = 'block';
+        }
+
+        function seleccionarEscuderia(equipo) {
+            equipoActual = equipo;
+            const info = DATOS_F1[equipo];
+            document.getElementById('titulo-equipo-activa').innerText = equipo.toUpperCase();
+            document.getElementById('nombre-director').innerText = info.j
