@@ -27,7 +27,7 @@ const CIRCUITOS_2026 = [
     { nombre: "Sakhir (Bahréin)", longitud: 5412, curvas: 15, tipo: "Permanente" },
     { nombre: "Monaco (Mónaco)", longitud: 3337, curvas: 19, tipo: "Urbano" },
     { nombre: "Silverstone (Gran Bretaña)", longitud: 5891, curvas: 18, tipo: "Alta Velocidad" },
-    { font: "Monza (Italia)", longitud: 5793, curvas: 11, tipo: "Templo de la Velocidad" },
+    { nombre: "Monza (Italia)", longitud: 5793, curvas: 11, tipo: "Templo de la Velocidad" },
     { nombre: "Spa-Francorchamps (Bélgica)", longitud: 7004, curvas: 19, tipo: "Estructural/Largo" }
 ];
 
