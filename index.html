@@ -198,7 +198,7 @@
             text-shadow: 0 0 15px rgba(255, 255, 255, 0.2);
         }
 
-        /* CONFIGURACIONES TÉCNICAS */
+        /* SECCIONES TÉCNICAS */
         .categoria-item {
             background: rgba(18, 18, 28, 0.95);
             border: 1px solid #2e2e46;
@@ -299,7 +299,7 @@
                 <button class="btn-escuderia" style="border-left: 5px solid #ff8700;" onclick="seleccionarEscuderia('McLaren')">McLaren<span>Pos. 2025: 1º</span></button>
                 <button class="btn-escuderia" style="border-left: 5px solid #e10600;" onclick="seleccionarEscuderia('Ferrari')">Ferrari<span>Pos. 2025: 2º</span></button>
                 <button class="btn-escuderia" style="border-left: 5px solid #0c1f3c;" onclick="seleccionarEscuderia('Red Bull')">Red Bull<span>Pos. 2025: 3º</span></button>
-                <button class="btn-escuderia" style="border-left: 5px solid #00a19c;" onclick="Mercedes=true; seleccionarEscuderia('Mercedes')">Mercedes<span>Pos. 2025: 4º</span></button>
+                <button class="btn-escuderia" style="border-left: 5px solid #00a19c;" onclick="seleccionarEscuderia('Mercedes')">Mercedes<span>Pos. 2025: 4º</span></button>
                 <button class="btn-escuderia" style="border-left: 5px solid #006f62;" onclick="seleccionarEscuderia('Aston Martin')">Aston Martin<span>Pos. 2025: 5º</span></button>
                 <button class="btn-escuderia" style="border-left: 5px solid #ff85b3;" onclick="seleccionarEscuderia('Alpine')">Alpine<span>Pos. 2025: 6º</span></button>
                 <button class="btn-escuderia" style="border-left: 5px solid #ffffff;" onclick="seleccionarEscuderia('Haas')">Haas<span>Pos. 2025: 7º</span></button>
@@ -409,13 +409,13 @@
     </div>
 
     <script>
-        let musica = document.getElementById('musica-fondo');
-        let equipoActual = "";
+        var musica = document.getElementById('musica-fondo');
+        var equipoActual = "";
 
-        let presupuestoBase = 135000000;
-        let gastos = { pu: 0, aero: 0, chasis: 0, suspension: 0 };
+        var presupuestoBase = 135000000;
+        var gastos = { pu: 0, aero: 0, chasis: 0, suspension: 0 };
 
-        const DATOS_F1 = {
+        var DATOS_F1 = {
             "McLaren": { jefe: "Andrea Stella", color: "#ff8700", pilotos: ["Lando Norris", "Oscar Piastri"] },
             "Ferrari": { jefe: "Frédéric Vasseur", color: "#e10600", pilotos: ["Charles Leclerc", "Lewis Hamilton"] },
             "Red Bull": { jefe: "Christian Horner", color: "#0c1f3c", pilotos: ["Max Verstappen", "Isack Hadjar"] },
@@ -429,15 +429,13 @@
             "Cadillac": { jefe: "Mario Andretti", color: "#cbd5e1", pilotos: ["Sergio Pérez", "Valtteri Bottas"] }
         };
 
-        // CORREGIDO: El cambio de pantalla ocurre inmediatamente sin importar el audio
         function comenzarJuego() {
             cambiarPantalla('pantalla-inicio', 'pantalla-escuderia');
             
-            // Intentar reproducir audio de fondo de forma segura
             if (musica) {
                 musica.volume = 0.3;
                 musica.play().catch(function(error) {
-                    console.log("El navegador bloqueó el auto-play de música inicialmente, el juego continúa.");
+                    console.log("Audio retenido inicialmente por políticas del navegador.");
                 });
             }
         }
@@ -449,5 +447,9 @@
 
         function seleccionarEscuderia(equipo) {
             equipoActual = equipo;
-            const info = DATOS_F1[equipo];
-            document.getElementById('titulo-equipo-activa').innerText = equipo.toU
+            var info = DATOS_F1[equipo];
+            document.getElementById('titulo-equipo-activa').innerText = equipo.toUpperCase();
+            document.getElementById('nombre-director').innerText = info.jefe;
+
+            var contenedorPilotos = document.getElementById('lista-pilotos');
+            contenedorPilotos.
