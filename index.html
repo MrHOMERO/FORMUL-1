@@ -8,15 +8,15 @@
         :root {
             --f1-red: #e10600;
             --dark-bg: #0b0b0f;
-            --panel-bg: rgba(20, 20, 28, 0.65); /* Fondo semi-transparente para el efecto */
+            --panel-bg: rgba(20, 20, 28, 0.65); /* Fondo oscuro transparente para el efecto cristal */
             --text-light: #ffffff;
         }
 
         body {
             font-family: 'Arial Black', 'Arial Strip', Impact, sans-serif;
             background-color: var(--dark-bg);
-            /* Aquí colocamos la imagen de fondo en toda la pantalla */
-            background: url('https://images.unsplash.com/photo-1560674457-12073ed6c46b?q=80&w=1000') center/cover no-repeat fixed;
+            /* Aquí llamamos a tu propia imagen local del repositorio */
+            background: url('fondo.jpg') center/cover no-repeat fixed;
             color: var(--text-light);
             margin: 0;
             padding: 0;
@@ -27,22 +27,22 @@
             overflow: hidden;
         }
 
-        /* CONTENEDOR DE LA PORTADA CON EFECTO DIFUMINADO TRASERO */
+        /* CONTENEDOR DE LA PORTADA CON EFECTO CRISTAL ESMERILADO (DIFUMINADO) */
         .portada {
             text-align: center;
             width: 85%;
             max-width: 380px;
             padding: 45px 25px;
             background-color: var(--panel-bg); 
-            /* Esta es la clave del efecto difuminado: */
+            /* Filtro de desenfoque moderno */
             backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px); /* Compatibilidad en móviles */
+            -webkit-backdrop-filter: blur(12px); /* Compatibilidad con navegadores móviles */
             border-radius: 16px;
             box-shadow: 0 15px 35px rgba(0, 0, 0, 0.6);
             border: 1px solid rgba(255, 255, 255, 0.1); /* Borde sutil brillante */
         }
 
-        /* TIPOGRAFÍA LLAMATIVA ESTILO F1 */
+        /* TIPOGRAFÍA AGRESIVA F1 SENSATION */
         .titulo-juego {
             font-size: 42px;
             line-height: 0.95;
@@ -67,7 +67,7 @@
             text-shadow: 0 2px 4px rgba(0,0,0,0.5);
         }
 
-        /* BOTÓN PRINCIPAL */
+        /* BOTÓN DE INICIO COMPETITIVO */
         .btn-comenzar {
             font-family: 'Segoe UI', Arial, sans-serif;
             background-color: var(--f1-red);
@@ -101,7 +101,7 @@
 
     <script>
         function siguientePaso() {
-            alert("¡Efecto cristal difuminado verificado! Pruébalo y dime si pasamos a la siguiente pantalla.");
+            alert("¡Paso 1 verificado desde tu propio servidor! Avísame en cuanto cargue la imagen y programamos el menú de escuderías.");
         }
     </script>
 
