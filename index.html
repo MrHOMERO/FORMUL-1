@@ -8,15 +8,20 @@
         :root {
             --f1-red: #e10600;
             --dark-bg: #0b0b0f;
-            --panel-bg: rgba(20, 20, 28, 0.65); /* Fondo oscuro transparente para el efecto cristal */
+            --panel-bg: rgba(0, 0, 0, 0.7); 
             --text-light: #ffffff;
         }
 
         body {
             font-family: 'Arial Black', 'Arial Strip', Impact, sans-serif;
             background-color: var(--dark-bg);
-            /* Aquí llamamos a tu propia imagen local del repositorio */
-            background: url 'fondo.jpg' center/cover no-repeat fixed;
+            /* Apunta exactamente a tu archivo fondo.jpg */
+            background-image: url('fondo.jpg');
+            background-position: center;
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            
             color: var(--text-light);
             margin: 0;
             padding: 0;
@@ -34,12 +39,14 @@
             max-width: 380px;
             padding: 45px 25px;
             background-color: var(--panel-bg); 
+            
             /* Filtro de desenfoque moderno */
             backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px); /* Compatibilidad con navegadores móviles */
+            -webkit-backdrop-filter: blur(12px); /* Compatibilidad con móviles */
+            
             border-radius: 16px;
-            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.6);
-            border: 1px solid rgba(255, 255, 255, 0.1); /* Borde sutil brillante */
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.8);
+            border: 1px solid rgba(255, 255, 255, 0.1);
         }
 
         /* TIPOGRAFÍA AGRESIVA F1 SENSATION */
@@ -53,7 +60,7 @@
             background: linear-gradient(180deg, #ffffff 40%, #aaaaaa 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-            filter: drop-shadow(0px 4px 6px rgba(0,0,0,0.6));
+            filter: drop-shadow(0px 4px 6px rgba(0,0,0,0.8));
         }
 
         .subtitulo-juego {
@@ -64,7 +71,7 @@
             text-transform: uppercase;
             margin-bottom: 45px;
             font-weight: bold;
-            text-shadow: 0 2px 4px rgba(0,0,0,0.5);
+            text-shadow: 0 2px 4px rgba(0,0,0,0.8);
         }
 
         /* BOTÓN DE INICIO COMPETITIVO */
@@ -81,7 +88,7 @@
             border-radius: 6px;
             cursor: pointer;
             width: 100%;
-            box-shadow: 0 4px 20px rgba(225, 6, 0, 0.4);
+            box-shadow: 0 4px 20px rgba(225, 6, 0, 0.6);
             transition: transform 0.1s ease;
         }
 
@@ -101,7 +108,7 @@
 
     <script>
         function siguientePaso() {
-            alert("¡Paso 1 verificado desde tu propio servidor! Avísame en cuanto cargue la imagen y programamos el menú de escuderías.");
+            alert("¡Paso de inicio completado!");
         }
     </script>
 
