@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>F1 Manager 2026 - Muro de Boxes</title>
+    <style>
+        :root {
+            --f1-red: #e10600;
+            --dark-bg: #15151e;
+            --panel-bg: #1f1f2a;
+            --text-light: #ffffff;
+            --text-muted: #9494a8;
+        }
+
+        body {
+            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            background-color: var(--dark-bg);
+            color: var(--text-light);
+            margin: 0;
+            padding: 20px;
+        }
+
+        header {
+            border-bottom: 4px solid var(--f1-red);
+            padding-bottom: 10px;
+            margin-bottom: 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        h1 {
+            margin: 0;
+            font-size: 28px;
+            letter-spacing: 1px;
+        }
+
+        .reglamento-tag {
+            background-color: var(--f1-red);
+            padding: 5px 10px;
+            font-weight: bold;
+            border-radius: 4px;
+            font-size: 12px;
+        }
+
+        .grid-layout {
+            display: grid;
+            grid-template-columns: 1fr 2fr;
+            gap: 20px;
+        }
+
+        .panel {
+            background-color: var(--panel-bg);
+            border-radius: 8px;
+            padding: 20px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+        }
+
+        h2 {
+            margin-top: 0;
+            border-bottom: 1px solid #38384f;
+            padding-bottom: 8px;
+            color: var(--text-muted);
+            font-size: 18px;
+        }
+
+        .presupuesto-display {
+            font-size: 32px;
+            font-weight: bold;
+            color: #4caf50;
+            margin: 15px 0;
+        }
+
+        .controles-desarrollo {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .upgrade-card {
+            background: #2a2a3a;
+            padding: 15px;
+            border-radius: 6px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .upgrade-info p {
+            margin: 0;
+        }
+
+        .upgrade-name {
+            font-weight: bold;
+            font-size: 16px;
+        }
+
+        .upgrade-cost {
+            color: var(--text-muted);
+            font-size: 13px;
+        }
+
+        button {
+            background-color: var(--f1-red);
+            color: white;
+            border: none;
+            padding: 10px 16px;
+            font-weight: bold;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+
+        button:hover {
+            background-color: #b80500;
+        }
+
+        .consola-log {
+            background-color: #0d0d14;
+            font-family: 'Courier New', Courier, monospace;
+            padding: 15px;
+            border-radius: 6px;
+            height: 200px;
+            overflow-y: auto;
+            color: #00ff00;
+            font-size: 14px;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div>
+            <h1>F1 MANAGER 2026</h1>
+            <span style="color: var(--text-muted)">Muro de Boxes Virtual</span>
+        </div>
+        <div class="reglamento-tag">REGLAMENTO FIA 2026</div>
+    </header>
+
+    <main class="grid-layout">
+        <!-- PANEL DE FINANZAS -->
+        <div class="panel">
+            <h2>Límite Presupuestario (Budget Cap)</h2>
+            <p>Fondos disponibles para Chasis y Operaciones:</p>
+            <div class="presupuesto-display" id="presupuesto-txt">$215,000,000</div>
+            <p style="font-size: 12px; color: var(--text-muted);">* Excluye sueldos de pilotos y marketing según reglamento financiero de la FIA.</p>
+        </div>
+
+        <!-- PANEL DE DESARROLLO DEL MONOPLAZA -->
+        <div class="panel">
+            <h2>I+D / Evolución del Coche 2026</h2>
+            <div class="controles-desarrollo">
+                
+                <!-- MEJORA AERO -->
+                <div class="upgrade-card">
+                    <div class="upgrade-info">
+                        <p class="upgrade-name">Paquete Aerodinámico (Flujo de Aire)</p>
+                        <p class="upgrade-cost">Coste: $15,000,000</p>
+                    </div>
+                    <button onclick="comprarMejora('aero', 15000000)">Invertir</button>
+                </div>
+
+                <!-- MEJORA MOTOR -->
+                <div class="upgrade-card">
+                    <div class="upgrade-info">
+                        <p class="upgrade-name">Unidad de Potencia (Sistema Híbrido 50% Eléctrico)</p>
+                        <p class="upgrade-cost">Coste: $30,000,000</p>
+                    </div>
+                    <button onclick="comprarMejora('motor', 30000000)">Invertir</button>
+                </div>
+
+                <!-- MEJORA CHASIS -->
+                <div class="upgrade-card">
+                    <div class="upgrade-info">
+                        <p class="upgrade-name">Reducción de Peso del Chasis</p>
+                        <p class="upgrade-cost">Coste: $10,000,000</p>
+                    </div>
+                    <button onclick="comprarMejora('chasis', 10000000)">Invertir</button>
+                </div>
+
+            </div>
+        </div>
+    </main>
+
+    <!-- CONSOLA DE TELEMETRÍA/NOTIFICACIONES -->
+    <section class="panel" style="margin-top: 20px;">
+        <h2>Telemetría y Decisiones de Carrera</h2>
+        <div class="consola-log" id="consola">
+            [SISTEMA]: Enlace con el muro de boxes establecido. Esperando órdenes de desarrollo...
+        </div>
+    </section>
+
+    <!-- Conexión con tu lógica de JavaScript -->
+    <script src="script.js"></script>
+
+    <script>
+        // Funciones puente para conectar el HTML con las variables de tu script.js
+        function actualizarInterfaz() {
+            document.getElementById('presupuesto-txt').innerText = '$' + miEquipo.presupuestoDesarrollo.toLocaleString();
+        }
+
+        function logEnConsola(mensaje, esError = false) {
+            const consola = document.getElementById('consola');
+            const color = esError ? '#ff3333' : '#00ff00';
+            consola.innerHTML += `<br><span style="color: ${color}">[Muro]: ${mensaje}</span>`;
+            consola.scrollTop = consola.scrollHeight; // Auto-scroll abajo
+        }
+
+        function comprarMejora(area, costo) {
+            if (miEquipo.presupuestoDesarrollo - costo >= 0) {
+                investirEnDesarrollo(area, costo);
+                logEnConsola(`Mejora de ${area.toUpperCase()} integrada. Coche más competitivo.`);
+                actualizarInterfaz();
+            } else {
+                logEnConsola(`ALERTA: Fondos insuficientes para ${area}. Riesgo de sanción FIA evitado.`, true);
+            }
+        }
+
+        // Inicializar los datos en pantalla al cargar
+        window.onload = () => {
+            actualizarInterfaz();
+        };
+    </script>
+</body>
+                      </html>
