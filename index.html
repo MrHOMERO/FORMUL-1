@@ -297,14 +297,12 @@
 
     <div class="portada">
         
-        <!-- PANTALLA 1: INICIO -->
         <div id="pantalla-inicio" class="pantalla activa">
             <div class="titulo-juego">F1<br>Sensation</div>
             <div class="subtitulo-juego">Simulación Pro</div>
             <button class="btn-comenzar" onclick="comenzarJuego()">Comenzar a Jugar</button>
         </div>
 
-        <!-- PANTALLA 2: SELECCIÓN DE ESCUDERÍAS -->
         <div id="pantalla-escuderia" class="pantalla">
             <div class="titulo-pantalla">Selecciona Escudería</div>
             <div class="grid-escuderias">
@@ -314,7 +312,7 @@
                 <button class="btn-escuderia" style="border-left: 5px solid #00a19c;" onclick="seleccionarEscuderia('Mercedes')">Mercedes<span>Pos. 2025: 4º</span></button>
                 <button class="btn-escuderia" style="border-left: 5px solid #006f62;" onclick="seleccionarEscuderia('Aston Martin')">Aston Martin<span>Pos. 2025: 5º</span></button>
                 <button class="btn-escuderia" style="border-left: 5px solid #ff85b3;" onclick="seleccionarEscuderia('Alpine')">Alpine<span>Pos. 2025: 6º</span></button>
-                <button class="btn-escuderia" style="border-left: 5px solid #ffffff;" onclick="sans-serif" onclick="seleccionarEscuderia('Haas')">Haas<span>Pos. 2025: 7º</span></button>
+                <button class="btn-escuderia" style="border-left: 5px solid #ffffff;" onclick="seleccionarEscuderia('Haas')">Haas<span>Pos. 2025: 7º</span></button>
                 <button class="btn-escuderia" style="border-left: 5px solid #1c34f4;" onclick="seleccionarEscuderia('Racing Bulls')">Racing Bulls<span>Pos. 2025: 8º</span></button>
                 <button class="btn-escuderia" style="border-left: 5px solid #005aff;" onclick="seleccionarEscuderia('Williams')">Williams<span>Pos. 2025: 9º</span></button>
                 <button class="btn-escuderia" style="border-left: 5px solid #ff0044;" onclick="seleccionarEscuderia('Audi')">Audi<span>Pos. 2025: 10º</span></button>
@@ -322,7 +320,6 @@
             </div>
         </div>
 
-        <!-- PANTALLA 3: JERARQUÍA DEL EQUIPO -->
         <div id="pantalla-personal" class="pantalla">
             <div class="titulo-pantalla" id="titulo-equipo-activa">Estructura</div>
             
@@ -338,11 +335,9 @@
             <div id="lista-pilotos"></div>
         </div>
 
-        <!-- PANTALLA 4: TALLER DE INGENIERÍA PRINCIPAL -->
         <div id="pantalla-taller" class="pantalla">
             <div class="titulo-pantalla">Taller de Ingeniería</div>
             
-            <!-- Marcador Presupuestario Obligatorio -->
             <div class="contenedor-presupuesto">
                 <div style="text-align: left;">
                     <span style="font-size: 10px; color: var(--text-muted); font-weight: bold; display: block;">PRESUPUESTO CAP LIMIT</span>
@@ -356,7 +351,6 @@
                 <span id="piloto-asignado-auto" style="font-size: 13px; color: #fff; font-weight: bold;">Piloto: -</span>
             </div>
 
-            <!-- Menú de Selección con las 5 categorías -->
             <div id="categorias-auto">
                 <div class="categoria-item" onclick="abrirSubpagina('pu')">
                     <div class="categoria-info">
@@ -390,7 +384,6 @@
                     <div class="nivel-box" id="box-suspension">PR. 80</div>
                 </div>
 
-                <!-- CATEGORÍA NUEVA: LLANTAS -->
                 <div class="categoria-item" onclick="abrirSubpagina('llantas')">
                     <div class="categoria-info">
                         <strong>⭕ Llantas y Compuestos</strong>
@@ -403,11 +396,9 @@
             <button class="btn-simular" onclick="comenzarSimulacion()">Iniciar Simulación de Carrera</button>
         </div>
 
-        <!-- PANTALLA DE DETALLE (SUBPÁGINA COMPARTIDA) -->
         <div id="pantalla-subpagina" class="pantalla">
             <div class="titulo-pantalla" id="subpagina-titulo">Configuración</div>
             
-            <!-- Presupuesto espejo reflejado en subpágina -->
             <div class="contenedor-presupuesto">
                 <div style="text-align: left;">
                     <span style="font-size: 10px; color: var(--text-muted); font-weight: bold; display: block;">PRESUPUESTO DISPONIBLE</span>
@@ -418,8 +409,7 @@
             <p style="font-size: 12px; text-align: left; color: var(--text-muted); margin-bottom: 15px; text-transform: uppercase; font-weight: bold;">Selecciona una especificación técnica:</p>
             
             <div id="contenedor-opciones-subpagina">
-                <!-- Se rellena dinámicamente -->
-            </div>
+                </div>
 
             <button class="btn-volver" onclick="volverAlTaller()">💾 Confirmar y Volver</button>
         </div>
@@ -434,7 +424,7 @@
         // Presupuesto y elecciones del jugador
         const presupuestoBase = 135000000;
         let elecciones = {
-            pu: { nombre: "MGU-K Estándar", pr: 85, costo: 0 },
+            pu: { nombre: "MGU-K Estándar 350kW", pr: 85, costo: 0 },
             aero: { nombre: "Flaps de Alerón Regular", pr: 79, costo: 0 },
             chasis: { nombre: "Batalla Base 3100mm", pr: 82, costo: 0 },
             suspension: { nombre: "Configuración Base 18\"", pr: 80, costo: 0 },
@@ -484,4 +474,13 @@
                 items: [
                     { nombre: "Compuestos Estándar FIA", pr: 78, costo: 0 },
                     { nombre: "Llantas con Sensor Térmico", pr: 82, costo: 3000000 },
-                    { nombre: "Tratamiento de Vulcanización", pr: 85, co
+                    { nombre: "Tratamiento de Vulcanización", pr: 85, costo: 6000000 },
+                    { nombre: "Mantas Térmicas de Precisión", pr: 89, costo: 10000000 }
+                ]
+            }
+        };
+
+        const DATOS_F1 = {
+            "McLaren": { jefe: "Andrea Stella", pilotos: ["Lando Norris", "Oscar Piastri"], color: "#ff8700", bg: "rgba(255, 135, 0, 0.08)" },
+            "Ferrari": { jefe: "Frédéric Vasseur", pilotos: ["Charles Leclerc", "Lewis Hamilton"], color: "#e10600", bg: "rgba(225, 6, 0, 0.08)" },
+            "Red Bull": { jefe: "Christian Horner", pilotos: ["Max Verstappen", "Isa
