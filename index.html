@@ -24,7 +24,6 @@
         .pantalla { display: none; max-width: 100%; margin: 0 auto; }
         .activa { display: block; }
 
-        /* PORTADA CON IMAGEN DE F1 CORREGIDA */
         .pantalla-inicio {
             text-align: center;
             padding: 80px 15px;
@@ -47,6 +46,20 @@
             box-shadow: 0 4px 15px rgba(225, 6, 0, 0.4);
             width: 90%;
             max-width: 300px;
+        }
+
+        .btn-verde {
+            background-color: #4caf50;
+            font-size: 16px;
+            padding: 12px 25px;
+            border: none;
+            color: white;
+            font-weight: bold;
+            border-radius: 6px;
+            cursor: pointer;
+            width: 100%;
+            margin-top: 15px;
+            box-shadow: 0 4px 10px rgba(76, 175, 80, 0.3);
         }
 
         .grid-equipos, .grid-pilotos {
@@ -88,20 +101,33 @@
             padding: 12px;
             margin-bottom: 10px;
             border-radius: 6px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            font-size: 14px;
         }
 
-        button.action-btn {
-            background: var(--f1-red);
+        .opciones-piezas {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            margin-top: 10px;
+            background: #1a1a24;
+            padding: 8px;
+            border-radius: 6px;
+        }
+
+        .btn-pieza {
+            background: #333344;
             color: white;
-            border: none;
-            padding: 10px 15px;
-            font-weight: bold;
+            border: 1px solid #444455;
+            padding: 8px;
             border-radius: 4px;
+            text-align: left;
+            font-size: 13px;
             cursor: pointer;
+        }
+        .btn-pieza:disabled {
+            background: #15151f;
+            color: #555566;
+            border-color: #222233;
+            cursor: not-allowed;
         }
 
         .consola {
@@ -109,11 +135,29 @@
             color: #00ff00;
             font-family: monospace;
             padding: 12px;
-            height: 100px;
+            height: 120px;
             overflow-y: auto;
             border-radius: 6px;
             margin-top: 15px;
             font-size: 12px;
+        }
+
+        .selector-estrategia {
+            background: #252533;
+            padding: 15px;
+            border-radius: 8px;
+            margin-top: 15px;
+        }
+
+        select {
+            background: #1a1a24;
+            color: white;
+            border: 1px solid var(--f1-red);
+            padding: 10px;
+            border-radius: 4px;
+            width: 100%;
+            margin-top: 5px;
+            margin-bottom: 15px;
         }
     </style>
 </head>
@@ -131,7 +175,6 @@
     <!-- PANTALLA 2: ELEGIR EQUIPO -->
     <div id="p-equipo" class="pantalla">
         <h2 style="font-size: 20px;">Paso 1: Selecciona tu escudería</h2>
-        <p style="color: var(--text-muted); font-size: 14px;">Tu presupuesto base se ajustará al estricto límite de $215M.</p>
         <div class="grid-equipos" id="contenedor-equipos"></div>
     </div>
 
@@ -154,20 +197,40 @@
         </div>
 
         <div class="taller-layout">
+            <!-- MEJORAS DEL MONOPLAZA CON MODELOS REALES -->
             <div class="panel">
                 <h3 style="margin-top:0; font-size: 16px;">Inversión Tecnológica 2026</h3>
+                <p style="font-size: 12px; color: var(--text-muted); margin-bottom: 15px;">Selecciona los componentes personalizados para tu monoplaza:</p>
+                
+                <!-- Aerodinámica -->
                 <div class="upgrade-card">
-                    <div><strong>Aerodinámica</strong><br><span style="color: var(--text-muted)">Coste: $15M</span></div>
-                    <button class="action-btn" onclick="comprar('aero', 15000000)">Invertir</button>
+                    <strong style="color: var(--f1-red);">Alerones y Aerodinámica</strong>
+                    <div class="opciones-piezas">
+                        <button class="btn-pieza" id="btn-aero-1" onclick="comprarPieza('aero', 'Alerón de Alta Carga (Mónaco Style)', 15000000, 'btn-aero-1')">🛠️ Alta Carga (Curvas rápidas) — $15M</button>
+                        <button class="btn-pieza" id="btn-aero-2" onclick="comprarPieza('aero', 'Alerón de Perfil Bajo (Estilo Monza)', 25000000, 'btn-aero-2')">🛠️ Perfil Bajo (Velocidad punta) — $25M</button>
+                    </div>
                 </div>
+
+                <!-- Motor -->
                 <div class="upgrade-card">
-                    <div><strong>E-Motor (Híbrido)</strong><br><span style="color: var(--text-muted)">Coste: $30M</span></div>
-                    <button class="action-btn" onclick="comprar('motor', 30000000)">Invertir</button>
+                    <strong style="color: var(--f1-red);">Unidad de Potencia E-Motor</strong>
+                    <div class="opciones-piezas">
+                        <button class="btn-pieza" id="btn-motor-1" onclick="comprarPieza('motor', 'Mapeado Eléctrico Estándar', 30000000, 'btn-motor-1')">⚡ Mapeado Eléctrico Estándar — $30M</button>
+                        <button class="btn-pieza" id="btn-motor-2" onclick="comprarPieza('motor', 'Turbocompresor Híbrido Avanzado', 45000000, 'btn-motor-2')">⚡ Turbocompresor Avanzado — $45M</button>
+                    </div>
                 </div>
+
+                <!-- Chasis -->
                 <div class="upgrade-card">
-                    <div><strong>Chasis Ligero</strong><br><span style="color: var(--text-muted)">Coste: $10M</span></div>
-                    <button class="action-btn" onclick="comprar('chasis', 10000000)">Invertir</button>
+                    <strong style="color: var(--f1-red);">Chasis y Suspensión</strong>
+                    <div class="opciones-piezas">
+                        <button class="btn-pieza" id="btn-chasis-1" onclick="comprarPieza('chasis', 'Chasis de Carbono Aligerado', 15000000, 'btn-chasis-1')">🏎️ Carbono Aligerado V1 — $15M</button>
+                        <button class="btn-pieza" id="btn-chasis-2" onclick="comprarPieza('chasis', 'Chasis de Titanio Monocasco', 35000000, 'btn-chasis-2')">🏎️ Titanio Monocasco Max — $35M</button>
+                    </div>
                 </div>
+
+                <!-- BOTÓN PARA IR A LA CARRERA -->
+                <button class="btn-verde" onclick="irAEstrategia()">AVANZAR A LA CARRERA 🏁</button>
             </div>
 
             <div class="panel">
@@ -177,11 +240,56 @@
         </div>
 
         <div class="consola" id="consola-taller">
-            [SISTEMA]: Datos de fábrica listos. Monoplaza en configuración base.
+            [SISTEMA]: Datos de fábrica listos. Selecciona los modelos de piezas para el coche.
         </div>
     </div>
 
-    <!-- MOTOR LÓGICO INTEGRADO (Evita problemas de carga externa) -->
+    <!-- PANTALLA 5: ESTRATEGIA DE CARRERA (NUEVA) -->
+    <div id="p-estrategia" class="pantalla">
+        <div class="header-taller">
+            <div>
+                <h1 style="font-size: 24px; margin:0;">GP DE AUSTRALIA</h1>
+                <span style="color: var(--text-muted); font-size: 13px;">Circuito de Albert Park</span>
+            </div>
+        </div>
+
+        <div class="panel">
+            <h3 style="margin-top:0; font-size: 16px;">Muro de Boxes: Planificación de Estrategia</h3>
+            <p style="font-size: 13px; color: var(--text-muted);">Como ingeniero de carrera, debes dictar las órdenes iniciales para tu piloto antes del apagado de semáforos.</p>
+            
+            <div class="selector-estrategia">
+                <label><strong>Neumático de Salida:</strong></label>
+                <select id="estrategia-gomas">
+                    <option value="Blandos">🔴 Blandos (Rápidos, duran poco)</option>
+                    <option value="Medios">🟡 Medios (Estrategia equilibrada)</option>
+                    <option value="Duros">⚪ Duros (Larga duración, ritmo lento)</option>
+                </select>
+
+                <label><strong>Estilo de Conducción Inicial:</strong></label>
+                <select id="estrategia-ritmo">
+                    <option value="Agresivo">🔥 Al Ataque (Riesgo de desgaste alto)</option>
+                    <option value="Conservador">🛡️ Cuidar Coche (Mantener posición)</option>
+                    <option value="Normal">Ajuste de Simulación Óptimo</option>
+                </select>
+            </div>
+
+            <button class="btn-grande" style="width:100%; max-width:none; background:#4caf50; margin-top:20px;" onclick="comenzarSimulacionCarrera()">¡APAGAR SEMÁFOROS! 🚥</button>
+        </div>
+    </div>
+
+    <!-- PANTALLA 6: RESULTADO DE LA CARRERA (NUEVA) -->
+    <div id="p-resultado" class="pantalla">
+        <div class="panel" style="text-align: center; padding: 30px 15px;">
+            <h1 style="color: #ffcc00; font-size: 32px; margin-bottom: 5px;">¡BANDERA A CUADROS! 🏁</h1>
+            <p id="txt-resumen-carrera" style="font-size: 15px; line-height: 1.6; margin-bottom: 25px;"></p>
+            
+            <div class="consola" id="consola-carrera" style="height: 150px; text-align: left;"></div>
+
+            <button class="btn-grande" style="margin-top: 25px;" onclick="volverAlInicio()">JUGAR OTRA VEZ</button>
+        </div>
+    </div>
+
+
     <script>
         const LIMITE_PRESUPUESTARIO_2026 = 215000000;
 
@@ -218,7 +326,8 @@
         let miPartida = {
             equipoSeleccionado: null,
             presupuestoDesarrollo: LIMITE_PRESUPUESTARIO_2026,
-            mejoras: { aero: 0, chasis: 0, motor: 0 },
+            autoArmado: { aero: "Estándar", motor: "Estándar", chasis: "Estándar" },
+            nivelRendimiento: 50,
             pilotoAsignadoIngeniero: null
         };
 
@@ -231,7 +340,6 @@
         function iniciarJuego() {
             const contenedor = document.getElementById('contenedor-equipos');
             contenedor.innerHTML = "";
-            
             Object.keys(EQUIPOS_F1).forEach(key => {
                 const eq = EQUIPOS_F1[key];
                 contenedor.innerHTML += `
@@ -241,13 +349,11 @@
                     </div>
                 `;
             });
-
             cambiarPantalla('p-inicio', 'p-equipo');
         }
 
         function clickEquipo(nombreEquipo) {
             miPartida.equipoSeleccionado = nombreEquipo;
-            
             const contenedorPilotos = document.getElementById('contenedor-pilotos');
             contenedorPilotos.innerHTML = "";
             const filtrados = PILOTOS_F1.filter(p => p.equipo === nombreEquipo);
@@ -260,13 +366,11 @@
                     </div>
                 `;
             });
-
             cambiarPantalla('p-equipo', 'p-piloto');
         }
 
         function clickPiloto(nombrePiloto) {
             miPartida.pilotoAsignadoIngeniero = nombrePiloto;
-
             document.getElementById('txt-taller-equipo').innerText = miPartida.equipoSeleccionado.toUpperCase();
             document.getElementById('txt-taller-rol').innerText = `Ingeniero de: ${nombrePiloto}`;
             document.getElementById('txt-taller-dinero').innerText = '$' + miPartida.presupuestoDesarrollo.toLocaleString();
@@ -280,18 +384,72 @@
             cambiarPantalla('p-piloto', 'p-taller');
         }
 
-        function comprar(area, costo) {
+        // FUNCIÓN CLAVE: ELEGIR PIEZAS ESPECÍFICAS
+        function comprarPieza(categoria, nombrePieza, costo, botonId) {
             if (miPartida.presupuestoDesarrollo - costo >= 0) {
                 miPartida.presupuestoDesarrollo -= costo;
-                miPartida.mejoras[area] += 1;
-                
+                miPartida.autoArmado[categoria] = nombrePieza;
+                miPartida.nivelRendimiento += (costo / 1000000); // Suma potencial al monoplaza
+
                 document.getElementById('txt-taller-dinero').innerText = '$' + miPartida.presupuestoDesarrollo.toLocaleString();
-                document.getElementById('consola-taller').innerHTML += `<br><span style="color: #00ff00">[OK]: Inversión en ${area.toUpperCase()}. Nivel: ${miPartida.mejoras[area]}</span>`;
+                document.getElementById(botonId).disabled = true;
+                document.getElementById(botonId).innerText = `✅ Montado: ${nombrePieza}`;
+                
+                document.getElementById('consola-taller').innerHTML += `<br><span style="color: #00ff00">[GARAGE]: Instalado ${nombrePieza}.</span>`;
             } else {
-                document.getElementById('consola-taller').innerHTML += `<br><span style="color: #ff3333">[RECHAZADO]: Límite FIA excedido.</span>`;
+                document.getElementById('consola-taller').innerHTML += `<br><span style="color: #ff3333">[FIA]: Presupuesto insuficiente para esta pieza.</span>`;
             }
             const c = document.getElementById('consola-taller');
             c.scrollTop = c.scrollHeight;
+        }
+
+        function irAEstrategia() {
+            cambiarPantalla('p-taller', 'p-estrategia');
+        }
+
+        function comenzarSimulacionCarrera() {
+            const gomas = document.getElementById('estrategia-gomas').value;
+            const ritmo = document.getElementById('estrategia-ritmo').value;
+            const consolaCar = document.getElementById('consola-carrera');
+            
+            // Lógica de cálculo aleatoria cruzada con habilidad y piezas elegidas
+            const datosPiloto = PILOTOS_F1.find(p => p.nombre === miPartida.pilotoAsignadoIngeniero);
+            let scoreFinal = datosPiloto.habilidad + (miPartida.nivelRendimiento / 2);
+            
+            if(gomas === "Blandos" && ritmo === "Agresivo") scoreFinal += 10;
+            if(ritmo === "Conservador") scoreFinal -= 5;
+
+            let posicionFinal = 15 - Math.floor(scoreFinal / 10);
+            if (posicionFinal < 1) posicionFinal = 1;
+            if (posicionFinal > 20) posicionFinal = 20;
+
+            // Simulación en consola de radio de carrera
+            consolaCar.innerHTML = `
+                [VUELTA 1]: ¡Semáforos apagados! ${miPartida.pilotoAsignadoIngeniero} inicia con llantas ${gomas}.<br>
+                [VUELTA 15]: Entrando en ventana de paradas. Ritmo de conducción reportado: ${ritmo}.<br>
+                [ÚLTIMA VUELTA]: ¡Cruzando la línea de meta en Albert Park!
+            `;
+
+            document.getElementById('txt-resumen-carrera').innerHTML = `
+                Terminaste el <strong>GP de Australia</strong>.<br><br>
+                Tu piloto, <strong>${miPartida.pilotoAsignadoIngeniero}</strong>, ha finalizado en la posición: 
+                <span style="font-size:24px; color:var(--f1-red); display:block; margin-top:10px; font-weight:bold;">P${posicionFinal}</span><br>
+                Configuración usada:<br>
+                Aero: ${miPartida.autoArmado.aero}<br>
+                Motor: ${miPartida.autoArmado.motor}
+            `;
+
+            cambiarPantalla('p-estrategia', 'p-resultado');
+        }
+
+        function volverAlInicio() {
+            // Reiniciar estado global
+            miPartida.presupuestoDesarrollo = LIMITE_PRESUPUESTARIO_2026;
+            miPartida.nivelRendimiento = 50;
+            miPartida.autoArmado = { aero: "Estándar", motor: "Estándar", chasis: "Estándar" };
+            
+            // Recargar la aplicación al estado inicial
+            location.reload();
         }
     </script>
 </body>
