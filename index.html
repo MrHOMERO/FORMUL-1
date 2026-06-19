@@ -3,455 +3,102 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>F1 Engineering Command 3D</title>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <title>F1 Sensation</title>
     <style>
         :root {
             --f1-red: #e10600;
-            --dark-bg: #09090d;
-            --panel-bg: #13131a;
+            --dark-bg: #0b0b0f;
+            --panel-bg: #14141c;
             --text-light: #ffffff;
-            --text-muted: #72728a;
         }
 
         body {
-            font-family: 'Segoe UI', Arial, sans-serif;
+            font-family: 'Arial Black', 'Arial Strip', Impact, sans-serif;
             background-color: var(--dark-bg);
             color: var(--text-light);
             margin: 0;
             padding: 0;
-            overflow-x: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            overflow: hidden;
         }
 
-        .pantalla { display: none; max-width: 100%; padding: 15px; box-sizing: border-box; }
-        .activa { display: block; }
-
-        #canvas-3d-contenedor {
-            width: 100%;
-            height: 40vh;
-            background-color: #030305;
-            position: relative;
-            border-bottom: 2px solid #1a1a26;
-        }
-
-        .interfaz-inicio { text-align: center; padding: 15px; }
-
-        .btn-grande {
-            background-color: var(--f1-red);
-            font-size: 16px;
-            padding: 14px 28px;
-            border: none;
-            color: white;
-            font-weight: bold;
-            border-radius: 4px;
-            cursor: pointer;
-            width: 100%;
-            max-width: 320px;
-            letter-spacing: 0.5px;
-        }
-
-        .btn-verde {
-            background-color: #00b050;
-            font-size: 16px;
-            padding: 14px;
-            border: none;
-            color: white;
-            font-weight: bold;
-            border-radius: 4px;
-            cursor: pointer;
-            width: 100%;
-            margin-top: 15px;
-        }
-
-        .grid-equipos, .grid-pilotos { display: flex; flex-direction: column; gap: 12px; margin-top: 15px; }
-
-        .tarjeta-seleccion {
-            background-color: var(--panel-bg);
+        /* CONTENEDOR DE LA PORTADA */
+        .portada {
+            text-align: center;
+            width: 90%;
+            max-width: 400px;
+            padding: 40px 20px;
+            background: linear-gradient(180deg, rgba(20,20,28,0.2) 0%, rgba(11,11,15,0.95) 90%), 
+                        url('https://images.unsplash.com/photo-1560674457-12073ed6c46b?q=80&w=1000') center/cover no-repeat;
+            border-radius: 16px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.7), inset 0 0 100px rgba(0,0,0,0.8);
             border: 1px solid #222230;
-            border-radius: 6px;
-            padding: 14px;
-            cursor: pointer;
-            transition: background 0.2s;
         }
 
-        .upgrade-card {
-            background: #1c1c28;
-            padding: 12px;
-            margin-bottom: 12px;
-            border-radius: 6px;
+        /* TIPOGRAFÍA LLAMATIVA ESTILO F1 */
+        .titulo-juego {
+            font-size: 42px;
+            line-height: 0.95;
+            font-weight: 900;
+            letter-spacing: -1px;
+            margin-bottom: 5px;
+            text-transform: uppercase;
+            background: linear-gradient(180deg, #ffffff 40%, #aaaaaa 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            filter: drop-shadow(0px 4px 8px rgba(0,0,0,0.5));
         }
 
-        .opciones-piezas { display: flex; flex-direction: column; gap: 8px; margin-top: 8px; }
+        .subtitulo-juego {
+            font-family: 'Segoe UI', Arial, sans-serif;
+            font-size: 14px;
+            color: var(--f1-red);
+            letter-spacing: 5px;
+            text-transform: uppercase;
+            margin-bottom: 50px;
+            font-weight: bold;
+        }
 
-        .btn-pieza {
-            background: #2a2a3a;
+        /* BOTÓN PRINCIPAL */
+        .btn-comenzar {
+            font-family: 'Segoe UI', Arial, sans-serif;
+            background-color: var(--f1-red);
             color: white;
-            border: 1px solid #3a3a52;
-            padding: 10px;
-            border-radius: 4px;
-            font-size: 13px;
-            text-align: left;
+            font-size: 16px;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            padding: 16px 32px;
+            border: none;
+            border-radius: 6px;
             cursor: pointer;
-        }
-
-        .consola {
-            background: #000;
-            color: #00ff66;
-            font-family: monospace;
-            padding: 12px;
-            height: 80px;
-            overflow-y: auto;
-            border-radius: 4px;
-            font-size: 12px;
-            margin-top: 12px;
-        }
-
-        .tabla-referencia {
             width: 100%;
-            border-collapse: collapse;
-            font-size: 12px;
-            margin-top: 8px;
-            color: #a0a0b5;
+            box-shadow: 0 4px 20px rgba(225, 6, 0, 0.5);
+            transition: transform 0.1s ease;
         }
-        .tabla-referencia th, .tabla-referencia td {
-            border: 1px solid #252535;
-            padding: 6px;
-            text-align: left;
-        }
-        .tabla-referencia th { background: #181824; color: white; }
 
-        select {
-            background: #1c1c28;
-            color: white;
-            border: 1px solid #3a3a52;
-            padding: 10px;
-            border-radius: 4px;
-            width: 100%;
-            margin: 8px 0 15px 0;
+        .btn-comenzar:active {
+            transform: scale(0.98);
         }
     </style>
 </head>
 <body>
 
-    <!-- LIENZO INTERACTIVO GLOBAL 3D -->
-    <div id="canvas-3d-contenedor"></div>
-
-    <!-- PANTALLA 1: CONTROL INICIAL -->
-    <div id="p-inicio" class="pantalla activa">
-        <div class="interfaz-inicio">
-            <h1 style="font-size: 28px; margin: 5px 0; letter-spacing: 1px;">F1 LABORATIO 3D</h1>
-            <p style="color: var(--text-muted); font-size: 14px; margin-bottom: 20px;">Inspección del túnel de viento activa.</p>
-            <button class="btn-grande" onclick="sonar(); irAEleccionEquipo();">ENTRAR AL GARAJE</button>
-        </div>
+    <div class="portada">
+        <div class="titulo-juego">F1<br>Sensation</div>
+        <div class="subtitulo-juego">Simulación Pro</div>
+        
+        <button class="btn-comenzar" onclick="siguientePaso()">Comenzar a Jugar</button>
     </div>
-
-    <!-- PANTALLA 2: ELEGIR EQUIPO REAL -->
-    <div id="p-equipo" class="pantalla">
-        <h2 style="font-size: 18px; margin-top: 0;">Selecciona una Escudería Oficial</h2>
-        <div class="grid-equipos" id="contenedor-equipos"></div>
-    </div>
-
-    <!-- PANTALLA 3: ELEGIR PILOTO REAL -->
-    <div id="p-piloto" class="pantalla">
-        <h2 style="font-size: 18px; margin-top: 0;">Asignación de Ingeniero de Pista</h2>
-        <div class="grid-pilotos" id="contenedor-pilotos"></div>
-    </div>
-
-    <!-- PANTALLA 4: EL TALLER DE PIEZAS -->
-    <div id="p-taller" class="pantalla">
-        <div style="border-bottom: 3px solid var(--f1-red); padding-bottom: 10px; margin-bottom: 15px;">
-            <h1 id="txt-taller-equipo" style="font-size: 22px; margin:0;">ESCUDERÍA</h1>
-            <span id="txt-taller-director" style="color: #00ff66; font-size: 13px; display:block;">Director: </span>
-            <span id="txt-taller-rol" style="color: var(--text-muted); font-size: 12px;">Ingeniero de Carrera</span>
-            <div style="background: #111; padding: 10px; border-radius: 4px; margin-top:8px;">
-                <div style="font-size: 10px; color: var(--text-muted);">LÍMITE PRESUPUESTARIO DISPONIBLE</div>
-                <div id="txt-taller-dinero" style="font-size: 22px; color: #4caf50; font-weight: bold;">$215,000,000</div>
-            </div>
-        </div>
-
-        <div class="upgrade-card">
-            <strong style="font-size: 14px; color: #ffcc00;">Alerón Delantero Avanzado (Inspección Visual 3D)</strong>
-            <div class="opciones-piezas">
-                <button class="btn-pieza" id="btn-aero-1" onclick="sonar(); comprarPieza('aero', 'Alerón de Carga Máxima', 20000000, 'btn-aero-1', 0xff0055)">🔴 Kit Carga Máxima (Flujo Curvas) — $20M</button>
-                <button class="btn-pieza" id="btn-aero-2" onclick="sonar(); comprarPieza('aero', 'Alerón de Carga Mínima', 30000000, 'btn-aero-2', 0x00ffcc)">🟢 Kit Carga Mínima (Velocidad Punta) — $30M</button>
-            </div>
-        </div>
-
-        <div class="consola" id="consola-taller">[SISTEMA]: Telemetría de chasis montada.</div>
-        <button class="btn-verde" onclick="sonar(); irAMuroBoxes();">AVANZAR AL MURO DE BOXES 🏁</button>
-    </div>
-
-    <!-- PANTALLA 5: MURO DE BOXES (NUEVA PANTALLA DE REQUERIMIENTOS) -->
-    <div id="p-muro" class="pantalla">
-        <div style="background: #1c1c28; padding: 12px; border-radius: 6px; margin-bottom: 15px;">
-            <h2 style="font-size: 18px; margin: 0 0 5px 0; color: var(--f1-red);">CENTRAL DE CLASIFICACIÓN (Q3)</h2>
-            <p style="font-size: 12px; color: var(--text-muted); margin: 0;">Monoplazas situados en la grilla listos para lanzar el intento de vuelta.</p>
-        </div>
-
-        <!-- Muro Central - Referencias de Datos Oficiales -->
-        <div class="upgrade-card">
-            <strong style="color: #ffcc00; font-size:13px;">📊 Tiempos de Referencia Oficiales y Estrategias Usadas</strong>
-            <table class="tabla-referencia">
-                <thead>
-                    <tr>
-                        <th>Circuito</th>
-                        <th>Pole Position (Referencia)</th>
-                        <th>Estrategia Común Usada</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>Albert Park</td>
-                        <td>1:15.915</td>
-                        <td>🔴 Blando / 🟡 Medio</td>
-                    </tr>
-                    <tr>
-                        <td>Sakhir</td>
-                        <td>1:29.179</td>
-                        <td>🔴 Blando / ⚪ Duro</td>
-                    </tr>
-                    <tr>
-                        <td>Monza</td>
-                        <td>1:19.301</td>
-                        <td>🟡 Medio / ⚪ Duro</td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
-
-        <!-- Formulario de Configuración de Estrategia para Clasificación -->
-        <div class="upgrade-card">
-            <label><strong>Compuesto de Neumáticos (Clasificación):</strong></label>
-            <select id="muro-gomas" onchange="sonar();">
-                <option value="Blandos Nuevos">🔴 Blandos C5 Nuevos (Máximo agarre instantáneo)</option>
-                <option value="Medios Conservadores">🟡 Medios C4 (Menor degradación térmica)</option>
-            </select>
-
-            <label><strong>Modo de Entrega de Potencia (MGU-K / ERS):</strong></label>
-            <select id="muro-motor" onchange="sonar();">
-                <option value="Hot Lap">🔥 Modo Hot Lap (Despliegue de batería al 100%)</option>
-                <option value="Balanced">🔋 Modo Balanceado (Recarga de celdas para segundo intento)</option>
-            </select>
-
-            <button class="btn-grande" style="background:#00b050; width:100%; max-width:none;" onclick="sonar(); simularClasificacion();">LANZAR AUTO A LA PISTA 🚀</button>
-        </div>
-    </div>
-
-    <!-- PANTALLA 6: MONITOR DE TIEMPOS -->
-    <div id="p-cronometro" class="pantalla" style="text-align: center;">
-        <div class="upgrade-card" style="padding: 30px 15px;">
-            <h1 style="color: #00ff66; font-size: 24px; margin-bottom: 5px;">INTENTO COMPLETO</h1>
-            <p id="txt-resultado-vuelta" style="font-size: 14px; line-height: 1.6;"></p>
-            <button class="btn-grande" style="margin-top:20px;" onclick="sonar(); reiniciarSimulador();">VOLVER AL GARAJE</button>
-        </div>
-    </div>
-
 
     <script>
-        // --- MOTOR AUDIO SINTÉTICO INTEGRADO ---
-        function sonar() {
-            try {
-                const ctx = new (window.AudioContext || window.webkitAudioContext)();
-                const osc = ctx.createOscillator();
-                const gain = ctx.createGain();
-                osc.type = 'sine';
-                osc.frequency.setValueAtTime(880, ctx.currentTime); // Tono agudo electrónico
-                gain.gain.setValueAtTime(0.05, ctx.currentTime);
-                gain.gain.exponentialRampToValueAtTime(0.01, ctx.currentTime + 0.05);
-                osc.connect(gain);
-                gain.connect(ctx.destination);
-                osc.start();
-                osc.stop(ctx.currentTime + 0.05);
-            } catch(e) {}
-        }
-
-        // --- ENTORNO THREE.JS INTERACTIVO ---
-        let escena, camara, renderizador, monoplaza, aleronFrente;
-
-        function init3D() {
-            const contenedor = document.getElementById('canvas-3d-contenedor');
-            escena = new THREE.Scene();
-            escena.background = new THREE.Color(0x060609);
-
-            camara = new THREE.PerspectiveCamera(50, contenedor.clientWidth / contenedor.clientHeight, 0.1, 1000);
-            camara.position.set(0, 2.0, 5.5);
-            camara.lookAt(0, 0, 0);
-
-            renderizador = new THREE.WebGLRenderer({ antialias: true });
-            renderizador.setSize(contenedor.clientWidth, contenedor.clientHeight);
-            contenedor.appendChild(renderizador.domElement);
-
-            escena.add(new THREE.AmbientLight(0xffffff, 0.7));
-            const luzPits = new THREE.DirectionalLight(0xffffff, 1.2);
-            luzPits.position.set(4, 8, 5);
-            escena.add(luzPits);
-
-            // MONOPLAZA GEOMÉTRICO
-            monoplaza = new THREE.Group();
-
-            // Chasis
-            const geoChasis = new THREE.BoxGeometry(1.1, 0.4, 3.2);
-            const matChasis = new THREE.MeshStandardMaterial({ color: 0x333333, roughness: 0.3 });
-            const cuerpo = new THREE.Mesh(geoChasis, matChasis);
-            monoplaza.add(cuerpo);
-
-            // Alerón Delantero Inicial
-            const geoAleron = new THREE.BoxGeometry(2.2, 0.08, 0.4);
-            const matAleron = new THREE.MeshStandardMaterial({ color: 0xcc0000 });
-            aleronFrente = new THREE.Mesh(geoAleron, matAleron);
-            aleronFrente.position.set(0, -0.1, 1.6);
-            monoplaza.add(aleronFrente);
-
-            // Neumáticos
-            const geoRueda = new THREE.CylinderGeometry(0.4, 0.4, 0.35, 20);
-            geoRueda.rotateZ(Math.PI / 2);
-            const matRueda = new THREE.MeshStandardMaterial({ color: 0x111111, roughness: 0.8 });
-
-            const ejes = [[-0.75, 1.1], [0.75, 1.1], [-0.75, -1.1], [0.75, -1.1]];
-            ejes.forEach(pos => {
-                const rueda = new THREE.Mesh(geoRueda, matRueda);
-                rueda.position.set(pos[0], -0.05, pos[1]);
-                monoplaza.add(rueda);
-            });
-
-            escena.add(monoplaza);
-
-            // Grilla de partida (Líneas base en el suelo en 3D)
-            const geoLinea = new THREE.PlaneGeometry(1.5, 0.1);
-            const matLinea = new THREE.MeshBasicMaterial({ color: 0xffffff, side: THREE.DoubleSide });
-            for(let i=0; i<5; i++){
-                const marca = new THREE.Mesh(geoLinea, matLinea);
-                marca.rotation.x = Math.PI/2;
-                marca.position.set(i % 2 === 0 ? -0.8 : 0.8, -0.46, 2 - (i*2));
-                escena.add(marca);
-            }
-
-            animate();
-        }
-
-        function animate() {
-            requestAnimationFrame(animate);
-            if(monoplaza) monoplaza.rotation.y += 0.008;
-            renderizador.render(escena, camara);
-        }
-
-        window.onload = init3D;
-
-
-        // --- ESTRUCTURA DE DATOS REALES ---
-        const ESCUDERIAS = {
-            "Red Bull Racing": { director: "Christian Horner", color: 0x0c1f3c, pilotos: ["Max Verstappen", "Sergio Pérez"] },
-            "Ferrari": { director: "Frédéric Vasseur", color: 0xe10600, pilotos: ["Charles Leclerc", "Lewis Hamilton"] },
-            "Mercedes": { director: "Toto Wolff", color: 0x00a19c, pilotos: ["George Russell", "Kimi Antonelli"] },
-            "McLaren": { director: "Andrea Stella", color: #ff8700, pilotos: ["Lando Norris", "Oscar Piastri"] }
-        };
-
-        let estadoJuego = {
-            equipo: null,
-            piloto: null,
-            presupuesto: 215000000,
-            mejoraNombre: "Estándar"
-        };
-
-        function cambiarPantalla(idOcultar, idMostrar) {
-            document.getElementById(idOcultar).style.display = 'none';
-            document.getElementById(idMostrar).style.display = 'block';
-        }
-
-        function irAEleccionEquipo() {
-            const contenedor = document.getElementById('contenedor-equipos');
-            contenedor.innerHTML = "";
-            Object.keys(ESCUDERIAS).forEach(key => {
-                contenedor.innerHTML += `
-                    <div class="tarjeta-seleccion" onclick="sonar(); seleccionarEquipo('${key}')">
-                        <strong style="color:white; font-size:16px;">${key}</strong><br>
-                        <span style="color:var(--text-muted); font-size:12px;">Director: ${ESCUDERIAS[key].director}</span>
-                    </div>
-                `;
-            });
-            cambiarPantalla('p-inicio', 'p-equipo');
-        }
-
-        function seleccionarEquipo(nombre) {
-            estadoJuego.equipo = nombre;
-            
-            // CAMBIO DINÁMICO DE COLORES EN CALIENTE EN EL AUTO 3D
-            if (monoplaza && monoplaza.children[0]) {
-                monoplaza.children[0].material.color.setHex(ESCUDERIAS[nombre].color);
-            }
-
-            const contenedorPilotos = document.getElementById('contenedor-pilotos');
-            contenedorPilotos.innerHTML = "";
-            ESCUDERIAS[nombre].pilotos.forEach(piloto => {
-                contenedorPilotos.innerHTML += `
-                    <div class="tarjeta-seleccion" onclick="sonar(); seleccionarPiloto('${piloto}')">
-                        <strong>${piloto}</strong><br>
-                        <span style="color: #00ff66; font-size:11px;">Piloto Oficial Escudería</span>
-                    </div>
-                `;
-            });
-            cambiarPantalla('p-equipo', 'p-piloto');
-        }
-
-        function seleccionarPiloto(nombre) {
-            estadoJuego.piloto = nombre;
-            document.getElementById('txt-taller-equipo').innerText = estadoJuego.equipo.toUpperCase();
-            document.getElementById('txt-taller-director').innerText = `Director de Equipo: ${ESCUDERIAS[estadoJuego.equipo].director}`;
-            document.getElementById('txt-taller-rol').innerText = `Ingeniero asignado a: ${nombre}`;
-            cambiarPantalla('p-piloto', 'p-taller');
-        }
-
-        function comprarPieza(cat, nombre, costo, botonId, hexColor) {
-            if (estadoJuego.presupuesto - costo >= 0) {
-                estadoJuego.presupuesto -= costo;
-                estadoJuego.mejoraNombre = nombre;
-                document.getElementById('txt-taller-dinero').innerText = '$' + estadoJuego.presupuesto.toLocaleString();
-                
-                if(aleronFrente) {
-                    aleronFrente.material.color.setHex(hexColor);
-                }
-
-                document.getElementById(botonId).disabled = true;
-                document.getElementById(botonId).innerText = `✅ Montado en el Chasis`;
-                document.getElementById('consola-taller').innerHTML += `<br><span style="color:#00ff66">[CONFIG]: Cambiado perfil aerodinámico.</span>`;
-            }
-        }
-
-        function irAMuroBoxes() {
-            cambiarPantalla('p-taller', 'p-muro');
-        }
-
-        function simularClasificacion() {
-            const gomas = document.getElementById('muro-gomas').value;
-            const motor = document.getElementById('muro-motor').value;
-            
-            let tiempoBase = 75.915; // Tiempo de referencia de Albert Park
-            
-            if(gomas === "Blandos Nuevos") tiempoBase -= 0.4;
-            if(motor === "Hot Lap") tiempoBase -= 0.3;
-            if(estadoJuego.mejoraNombre !== "Estándar") tiempoBase -= 0.2;
-
-            // Variación aleatoria milimétrica de simulación de carrera
-            tiempoBase += Math.random() * 0.15;
-
-            const minutos = Math.floor(tiempoBase / 60);
-            const segundos = (tiempoBase % 60).toFixed(3);
-
-            document.getElementById('txt-resultado-vuelta').innerHTML = `
-                <strong>Ingeniero de Carrera informa:</strong><br>
-                Vuelta de Clasificación completada en Albert Park.<br><br>
-                Monoplaza: <span style="color:var(--f1-red); font-weight:bold;">${estadoJuego.equipo}</span><br>
-                Piloto: <strong>${estadoJuego.piloto}</strong><br><br>
-                ⏱️ Tiempo Obtenido: <span style="font-size:22px; color:#ffcc00; font-family:monospace; display:block; margin: 10px 0;">${minutos}:${segundos}</span>
-                Referencia de Pole del año pasado: <strong>1:15.915</strong>
-            `;
-
-            cambiarPantalla('p-muro', 'p-cronometro');
-        }
-
-        function reiniciarSimulador() {
-            location.reload();
+        function siguientePaso() {
+            alert("¡Estructura inicial verificada con éxito! Dime si se ve bien la imagen y la tipografía en tu celular y pasamos al menú de selección de equipos.");
         }
     </script>
+
 </body>
 </html>
