@@ -21,7 +21,6 @@
             background-size: cover;
             background-repeat: no-repeat;
             background-attachment: fixed;
-            
             color: var(--text-light);
             margin: 0;
             padding: 0;
@@ -32,7 +31,6 @@
             overflow-x: hidden;
         }
 
-        /* CONTENEDOR ESTILO CRISTAL */
         .portada {
             text-align: center;
             width: 90%;
@@ -48,11 +46,9 @@
             box-sizing: border-box;
         }
 
-        /* ELEMENTOS DE PANTALLAS */
         .pantalla { display: none; }
         .activa { display: block; }
 
-        /* TIPOGRAFÍAS */
         .titulo-juego {
             font-family: 'Arial Black', Impact, sans-serif;
             font-size: 38px;
@@ -67,7 +63,6 @@
         }
 
         .subtitulo-juego {
-            font-family: 'Segoe UI', Arial, sans-serif;
             font-size: 12px;
             color: var(--f1-red);
             letter-spacing: 6px;
@@ -87,7 +82,6 @@
             font-weight: bold;
         }
 
-        /* BOTÓN DE INICIO */
         .btn-comenzar {
             background-color: var(--f1-red);
             color: white;
@@ -103,7 +97,6 @@
             box-shadow: 0 4px 20px rgba(225, 6, 0, 0.6);
         }
 
-        /* GRID EN DOS COLUMNAS PARA ESCUDERÍAS */
         .grid-escuderias {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
@@ -111,7 +104,6 @@
             margin-bottom: 10px;
         }
 
-        /* BOTONES DE LAS ESCUDERÍAS */
         .btn-escuderia {
             background: rgba(25, 25, 35, 0.8);
             border: 1px solid #333344;
@@ -125,19 +117,10 @@
             display: flex;
             flex-direction: column;
             justify-content: center;
-            transition: transform 0.1s;
         }
-
         .btn-escuderia:active { transform: scale(0.96); }
+        .btn-escuderia span { font-size: 9px; color: var(--text-muted); margin-top: 2px; }
 
-        .btn-escuderia span {
-            font-size: 9px;
-            color: var(--text-muted);
-            font-weight: normal;
-            margin-top: 2px;
-        }
-
-        /* --- ESTILOS COMPONENTES PASO 3 (PERSONAL Y PILOTOS) --- */
         .seccion-boss {
             background: rgba(225, 6, 0, 0.15);
             border: 1px solid var(--f1-red);
@@ -161,48 +144,91 @@
             gap: 15px;
             text-align: left;
             cursor: pointer;
-            transition: border-color 0.2s;
         }
-
         .tarjeta-piloto:active { transform: scale(0.98); border-color: #00ff66; }
 
-        /* RECUADROS CHICOS PARA LAS IMÁGENES/AVATARES */
         .recuadro-foto {
             width: 50px;
             height: 50px;
             background: #1a1a26;
             border: 2px solid #555577;
             border-radius: 6px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
             position: relative;
             overflow: hidden;
             flex-shrink: 0;
         }
-
-        /* SILUETA VECTORIAL DE REEMPLAZO */
-        .recuadro-foto::before {
-            content: "";
-            width: 22px;
-            height: 22px;
-            background: #8888aa;
-            border-radius: 50%;
-            position: absolute;
-            top: 8px;
-        }
-        .recuadro-foto::after {
-            content: "";
-            width: 36px;
-            height: 24px;
-            background: #8888aa;
-            border-radius: 50% 50% 0 0;
-            position: absolute;
-            bottom: -6px;
-        }
-
+        .recuadro-foto::before { content: ""; width: 22px; height: 22px; background: #8888aa; border-radius: 50%; position: absolute; top: 8px; left: 14px;}
+        .recuadro-foto::after { content: ""; width: 36px; height: 24px; background: #8888aa; border-radius: 50% 50% 0 0; position: absolute; bottom: -6px; left: 7px;}
         .foto-jefe { border-color: #ffcc00; }
-        .foto-jefe::before, .foto-jefe::after { background: #ffcc00; } /* Detalle dorado para el Jefe */
+        .foto-jefe::before, .foto-jefe::after { background: #ffcc00; }
+
+        /* NUEVOS ESTILOS PARA LA PANTALLA DE INGENIERÍA */
+        .contenedor-auto {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 12px;
+            padding: 15px;
+            margin-bottom: 20px;
+            border: 1px dashed rgba(255, 255, 255, 0.2);
+        }
+        
+        /* Silueta básica CSS del monoplaza F1 2026 */
+        .f1-car-blueprint {
+            width: 180px;
+            height: 50px;
+            margin: 15px auto;
+            position: relative;
+            background: #333344;
+            border-radius: 30px 10px 10px 30px;
+        }
+        .f1-car-blueprint .wing-f { position: absolute; left: -15px; top: 5px; width: 20px; height: 40px; background: var(--f1-red); border-radius: 4px; }
+        .f1-car-blueprint .wing-r { position: absolute; right: -10px; top: 2px; width: 15px; height: 46px; background: var(--f1-red); border-radius: 2px; }
+        .f1-car-blueprint .wheel { position: absolute; width: 28px; height: 28px; background: #111; border-radius: 50%; border: 3px solid #222; }
+        .f1-car-blueprint .w-fl { left: 15px; top: -12px; }
+        .f1-car-blueprint .w-fr { left: 15px; bottom: -12px; }
+        .f1-car-blueprint .w-rl { right: 20px; top: -12px; }
+        .f1-car-blueprint .w-rr { right: 20px; bottom: -12px; }
+        .f1-car-blueprint .halo { position: absolute; left: 70px; top: 15px; width: 30px; height: 20px; border: 3px solid #fff; border-radius: 50% 50% 0 0; }
+
+        .categoria-item {
+            background: rgba(15, 15, 25, 0.9);
+            border: 1px solid #2a2a40;
+            border-radius: 8px;
+            padding: 12px;
+            margin-bottom: 10px;
+            text-align: left;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .categoria-info strong { font-size: 14px; color: #fff; display: block; }
+        .categoria-info span { font-size: 11px; color: var(--text-muted); }
+
+        .nivel-box {
+            background: #111;
+            padding: 4px 10px;
+            border-radius: 4px;
+            border: 1px solid #00ff66;
+            color: #00ff66;
+            font-size: 12px;
+            font-weight: bold;
+            font-family: monospace;
+        }
+
+        .btn-simular {
+            background: linear-gradient(135deg, #00ff66 0%, #009944 100%);
+            color: black;
+            font-size: 16px;
+            font-weight: bold;
+            text-transform: uppercase;
+            padding: 15px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            width: 100%;
+            margin-top: 15px;
+            box-shadow: 0 4px 15px rgba(0, 255, 102, 0.4);
+        }
     </style>
 </head>
 <body>
@@ -213,12 +239,14 @@
 
     <div class="portada">
         
+        <!-- PANTALLA 1: INICIO -->
         <div id="pantalla-inicio" class="pantalla activa">
             <div class="titulo-juego">F1<br>Sensation</div>
             <div class="subtitulo-juego">Simulación Pro</div>
             <button class="btn-comenzar" onclick="comenzarJuego()">Comenzar a Jugar</button>
         </div>
 
+        <!-- PANTALLA 2: SELECCIÓN DE ESCUDERÍAS -->
         <div id="pantalla-escuderia" class="pantalla">
             <div class="titulo-pantalla">Selecciona Escudería</div>
             <div class="grid-escuderias">
@@ -231,12 +259,12 @@
                 <button class="btn-escuderia" style="border-left: 5px solid #ffffff;" onclick="seleccionarEscuderia('Haas')">Haas<span>Pos. 2025: 7º</span></button>
                 <button class="btn-escuderia" style="border-left: 5px solid #1c34f4;" onclick="seleccionarEscuderia('Racing Bulls')">Racing Bulls<span>Pos. 2025: 8º</span></button>
                 <button class="btn-escuderia" style="border-left: 5px solid #005aff;" onclick="seleccionarEscuderia('Williams')">Williams<span>Pos. 2025: 9º</span></button>
-                
                 <button class="btn-escuderia" style="border-left: 5px solid #ff0044;" onclick="seleccionarEscuderia('Audi')">Audi<span>Pos. 2025: 10º</span></button>
                 <button class="btn-escuderia" style="border-left: 5px solid #cbd5e1;" onclick="seleccionarEscuderia('Cadillac')">Cadillac<span>Nueva Escudería</span></button>
             </div>
         </div>
 
+        <!-- PANTALLA 3: JERARQUÍA DEL EQUIPO -->
         <div id="pantalla-personal" class="pantalla">
             <div class="titulo-pantalla" id="titulo-equipo-activa">Estructura</div>
             
@@ -248,9 +276,65 @@
                 </div>
             </div>
 
-            <p style="font-size: 13px; text-align: left; color: var(--text-muted); margin-bottom: 10px; font-weight: bold;">ASIGNAR INGENIERO A PILOTO:</p>
-            
+            <p style="font-size: 13px; text-align: left; color: var(--text-muted); margin-bottom: 10px; font-weight: bold;">SELECCIONA UN PILOTO PARA IR AL TALLER:</p>
             <div id="lista-pilotos"></div>
+        </div>
+
+        <!-- PANTALLA 4: NUEVO TALLER DE INGENIERÍA (MODELO REGLAMENTO 2026) -->
+        <div id="pantalla-taller" class="pantalla">
+            <div class="titulo-pantalla">Taller de Ingeniería</div>
+            <span style="font-size: 11px; color: #00ff66; font-weight: bold; letter-spacing: 1px; display: block; margin-bottom: 10px;">MONOPLAZA ESPECIFICACIÓN 2026</span>
+            
+            <!-- Vista gráfica del auto -->
+            <div class="contenedor-auto">
+                <div class="f1-car-blueprint">
+                    <div class="wing-f"></div>
+                    <div class="w-fl wheel"></div>
+                    <div class="w-fr wheel"></div>
+                    <div class="halo"></div>
+                    <div class="w-rl wheel"></div>
+                    <div class="w-rr wheel"></div>
+                    <div class="wing-r"></div>
+                </div>
+                <span id="piloto-asignado-auto" style="font-size: 13px; color: #fff; font-weight: bold;">Piloto: -</span>
+            </div>
+
+            <!-- Las 4 Categorías Obligatorias de Rendimiento -->
+            <div id="categorias-auto">
+                <div class="categoria-item">
+                    <div class="categoria-info">
+                        <strong>⚡ Unidad de Potencia (PU)</strong>
+                        <span>Motor 2026 (50% Eléctrico / Biocombustible)</span>
+                    </div>
+                    <div class="nivel-box">PR. 85</div>
+                </div>
+
+                <div class="categoria-item">
+                    <div class="categoria-info">
+                        <strong>💨 Aerodinámica Activa</strong>
+                        <span>Modos Z (Curvas) y X (Rectas - Alerón Móvil)</span>
+                    </div>
+                    <div class="nivel-box">PR. 79</div>
+                </div>
+
+                <div class="categoria-item">
+                    <div class="categoria-info">
+                        <strong>🔧 Chasis y Peso Reducido</strong>
+                        <span>Batalla corta (-20cm) y auto más estrecho</span>
+                    </div>
+                    <div class="nivel-box">PR. 82</div>
+                </div>
+
+                <div class="categoria-item">
+                    <div class="categoria-info">
+                        <strong>👟 Sistemas de Suspensión</strong>
+                        <span>Dinámica de neumáticos de perfil bajo</span>
+                    </div>
+                    <div class="nivel-box">PR. 80</div>
+                </div>
+            </div>
+
+            <button class="btn-simular" onclick="comenzarSimulacion()">Iniciar Simulación de Carrera</button>
         </div>
 
     </div>
@@ -258,23 +342,20 @@
     <script>
         let musica = document.getElementById('musica-fondo');
 
-        // Base de datos oficial de la parrilla
+        // PARRILLA OFICIAL TEMPORADA 2026
         const DATOS_F1 = {
             "McLaren": { jefe: "Andrea Stella", pilotos: ["Lando Norris", "Oscar Piastri"] },
             "Ferrari": { jefe: "Frédéric Vasseur", pilotos: ["Charles Leclerc", "Lewis Hamilton"] },
-            "Red Bull": { jefe: "Christian Horner", pilots: ["Max Verstappen", "Sergio Pérez"] },
+            "Red Bull": { jefe: "Christian Horner", pilotos: ["Max Verstappen", "Isack Hadjar"] },
             "Mercedes": { jefe: "Toto Wolff", pilotos: ["George Russell", "Kimi Antonelli"] },
             "Aston Martin": { jefe: "Mike Krack", pilotos: ["Fernando Alonso", "Lance Stroll"] },
-            "Alpine": { jefe: "Oliver Oakes", pilotos: ["Pierre Gasly", "Jack Doohan"] },
+            "Alpine": { jefe: "Oliver Oakes", pilotos: ["Pierre Gasly", "Franco Colapinto"] },
             "Haas": { jefe: "Ayao Komatsu", pilotos: ["Esteban Ocon", "Oliver Bearman"] },
-            "Racing Bulls": { jefe: "Laurent Mekies", pilotos: ["Yuki Tsunoda", "Liam Lawson"] },
+            "Racing Bulls": { jefe: "Laurent Mekies", pilotos: ["Liam Lawson", "Arvid Lindblad"] },
             "Williams": { jefe: "James Vowles", pilotos: ["Alexander Albon", "Carlos Sainz"] },
             "Audi": { jefe: "Mattia Binotto", pilotos: ["Nico Hülkenberg", "Gabriel Bortoleto"] },
-            "Cadillac": { jefe: "Mario Andretti", pilotos: ["Piloto 1 Defecto", "Piloto 2 Defecto"] }
+            "Cadillac": { jefe: "Mario Andretti", pilotos: ["Sergio Pérez", "Valtteri Bottas"] }
         };
-
-        // Arreglo rápido por si escribí mal la clave de Red Bull arriba
-        DATOS_F1["Red Bull"].pilotos = ["Max Verstappen", "Sergio Pérez"];
 
         function comenzarJuego() {
             musica.volume = 0.5; 
@@ -289,22 +370,19 @@
 
         function seleccionarEscuderia(equipo) {
             const info = DATOS_F1[equipo];
-            
-            // Colocar título y Jefe de Equipo
             document.getElementById('titulo-equipo-activa').innerText = equipo.toUpperCase();
             document.getElementById('nombre-director').innerText = info.jefe;
 
-            // Renderizar los dos pilotos de forma dinámica
             const contenedorPilotos = document.getElementById('lista-pilotos');
             contenedorPilotos.innerHTML = "";
 
             info.pilotos.forEach(piloto => {
                 contenedorPilotos.innerHTML += `
-                    <div class="tarjeta-piloto" onclick="seleccionarPiloto('${piloto}')">
+                    <div class="tarjeta-piloto" onclick="irAlTaller('${piloto}')">
                         <div class="recuadro-foto"></div>
                         <div>
                             <strong style="font-size: 15px; color: white; display: block;">${piloto}</strong>
-                            <span style="font-size: 11px; color: #00ff66;">Asignar telemetría de carrera</span>
+                            <span style="font-size: 11px; color: #00ff66;">Configurar monoplaza de ingeniería</span>
                         </div>
                     </div>
                 `;
@@ -313,10 +391,14 @@
             cambiarPantalla('pantalla-escuderia', 'pantalla-personal');
         }
 
-        function seleccionarPiloto(nombrePiloto) {
-            alert("Piloto asignado: " + nombrePiloto + "\n\n¡Estructura de jerarquía validada correctamente! Dime si se ven los recuadros de fotos ordenados y avanzamos al Taller de Ingeniería 3D.");
+        function irAlTaller(nombrePiloto) {
+            document.getElementById('piloto-asignado-auto').innerText = "Piloto: " + nombrePiloto;
+            cambiarPantalla('pantalla-personal', 'pantalla-taller');
+        }
+
+        function comenzarSimulacion() {
+            alert("¡Transición lista!\n\nAquí la música de fondo se detendrá y saltaremos al bucle principal de telemetría de carrera en tiempo real.");
         }
     </script>
-
 </body>
 </html>
