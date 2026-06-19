@@ -2,13 +2,70 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>F1 Sensation</title>
-    <!-- ESTA LÍNEA ES LA QUE FALTA EN TU SITIO ACTUAL -->
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <!-- Tu contenido HTML aquí... -->
-    
+
+    <audio id="musica-fondo" loop>
+        <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-4.mp3" type="audio/mpeg">
+    </audio>
+
+    <div class="portada">
+        
+        <div id="pantalla-inicio" class="pantalla activa">
+            <div class="titulo-juego">F1<br>Sensation</div>
+            <div class="subtitulo-juego">Simulación Pro</div>
+            <button class="btn-comenzar" onclick="comenzarJuego()">Comenzar a Jugar</button>
+        </div>
+
+        <div id="pantalla-escuderia" class="pantalla">
+            <div class="titulo-pantalla">Selecciona Escudería</div>
+            <div class="grid-escuderias">
+                <button class="btn-escuderia" onclick="seleccionarEscuderia('McLaren')">McLaren</button>
+                <button class="btn-escuderia" onclick="seleccionarEscuderia('Ferrari')">Ferrari</button>
+                <button class="btn-escuderia" onclick="seleccionarEscuderia('Red Bull')">Red Bull</button>
+                <button class="btn-escuderia" onclick="seleccionarEscuderia('Mercedes')">Mercedes</button>
+                <button class="btn-escuderia" onclick="seleccionarEscuderia('Aston Martin')">Aston Martin</button>
+                <button class="btn-escuderia" onclick="seleccionarEscuderia('Alpine')">Alpine</button>
+                <button class="btn-escuderia" onclick="seleccionarEscuderia('Haas')">Haas</button>
+                <button class="btn-escuderia" onclick="seleccionarEscuderia('Racing Bulls')">Racing Bulls</button>
+                <button class="btn-escuderia" onclick="seleccionarEscuderia('Williams')">Williams</button>
+                <button class="btn-escuderia" onclick="seleccionarEscuderia('Audi')">Audi</button>
+                <button class="btn-escuderia" onclick="seleccionarEscuderia('Cadillac')">Cadillac</button>
+            </div>
+        </div>
+
+        <div id="pantalla-personal" class="pantalla">
+            <div class="titulo-pantalla" id="titulo-equipo-activa">Estructura</div>
+            <div class="seccion-boss">
+                <strong id="nombre-director">Cargando...</strong>
+            </div>
+            <div id="lista-pilotos"></div>
+        </div>
+
+        <div id="pantalla-taller" class="pantalla">
+            <div class="titulo-pantalla">Taller de Ingeniería</div>
+            <div class="contenedor-auto" id="contenedor-marca-taller">
+                <div id="logo-equipo-taller">ESCUDERÍA</div>
+                <div id="piloto-asignado-auto">Piloto: -</div>
+                <div id="presupuesto-equipo-taller">Presupuesto: -</div>
+            </div>
+            <button class="btn-simular" onclick="irACarrera()">Ir a la Carrera</button>
+        </div>
+
+        <div id="pantalla-simulacion" class="pantalla">
+            <div class="titulo-pantalla">Race Telemetry</div>
+            <div class="cockpit-pantalla">
+                <div>Tiempo: <span id="sim-tiempo">03:00</span></div>
+                <div>Posición: <span id="sim-posicion">P20</span></div>
+                <div>Velocidad: <span id="sim-velocidad">0 km/h</span></div>
+            </div>
+        </div>
+    </div>
+
     <script src="script.js"></script>
+
 </body>
 </html>
