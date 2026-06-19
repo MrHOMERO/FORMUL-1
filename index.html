@@ -24,12 +24,12 @@
         .pantalla { display: none; max-width: 100%; margin: 0 auto; }
         .activa { display: block; }
 
-        /* PANTALLA DE INICIO - Optimizado con Fondo de Monoplaza de F1 Real */
+        /* PORTADA CON IMAGEN DE F1 CORREGIDA */
         .pantalla-inicio {
             text-align: center;
             padding: 80px 15px;
-            background: linear-gradient(rgba(15,15,20,0.75), rgba(15,15,20,0.9)), 
-                        url('https://images.unsplash.com/photo-1560674457-12073ed6c46b?q=80&w=1000') center/cover;
+            background: linear-gradient(rgba(15,15,20,0.8), rgba(15,15,20,0.95)), 
+                        url('https://images.unsplash.com/photo-1560674457-12073ed6c46b?q=80&w=1000') center/cover no-repeat;
             border-radius: 12px;
             box-shadow: inset 0 0 80px rgba(0,0,0,0.9);
             margin-top: 20px;
@@ -49,7 +49,6 @@
             max-width: 300px;
         }
 
-        /* DISEÑO PARA CELULARES (Disposición vertical clara) */
         .grid-equipos, .grid-pilotos {
             display: flex;
             flex-direction: column;
@@ -64,7 +63,6 @@
             padding: 15px;
             text-align: center;
             cursor: pointer;
-            -webkit-tap-highlight-color: transparent;
         }
 
         .header-taller {
@@ -137,14 +135,14 @@
         <div class="grid-equipos" id="contenedor-equipos"></div>
     </div>
 
-    <!-- PANTALLA 3: ELEGIR PILOTO PARA SER SU INGENIERO -->
+    <!-- PANTALLA 3: ELEGIR PILOTO -->
     <div id="p-piloto" class="pantalla">
         <h2 style="font-size: 20px;">Paso 2: Elige tu rol en el garaje</h2>
-        <p style="color: var(--text-muted); font-size: 14px;">¿De qué piloto serás su <strong>Ingeniero de Carrera directo</strong> en la radio?</p>
+        <p style="color: var(--text-muted); font-size: 14px;">¿De qué piloto serás su <strong>Ingeniero de Carrera directo</strong>?</p>
         <div class="grid-pilotos" id="contenedor-pilotos"></div>
     </div>
 
-    <!-- PANTALLA 4: EL TALLER / GESTIÓN DE PRESUPUESTO -->
+    <!-- PANTALLA 4: EL TALLER -->
     <div id="p-taller" class="pantalla">
         <div class="header-taller">
             <h1 id="txt-taller-equipo" style="font-size: 24px; margin: 0 0 5px 0;">Equipo</h1>
@@ -156,11 +154,8 @@
         </div>
 
         <div class="taller-layout">
-            <!-- MEJORAS DEL MONOPLAZA -->
             <div class="panel">
                 <h3 style="margin-top:0; font-size: 16px;">Inversión Tecnológica 2026</h3>
-                <p style="font-size: 12px; color: var(--text-muted); margin-bottom: 15px;">Mejora el coche antes de ir a pista.</p>
-                
                 <div class="upgrade-card">
                     <div><strong>Aerodinámica</strong><br><span style="color: var(--text-muted)">Coste: $15M</span></div>
                     <button class="action-btn" onclick="comprar('aero', 15000000)">Invertir</button>
@@ -175,7 +170,6 @@
                 </div>
             </div>
 
-            <!-- CIRCUITOS DEL CALENDARIO -->
             <div class="panel">
                 <h3 style="margin-top:0; font-size: 16px;">Calendario del Campeonato</h3>
                 <div id="lista-circuitos" style="font-size: 13px; line-height: 1.8;"></div>
@@ -187,11 +181,51 @@
         </div>
     </div>
 
+    <!-- MOTOR LÓGICO INTEGRADO (Evita problemas de carga externa) -->
     <script>
+        const LIMITE_PRESUPUESTARIO_2026 = 215000000;
+
+        const EQUIPOS_F1 = {
+            "Red Bull Racing": { principal: "Christian Horner", color: "#0c1f3c" },
+            "Ferrari": { principal: "Frédéric Vasseur", color: "#e10600" },
+            "Mercedes": { principal: "Toto Wolff", color: "#00a19c" },
+            "McLaren": { principal: "Andrea Stella", color: "#ff8700" },
+            "Aston Martin": { principal: "Mike Krack", color: "#006f62" }
+        };
+
+        const PILOTOS_F1 = [
+            { nombre: "Max Verstappen", equipo: "Red Bull Racing", habilidad: 96 },
+            { nombre: "Sergio Pérez", equipo: "Red Bull Racing", habilidad: 82 },
+            { nombre: "Lando Norris", equipo: "McLaren", habilidad: 91 },
+            { nombre: "Oscar Piastri", equipo: "McLaren", habilidad: 88 },
+            { nombre: "Lewis Hamilton", equipo: "Ferrari", habilidad: 93 },
+            { nombre: "Charles Leclerc", equipo: "Ferrari", habilidad: 92 },
+            { nombre: "George Russell", equipo: "Mercedes", habilidad: 89 },
+            { nombre: "Kimi Antonelli", equipo: "Mercedes", habilidad: 81 },
+            { nombre: "Fernando Alonso", equipo: "Aston Martin", habilidad: 92 },
+            { nombre: "Lance Stroll", equipo: "Aston Martin", habilidad: 79 }
+        ];
+
+        const CIRCUITOS_2026 = [
+            { nombre: "Albert Park (Australia)", tipo: "Semi-urbano" },
+            { nombre: "Sakhir (Bahréin)", tipo: "Permanente" },
+            { nombre: "Monaco (Mónaco)", tipo: "Urbano" },
+            { nombre: "Silverstone (Gran Bretaña)", tipo: "Alta Velocidad" },
+            { nombre: "Monza (Italia)", tipo: "Templo de la Velocidad" },
+            { nombre: "Spa-Francorchamps (Bélgica)", tipo: "Largo" }
+        ];
+
+        let miPartida = {
+            equipoSeleccionado: null,
+            presupuestoDesarrollo: LIMITE_PRESUPUESTARIO_2026,
+            mejoras: { aero: 0, chasis: 0, motor: 0 },
+            pilotoAsignadoIngeniero: null
+        };
+
         function cambiarPantalla(idOcultar, idMostrar) {
             document.getElementById(idOcultar).style.display = 'none';
             document.getElementById(idMostrar).style.display = 'block';
-            window.scrollTo(0,0); // Sube automáticamente la pantalla al cambiar en móviles
+            window.scrollTo(0,0);
         }
 
         function iniciarJuego() {
@@ -212,7 +246,7 @@
         }
 
         function clickEquipo(nombreEquipo) {
-            seleccionarEquipo(nombreEquipo);
+            miPartida.equipoSeleccionado = nombreEquipo;
             
             const contenedorPilotos = document.getElementById('contenedor-pilotos');
             contenedorPilotos.innerHTML = "";
@@ -231,7 +265,7 @@
         }
 
         function clickPiloto(nombrePiloto) {
-            asignarPilotoIngeniero(nombrePiloto);
+            miPartida.pilotoAsignadoIngeniero = nombrePiloto;
 
             document.getElementById('txt-taller-equipo').innerText = miPartida.equipoSeleccionado.toUpperCase();
             document.getElementById('txt-taller-rol').innerText = `Ingeniero de: ${nombrePiloto}`;
@@ -247,16 +281,17 @@
         }
 
         function comprar(area, costo) {
-            const exito = invertirEnDesarrollo(area, costo);
-            const consola = document.getElementById('consola-taller');
-            
-            if(exito) {
+            if (miPartida.presupuestoDesarrollo - costo >= 0) {
+                miPartida.presupuestoDesarrollo -= costo;
+                miPartida.mejoras[area] += 1;
+                
                 document.getElementById('txt-taller-dinero').innerText = '$' + miPartida.presupuestoDesarrollo.toLocaleString();
-                consola.innerHTML += `<br><span style="color: #00ff00">[OK]: Inversión en ${area.toUpperCase()}. Nivel: ${miPartida.mejoras[area]}</span>`;
+                document.getElementById('consola-taller').innerHTML += `<br><span style="color: #00ff00">[OK]: Inversión en ${area.toUpperCase()}. Nivel: ${miPartida.mejoras[area]}</span>`;
             } else {
-                consola.innerHTML += `<br><span style="color: #ff3333">[RECHAZADO]: Fondos insuficientes. Límite FIA.</span>`;
+                document.getElementById('consola-taller').innerHTML += `<br><span style="color: #ff3333">[RECHAZADO]: Límite FIA excedido.</span>`;
             }
-            consola.scrollTop = consola.scrollHeight;
+            const c = document.getElementById('consola-taller');
+            c.scrollTop = c.scrollHeight;
         }
     </script>
 </body>
