@@ -163,7 +163,6 @@
         .foto-jefe { border-color: #ffcc00; }
         .foto-jefe::before, .foto-jefe::after { background: #ffcc00; }
 
-        /* CONTENEDOR DINÁMICO DE IDENTIDAD DE ESCUDERÍA */
         .contenedor-auto {
             background: rgba(255, 255, 255, 0.04);
             border-radius: 12px;
@@ -185,7 +184,6 @@
             transition: color 0.3s ease, text-shadow 0.3s ease;
         }
 
-        /* FILAS INTERACTIVAS DEL TALLER */
         .categoria-item {
             background: rgba(15, 15, 25, 0.9);
             border: 1px solid #2a2a40;
@@ -196,7 +194,7 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            cursor: pointer; /* Indica que es cliqueable */
+            cursor: pointer;
             transition: background 0.2s, transform 0.2s;
         }
         .categoria-item:hover { background: rgba(25, 25, 40, 0.9); border-color: #3d3d5c; }
@@ -216,7 +214,6 @@
             font-family: monospace;
         }
 
-        /* DISEÑO DE LAS NUEVAS OPCIONES DESPLEGABLES */
         .opcion-desplegada {
             background: rgba(20, 20, 35, 0.85);
             border: 1px solid #3d3d5c;
@@ -232,7 +229,6 @@
         }
         .opcion-desplegada:hover { background: rgba(30, 30, 50, 0.9); }
         
-        /* Cuando la opción está comprada/activa */
         .opcion-desplegada.seleccionada {
             border-color: #00ff66;
             background: rgba(0, 255, 102, 0.08);
@@ -304,7 +300,7 @@
                 <button class="btn-escuderia" style="border-left: 5px solid #ff85b3;" onclick="seleccionarEscuderia('Alpine')">Alpine<span>Pos. 2025: 6º</span></button>
                 <button class="btn-escuderia" style="border-left: 5px solid #ffffff;" onclick="seleccionarEscuderia('Haas')">Haas<span>Pos. 2025: 7º</span></button>
                 <button class="btn-escuderia" style="border-left: 5px solid #1c34f4;" onclick="seleccionarEscuderia('Racing Bulls')">Racing Bulls<span>Pos. 2025: 8º</span></button>
-                <button class="btn-escuderia" style="border-left: 5px solid #005aff;" onclick="seleccionarEscuderia('Williams')">Williams<span>Pos. 2025: 9º</span></button>
+                <button class="btn-escuderia" style="border-left: 5px solid #005aff;" onclick="white-space; selection: Williams;" onclick="seleccionarEscuderia('Williams')">Williams<span>Pos. 2025: 9º</span></button>
                 <button class="btn-escuderia" style="border-left: 5px solid #ff0044;" onclick="seleccionarEscuderia('Audi')">Audi<span>Pos. 2025: 10º</span></button>
                 <button class="btn-escuderia" style="border-left: 5px solid #cbd5e1;" onclick="seleccionarEscuderia('Cadillac')">Cadillac<span>Nueva Escudería</span></button>
             </div>
@@ -390,10 +386,9 @@
     <script>
         let music = document.getElementById('musica-fondo');
         let escuderiaSeleccionada = ""; 
-        let presupuestoNumerico = 0; // Valor entero manipulable para restas
-        let categoriaActiva = ""; // Guarda si estamos editando 'pu', 'aero', etc.
+        let presupuestoNumerico = 0; 
+        let categoriaActiva = ""; 
 
-        // Las 4 opciones por cada categoría con su Rendimiento (PR) y Costo de desarrollo
         const OPCIONES_TECNICAS = {
             pu: {
                 titulo: "⚡ UNIDAD DE POTENCIA",
@@ -426,14 +421,13 @@
                 titulo: "👟 SISTEMAS DE SUSPENSIÓN",
                 items: [
                     { nombre: "Bujes y Amortiguadores FIA", pr: 80, costo: 0 },
-                    { nombre: "Geometría Anti-Squat Reforzada", pr: 84, costo: 25000000 },
+                    { nombre: "Geometría Anti-Squat Reforzada", pr: 84, costo: 3500000 },
                     { nombre: "Pull-Rod Mecánico Delantero", pr: 87, costo: 7000000 },
                     { nombre: "Suspensión Inteligente Activa", pr: 92, costo: 14000000 }
                 ]
             }
         };
 
-        // Estado actual del auto de tu piloto. Guarda la opción elegida por categoría
         let configuracionAuto = {
             pu: { nombre: "Motor Cliente Estándar", pr: 85, costo: 0 },
             aero: { nombre: "Alerón de Carga Fija Estándar", pr: 79, costo: 0 },
@@ -450,4 +444,10 @@
             "Alpine": { jefe: "Oliver Oakes", pilotos: ["Pierre Gasly", "Franco Colapinto"], color: "#ff85b3", bg: "rgba(255, 133, 179, 0.08)", dinero: 126000000 },
             "Haas": { jefe: "Ayao Komatsu", pilotos: ["Esteban Ocon", "Oliver Bearman"], color: "#ffffff", bg: "rgba(255, 255, 255, 0.05)", dinero: 122000000 },
             "Racing Bulls": { jefe: "Laurent Mekies", pilotos: ["Liam Lawson", "Arvid Lindblad"], color: "#1c34f4", bg: "rgba(28, 52, 244, 0.08)", dinero: 124500000 },
-            "Williams": { jefe: "James Vowles", pilotos: ["Alexander Albon", "Carlos Sainz"], color
+            "Williams": { jefe: "James Vowles", pilotos: ["Alexander Albon", "Carlos Sainz"], color: "#005aff", bg: "rgba(0, 90, 255, 0.08)", dinero: 128000000 },
+            "Audi": { jefe: "Mattia Binotto", pilotos: ["Nico Hülkenberg", "Gabriel Bortoleto"], color: "#ff0044", bg: "rgba(255, 0, 68, 0.08)", dinero: 135000000 },
+            "Cadillac": { jefe: "Mario Andretti", pilotos: ["Sergio Pérez", "Valtteri Bottas"], color: "#cbd5e1", bg: "rgba(203, 213, 225, 0.08)", dinero: 130000000 }
+        };
+
+        function comenzarJuego() {
+            music.volu
