@@ -15,7 +15,7 @@
         body {
             font-family: 'Arial Black', 'Arial Strip', Impact, sans-serif;
             background-color: var(--dark-bg);
-            /* Apunta exactamente a tu archivo fondo.jpg */
+            /* Tu imagen local del repositorio */
             background-image: url('fondo.jpg');
             background-position: center;
             background-size: cover;
@@ -99,16 +99,33 @@
 </head>
 <body>
 
+    <audio id="musica-fondo" loop>
+        <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-4.mp3" type="audio/mpeg">
+    </audio>
+
     <div class="portada">
         <div class="titulo-juego">F1<br>Sensation</div>
         <div class="subtitulo-juego">Simulación Pro</div>
         
-        <button class="btn-comenzar" onclick="siguientePaso()">Comenzar a Jugar</button>
+        <button class="btn-comenzar" onclick="comenzarJuego()">Comenzar a Jugar</button>
     </div>
 
     <script>
-        function siguientePaso() {
-            alert("¡Paso de inicio completado!");
+        function comenzarJuego() {
+            const musica = document.getElementById('musica-fondo');
+            
+            // Subimos sutilmente el volumen a 0.5 para que la guitarra se note con energía
+            musica.volume = 0.5; 
+            
+            // Arranca la reproducción inmediatamente tras pulsar el botón
+            musica.play().then(() => {
+                console.log("Música de Rock Épico iniciada.");
+            }).catch(error => {
+                console.log("Bloqueo temporal del navegador:", error);
+            });
+
+            // Alerta de control
+            alert("¡Paso de inicio completado con Música Épica!");
         }
     </script>
 
