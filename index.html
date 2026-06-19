@@ -8,9 +8,10 @@
         :root {
             --f1-red: #e10600;
             --dark-bg: #0b0b0f;
-            --panel-bg: rgba(0, 0, 0, 0.75); 
+            --panel-bg: rgba(0, 0, 0, 0.82); 
             --text-light: #ffffff;
             --text-muted: #aaaaaa;
+            --neon-gold: #ffcc00;
         }
 
         body {
@@ -40,7 +41,7 @@
             backdrop-filter: blur(12px);
             -webkit-backdrop-filter: blur(12px);
             border-radius: 16px;
-            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.8);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.9);
             border: 1px solid rgba(255, 255, 255, 0.1);
             margin: 20px 0;
             box-sizing: border-box;
@@ -160,38 +161,50 @@
         .recuadro-foto::before { content: ""; width: 22px; height: 22px; background: #8888aa; border-radius: 50%; position: absolute; top: 8px; left: 14px;}
         .recuadro-foto::after { content: ""; width: 36px; height: 24px; background: #8888aa; border-radius: 50% 50% 0 0; position: absolute; bottom: -6px; left: 7px;}
 
-        .contenedor-auto {
-            background: rgba(255, 255, 255, 0.05);
+        /* --- NUEVO: MARCADOR DE PRESUPUESTO --- */
+        .contenedor-presupuesto {
+            background: rgba(0, 0, 0, 0.6);
+            border: 1px dashed var(--neon-gold);
+            border-radius: 10px;
+            padding: 12px;
+            margin-bottom: 18px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .monto-dinero {
+            font-size: 20px;
+            font-weight: bold;
+            color: var(--neon-gold);
+            font-family: monospace;
+            text-shadow: 0 0 10px rgba(255, 204, 0, 0.3);
+        }
+
+        /* --- LOGO DINÁMICO DE LA ESCUDERÍA --- */
+        .contenedor-logo-taller {
+            background: rgba(255, 255, 255, 0.04);
             border-radius: 12px;
             padding: 15px;
-            margin-bottom: 20px;
-            border: 1px dashed rgba(255, 255, 255, 0.2);
+            margin-bottom: 15px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
         }
-        
-        /* CORREGIDO EL BUG DEL ALERÓN TRASERO AQUÍ */
-        .f1-car-blueprint {
-            width: 180px;
-            height: 50px;
-            margin: 15px auto;
-            position: relative;
-            background: #333344;
-            border-radius: 30px 10px 10px 30px;
+        .f1-logo-badge {
+            font-size: 26px;
+            font-weight: 900;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 5px;
+            font-style: italic;
+            text-shadow: 0 0 15px rgba(255, 255, 255, 0.2);
         }
-        .f1-car-blueprint .wing-f { position: absolute; left: -15px; top: 5px; width: 20px; height: 40px; background: var(--f1-red); border-radius: 4px; }
-        .f1-car-blueprint .wing-r { position: absolute; right: -10px; top: 2px; width: 15px; height: 46px; background: var(--f1-red); border-radius: 2px; }
-        .f1-car-blueprint .wheel { position: absolute; width: 28px; height: 28px; background: #111; border-radius: 50%; border: 3px solid #222; }
-        .f1-car-blueprint .w-fl { left: 15px; top: -12px; }
-        .f1-car-blueprint .w-fr { left: 15px; bottom: -12px; }
-        .f1-car-blueprint .w-rl { right: 20px; top: -12px; }
-        .f1-car-blueprint .w-rr { right: 20px; bottom: -12px; }
-        .f1-car-blueprint .halo { position: absolute; left: 70px; top: 15px; width: 30px; height: 20px; border: 3px solid #fff; border-radius: 50% 50% 0 0; }
 
+        /* --- BLOQUE DE CATEGORÍAS TIPO JUEGO --- */
         .categoria-item {
-            background: rgba(15, 15, 25, 0.9);
-            border: 1px solid #2a2a40;
-            border-radius: 8px;
-            padding: 12px;
-            margin-bottom: 12px;
+            background: rgba(18, 18, 28, 0.95);
+            border: 1px solid #2e2e46;
+            border-radius: 10px;
+            padding: 14px;
+            margin-bottom: 15px;
             text-align: left;
         }
 
@@ -199,14 +212,14 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 8px;
+            margin-bottom: 12px;
         }
 
         .categoria-info strong { font-size: 14px; color: #fff; display: block; }
         .categoria-info span { font-size: 11px; color: var(--text-muted); }
 
         .nivel-box {
-            background: #111;
+            background: #051a0e;
             padding: 4px 10px;
             border-radius: 4px;
             border: 1px solid #00ff66;
@@ -216,18 +229,41 @@
             font-family: monospace;
         }
 
-        .selector-ingenieria {
-            width: 100%;
-            background: #181824;
-            color: #fff;
-            border: 1px solid #3a3a55;
-            padding: 8px;
-            font-size: 12px;
-            border-radius: 4px;
-            outline: none;
-            cursor: pointer;
+        /* --- BOTONES DE SELECCIÓN INTERNOS (ESTILO FOTO 1) --- */
+        .contenedor-opciones-botones {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 6px;
+            margin-top: 5px;
         }
-        .selector-ingenieria:focus { border-color: var(--f1-red); }
+
+        .btn-opcion-tecnica {
+            background: rgba(30, 30, 45, 0.8);
+            border: 1px solid #444466;
+            color: #cbd5e1;
+            padding: 8px 6px;
+            font-size: 10px;
+            font-weight: bold;
+            border-radius: 5px;
+            cursor: pointer;
+            text-align: center;
+            transition: all 0.2s ease;
+        }
+        .btn-opcion-tecnica:active { transform: scale(0.97); }
+        .btn-opcion-tecnica.seleccionado {
+            background: var(--f1-red);
+            border-color: #ff4d4d;
+            color: white;
+            box-shadow: 0 2px 10px rgba(225, 6, 0, 0.4);
+        }
+        .btn-opcion-tecnica span {
+            display: block;
+            font-size: 9px;
+            color: var(--neon-gold);
+            font-weight: normal;
+            margin-top: 2px;
+        }
+        .btn-opcion-tecnica.seleccionado span { color: #fff; }
 
         .btn-simular {
             background: linear-gradient(135deg, #00ff66 0%, #009944 100%);
@@ -240,7 +276,7 @@
             border-radius: 8px;
             cursor: pointer;
             width: 100%;
-            margin-top: 15px;
+            margin-top: 10px;
             box-shadow: 0 4px 15px rgba(0, 255, 102, 0.4);
         }
     </style>
@@ -281,31 +317,32 @@
             <div class="seccion-boss">
                 <div class="recuadro-foto"></div>
                 <div>
-                    <span style="font-size: 11px; color: #ffcc00; font-weight: bold; display: block;">DIRECTOR DE EQUIPO (TÚ)</span>
+                    <span style="font-size: 11px; color: var(--neon-gold); font-weight: bold; display: block;">DIRECTOR DE EQUIPO (TÚ)</span>
                     <strong id="nombre-director" style="font-size: 16px;">Cargando...</strong>
                 </div>
             </div>
-            <p style="font-size: 13px; text-align: left; color: var(--text-muted); margin-bottom: 10px; font-weight: bold;">SELECCIONA UN PILOTO PARA CONFIGURAR:</p>
+            <p style="font-size: 13px; text-align: left; color: var(--text-muted); margin-bottom: 10px; font-weight: bold;">SELECCIONA UN PILOTO PARA EL TALLER:</p>
             <div id="lista-pilotos"></div>
         </div>
 
         <div id="pantalla-taller" class="pantalla">
             <div class="titulo-pantalla">Taller de Ingeniería</div>
             
-            <div class="contenedor-auto">
-                <div class="f1-car-blueprint">
-                    <div class="wing-f"></div>
-                    <div class="w-fl wheel"></div>
-                    <div class="w-fr wheel"></div>
-                    <div class="halo"></div>
-                    <div class="w-rl wheel"></div>
-                    <div class="w-rr wheel"></div>
-                    <div class="wing-r"></div>
+            <div class="contenedor-presupuesto">
+                <div style="text-align: left;">
+                    <span style="font-size: 10px; color: var(--text-muted); font-weight: bold; display: block;">PRESUPUESTO CAP LIMIT</span>
+                    <strong style="font-size: 12px; color: white;">TEMPORADA 2026</strong>
                 </div>
-                <span id="piloto-asignado-auto" style="font-size: 13px; color: #fff; font-weight: bold;">Piloto: -</span>
+                <div class="monto-dinero" id="marcador-dinero">$135,000,000</div>
+            </div>
+
+            <div class="contenedor-logo-taller">
+                <div class="f1-logo-badge" id="logo-equipo-taller" style="color: var(--f1-red);">MCLAREN</div>
+                <span id="piloto-asignado-auto" style="font-size: 13px; color: #fff; font-weight: bold;">Configurando a: -</span>
             </div>
 
             <div id="categorias-auto">
+                
                 <div class="categoria-item">
                     <div class="fila-superior">
                         <div class="categoria-info">
@@ -313,12 +350,12 @@
                         </div>
                         <div class="nivel-box" id="pr-pu">PR. 85</div>
                     </div>
-                    <select class="selector-ingenieria" id="select-pu" onchange="actualizarPR()">
-                        <option value="85">ICE Térmico optimizado + MGU-K de 350kW (Estándar)</option>
-                        <option value="88">Mapeado de Flujo Combustible Máximo (3000MJ Energía)</option>
-                        <option value="91">Modo Boost de Sobrepaso Activo (Reglamento Art. 5)</option>
-                        <option value="82">E-Fuel Sintético de Alta Densidad Química (+Sostenible)</option>
-                    </select>
+                    <div class="contenedor-opciones-botones">
+                        <button class="btn-opcion-tecnica seleccionado" onclick="seleccionarOpcion('pu', 85, 0, this)">MGU-K 350kW<span>$0</span></button>
+                        <button class="btn-opcion-tecnica" onclick="seleccionarOpcion('pu', 88, 8000000, this)">Mapeado Max<span>-$8M</span></button>
+                        <button class="btn-opcion-tecnica" onclick="seleccionarOpcion('pu', 91, 15000000, this)">Modo Boost<span>-$15M</span></button>
+                        <button class="btn-opcion-tecnica" onclick="seleccionarOpcion('pu', 82, 4000000, this)">E-Fuel Biol.<span>-$4M</span></button>
+                    </div>
                 </div>
 
                 <div class="categoria-item">
@@ -328,27 +365,27 @@
                         </div>
                         <div class="nivel-box" id="pr-aero">PR. 79</div>
                     </div>
-                    <select class="selector-ingenieria" id="select-aero" onchange="actualizarPR()">
-                        <option value="79">Alerón Delantero Activo de 3 elementos (Flaps móviles)</option>
-                        <option value="84">Alerón Trasero Móvil de 2 elementos (Bajo Drag en Modo X)</option>
-                        <option value="89">Modo Z Completo (Carga máxima en curvas reviradas)</option>
-                        <option value="76">Placas Endplate Interiores de Baja Turbulencia</option>
-                    </select>
+                    <div class="contenedor-opciones-botones">
+                        <button class="btn-opcion-tecnica seleccionado" onclick="seleccionarOpcion('aero', 79, 0, this)">Flaps Alerón<span>$0</span></button>
+                        <button class="btn-opcion-tecnica" onclick="seleccionarOpcion('aero', 84, 12000000, this)">Modo X Alerón<span>-$12M</span></button>
+                        <button class="btn-opcion-tecnica" onclick="seleccionarOpcion('aero', 89, 20000000, this)">Modo Z Carga<span>-$20M</span></button>
+                        <button class="btn-opcion-tecnica" onclick="seleccionarOpcion('aero', 76, 3000000, this)">Endplates F1<span>-$3M</span></button>
+                    </div>
                 </div>
 
                 <div class="categoria-item">
                     <div class="fila-superior">
                         <div class="categoria-info">
-                            <strong>🔧 Chasis y Dimensiones 2026</strong>
+                            <strong>🔧 Chasis y Dimensiones</strong>
                         </div>
                         <div class="nivel-box" id="pr-chasis">PR. 82</div>
                     </div>
-                    <select class="selector-ingenieria" id="select-chasis" onchange="actualizarPR()">
-                        <option value="82">Batalla Corta Reglamentaria (Distancia de 3100mm)</option>
-                        <option value="85">Estructura Compacta Estrecha (Ancho total a 1900mm)</option>
-                        <option value="90">Fondo Plano Estrecho con Difusor Rediseñado FIA</option>
-                        <option value="78">Célula de Supervivencia Reforzada contra Impactos</option>
-                    </select>
+                    <div class="contenedor-opciones-botones">
+                        <button class="btn-opcion-tecnica seleccionado" onclick="seleccionarOpcion('chasis', 82, 0, this)">Dist. 3100mm<span>$0</span></button>
+                        <button class="btn-opcion-tecnica" onclick="seleccionarOpcion('chasis', 85, 9000000, this)">Ancho 1900mm<span>-$9M</span></button>
+                        <button class="btn-opcion-tecnica" onclick="seleccionarOpcion('chasis', 90, 18000000, this)">Fondo Plano<span>-$18M</span></button>
+                        <button class="btn-opcion-tecnica" onclick="seleccionarOpcion('chasis', 78, 5000000, this)">Célula Seg.<span>-$5M</span></button>
+                    </div>
                 </div>
 
                 <div class="categoria-item">
@@ -358,86 +395,6 @@
                         </div>
                         <div class="nivel-box" id="pr-suspension">PR. 80</div>
                     </div>
-                    <select class="selector-ingenieria" id="select-suspension" onchange="actualizarPR()">
-                        <option value="80">Llantas de 18 pulgadas con Neumáticos Estrechos Pirelli</option>
-                        <option value="83">Suspensión Mecánica Pull-Rod Delantera Estilizada</option>
-                        <option value="87">Geometría Trasera Push-Rod anti-hundimiento</option>
-                        <option value="75">Bujes de Carbono con Deflectores de Estela de Rueda</option>
-                    </select>
-                </div>
-            </div>
-
-            <button class="btn-simular" onclick="comenzarSimulacion()">Iniciar Simulación de Carrera</button>
-        </div>
-
-    </div>
-
-    <script>
-        let musica = document.getElementById('musica-fondo');
-
-        const DATOS_F1 = {
-            "McLaren": { jefe: "Andrea Stella", pilotos: ["Lando Norris", "Oscar Piastri"] },
-            "Ferrari": { jefe: "Frédéric Vasseur", pilotos: ["Charles Leclerc", "Lewis Hamilton"] },
-            "Red Bull": { jefe: "Christian Horner", pilotos: ["Max Verstappen", "Isack Hadjar"] },
-            "Mercedes": { jefe: "Toto Wolff", pilotos: ["George Russell", "Kimi Antonelli"] },
-            "Aston Martin": { jefe: "Mike Krack", pilotos: ["Fernando Alonso", "Lance Stroll"] },
-            "Alpine": { jefe: "Oliver Oakes", pilotos: ["Pierre Gasly", "Franco Colapinto"] },
-            "Haas": { jefe: "Ayao Komatsu", pilotos: ["Esteban Ocon", "Oliver Bearman"] },
-            "Racing Bulls": { jefe: "Laurent Mekies", pilotos: ["Liam Lawson", "Arvid Lindblad"] },
-            "Williams": { jefe: "James Vowles", pilotos: ["Alexander Albon", "Carlos Sainz"] },
-            "Audi": { jefe: "Mattia Binotto", pilotos: ["Nico Hülkenberg", "Gabriel Bortoleto"] },
-            "Cadillac": { jefe: "Mario Andretti", pilotos: ["Sergio Pérez", "Valtteri Bottas"] }
-        };
-
-        function comenzarJuego() {
-            musica.volume = 0.5; 
-            musica.play().catch(error => console.log("Audio bloqueado:", error));
-            cambiarPantalla('pantalla-inicio', 'pantalla-escuderia');
-        }
-
-        function cambiarPantalla(ocultar, mostrar) {
-            document.getElementById(ocultar).style.display = 'none';
-            document.getElementById(mostrar).style.display = 'block';
-        }
-
-        function seleccionarEscuderia(equipo) {
-            const info = DATOS_F1[equipo];
-            document.getElementById('titulo-equipo-activa').innerText = equipo.toUpperCase();
-            document.getElementById('nombre-director').innerText = info.jefe;
-
-            const contenedorPilotos = document.getElementById('lista-pilotos');
-            contenedorPilotos.innerHTML = "";
-
-            info.pilotos.forEach(piloto => {
-                contenedorPilotos.innerHTML += `
-                    <div class="tarjeta-piloto" onclick="irAlTaller('${piloto}')">
-                        <div class="recuadro-foto"></div>
-                        <div>
-                            <strong style="font-size: 15px; color: white; display: block;">${piloto}</strong>
-                            <span style="font-size: 11px; color: #00ff66;">Configurar monoplaza de ingeniería</span>
-                        </div>
-                    </div>
-                `;
-            });
-
-            cambiarPantalla('pantalla-escuderia', 'pantalla-personal');
-        }
-
-        function irAlTaller(nombrePiloto) {
-            document.getElementById('piloto-asignado-auto').innerText = "Piloto: " + nombrePiloto;
-            cambiarPantalla('pantalla-personal', 'pantalla-taller');
-        }
-
-        function actualizarPR() {
-            document.getElementById('pr-pu').innerText = "PR. " + document.getElementById('select-pu').value;
-            document.getElementById('pr-aero').innerText = "PR. " + document.getElementById('select-aero').value;
-            document.getElementById('pr-chasis').innerText = "PR. " + document.getElementById('select-chasis').value;
-            document.getElementById('pr-suspension').innerText = "PR. " + document.getElementById('select-suspension').value;
-        }
-
-        function comenzarSimulacion() {
-            alert("¡Estrategia cerrada!\n\nSe procesarán las variables técnicas elegidas para la grilla de largada.");
-        }
-    </script>
-</body>
-    </html>
+                    <div class="contenedor-opciones-botones">
+                        <button class="btn-opcion-tecnica seleccionado" onclick="seleccionarOpcion('suspension', 80, 0, this)">Llantas 18"<span>$0</span></button>
+                        <button class="btn-opcion-tecnica" onclick="sele
