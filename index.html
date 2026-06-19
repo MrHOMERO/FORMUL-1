@@ -159,10 +159,7 @@
         }
         .recuadro-foto::before { content: ""; width: 22px; height: 22px; background: #8888aa; border-radius: 50%; position: absolute; top: 8px; left: 14px;}
         .recuadro-foto::after { content: ""; width: 36px; height: 24px; background: #8888aa; border-radius: 50% 50% 0 0; position: absolute; bottom: -6px; left: 7px;}
-        .foto-jefe { border-color: #ffcc00; }
-        .foto-jefe::before, .foto-jefe::after { background: #ffcc00; }
 
-        /* NUEVOS ESTILOS PARA LA PANTALLA DE INGENIERÍA */
         .contenedor-auto {
             background: rgba(255, 255, 255, 0.05);
             border-radius: 12px;
@@ -171,7 +168,6 @@
             border: 1px dashed rgba(255, 255, 255, 0.2);
         }
         
-        /* Silueta básica CSS del monoplaza F1 2026 */
         .f1-car-blueprint {
             width: 180px;
             height: 50px;
@@ -181,7 +177,7 @@
             border-radius: 30px 10px 10px 30px;
         }
         .f1-car-blueprint .wing-f { position: absolute; left: -15px; top: 5px; width: 20px; height: 40px; background: var(--f1-red); border-radius: 4px; }
-        .f1-car-blueprint .wing-r { position: absolute; right: -10px; top: 2px; width: 15px; height: 46px; background: var(--f1-red); border-radius: 2px; }
+        .f1-car-blueprint .wing-r { position: absolute; right: -10px; top: 2px; width: 15px; height: 466px; max-height: 46px; background: var(--f1-red); border-radius: 2px; }
         .f1-car-blueprint .wheel { position: absolute; width: 28px; height: 28px; background: #111; border-radius: 50%; border: 3px solid #222; }
         .f1-car-blueprint .w-fl { left: 15px; top: -12px; }
         .f1-car-blueprint .w-fr { left: 15px; bottom: -12px; }
@@ -189,16 +185,21 @@
         .f1-car-blueprint .w-rr { right: 20px; bottom: -12px; }
         .f1-car-blueprint .halo { position: absolute; left: 70px; top: 15px; width: 30px; height: 20px; border: 3px solid #fff; border-radius: 50% 50% 0 0; }
 
+        /* SECCIONES CONFIGURABLES */
         .categoria-item {
             background: rgba(15, 15, 25, 0.9);
             border: 1px solid #2a2a40;
             border-radius: 8px;
             padding: 12px;
-            margin-bottom: 10px;
+            margin-bottom: 12px;
             text-align: left;
+        }
+
+        .fila-superior {
             display: flex;
             justify-content: space-between;
             align-items: center;
+            margin-bottom: 8px;
         }
 
         .categoria-info strong { font-size: 14px; color: #fff; display: block; }
@@ -214,6 +215,21 @@
             font-weight: bold;
             font-family: monospace;
         }
+
+        /* SELECTOR ESTILIZADO DE INGENIERÍA */
+        .selector-ingenieria {
+            width: 100%;
+            background: #181824;
+            color: #fff;
+            border: 1px solid #3a3a55;
+            padding: 8px;
+            font-size: 12px;
+            border-radius: 4px;
+            outline: none;
+            cursor: pointer;
+            font-family: 'Segoe UI', Arial, sans-serif;
+        }
+        .selector-ingenieria:focus { border-color: var(--f1-red); }
 
         .btn-simular {
             background: linear-gradient(135deg, #00ff66 0%, #009944 100%);
@@ -239,14 +255,13 @@
 
     <div class="portada">
         
-        <!-- PANTALLA 1: INICIO -->
+        <!-- PANTALLA 1, 2 Y 3 SE MANTIENEN IGUAL -->
         <div id="pantalla-inicio" class="pantalla activa">
             <div class="titulo-juego">F1<br>Sensation</div>
             <div class="subtitulo-juego">Simulación Pro</div>
             <button class="btn-comenzar" onclick="comenzarJuego()">Comenzar a Jugar</button>
         </div>
 
-        <!-- PANTALLA 2: SELECCIÓN DE ESCUDERÍAS -->
         <div id="pantalla-escuderia" class="pantalla">
             <div class="titulo-pantalla">Selecciona Escudería</div>
             <div class="grid-escuderias">
@@ -256,7 +271,7 @@
                 <button class="btn-escuderia" style="border-left: 5px solid #00a19c;" onclick="seleccionarEscuderia('Mercedes')">Mercedes<span>Pos. 2025: 4º</span></button>
                 <button class="btn-escuderia" style="border-left: 5px solid #006f62;" onclick="seleccionarEscuderia('Aston Martin')">Aston Martin<span>Pos. 2025: 5º</span></button>
                 <button class="btn-escuderia" style="border-left: 5px solid #ff85b3;" onclick="seleccionarEscuderia('Alpine')">Alpine<span>Pos. 2025: 6º</span></button>
-                <button class="btn-escuderia" style="border-left: 5px solid #ffffff;" onclick="seleccionarEscuderia('Haas')">Haas<span>Pos. 2025: 7º</span></button>
+                <button class="btn-escuderia" style="border-left: 5px solid #ffffff;" onclick="haas=true; seleccionarEscuderia('Haas')">Haas<span>Pos. 2025: 7º</span></button>
                 <button class="btn-escuderia" style="border-left: 5px solid #1c34f4;" onclick="seleccionarEscuderia('Racing Bulls')">Racing Bulls<span>Pos. 2025: 8º</span></button>
                 <button class="btn-escuderia" style="border-left: 5px solid #005aff;" onclick="seleccionarEscuderia('Williams')">Williams<span>Pos. 2025: 9º</span></button>
                 <button class="btn-escuderia" style="border-left: 5px solid #ff0044;" onclick="seleccionarEscuderia('Audi')">Audi<span>Pos. 2025: 10º</span></button>
@@ -264,28 +279,23 @@
             </div>
         </div>
 
-        <!-- PANTALLA 3: JERARQUÍA DEL EQUIPO -->
         <div id="pantalla-personal" class="pantalla">
             <div class="titulo-pantalla" id="titulo-equipo-activa">Estructura</div>
-            
             <div class="seccion-boss">
-                <div class="recuadro-foto foto-jefe"></div>
+                <div class="recuadro-foto"></div>
                 <div>
-                    <span style="font-size: 11px; color: #ffcc00; font-weight: bold; display: block; letter-spacing: 1px;">DIRECTOR DE EQUIPO (TÚ)</span>
+                    <span style="font-size: 11px; color: #ffcc00; font-weight: bold; display: block;">DIRECTOR DE EQUIPO (TÚ)</span>
                     <strong id="nombre-director" style="font-size: 16px;">Cargando...</strong>
                 </div>
             </div>
-
-            <p style="font-size: 13px; text-align: left; color: var(--text-muted); margin-bottom: 10px; font-weight: bold;">SELECCIONA UN PILOTO PARA IR AL TALLER:</p>
+            <p style="font-size: 13px; text-align: left; color: var(--text-muted); margin-bottom: 10px; font-weight: bold;">SELECCIONA UN PILOTO PARA CONFIGURAR:</p>
             <div id="lista-pilotos"></div>
         </div>
 
-        <!-- PANTALLA 4: NUEVO TALLER DE INGENIERÍA (MODELO REGLAMENTO 2026) -->
+        <!-- PANTALLA 4: REVISADA CON REGLAMENTO COMPLETO FIA 2026 -->
         <div id="pantalla-taller" class="pantalla">
             <div class="titulo-pantalla">Taller de Ingeniería</div>
-            <span style="font-size: 11px; color: #00ff66; font-weight: bold; letter-spacing: 1px; display: block; margin-bottom: 10px;">MONOPLAZA ESPECIFICACIÓN 2026</span>
             
-            <!-- Vista gráfica del auto -->
             <div class="contenedor-auto">
                 <div class="f1-car-blueprint">
                     <div class="wing-f"></div>
@@ -299,38 +309,69 @@
                 <span id="piloto-asignado-auto" style="font-size: 13px; color: #fff; font-weight: bold;">Piloto: -</span>
             </div>
 
-            <!-- Las 4 Categorías Obligatorias de Rendimiento -->
             <div id="categorias-auto">
+                <!-- CATEGORÍA 1: POTENCIA -->
                 <div class="categoria-item">
-                    <div class="categoria-info">
-                        <strong>⚡ Unidad de Potencia (PU)</strong>
-                        <span>Motor 2026 (50% Eléctrico / Biocombustible)</span>
+                    <div class="fila-superior">
+                        <div class="categoria-info">
+                            <strong>⚡ Unidad de Potencia (PU)</strong>
+                        </div>
+                        <div class="nivel-box" id="pr-pu">PR. 85</div>
                     </div>
-                    <div class="nivel-box">PR. 85</div>
+                    <select class="selector-ingenieria" id="select-pu" onchange="actualizarPR()">
+                        <option value="85">ICE Térmico optimizado + MGU-K de 350kW (Estándar)</option>
+                        <option value="88">Mapeado de Flujo Combustible Máximo (3000MJ Energía)</option>
+                        <option value="91">Modo Boost de Sobrepaso Activo (Reglamento Art. 5)</option>
+                        <option value="82">E-Fuel Sintético de Alta Densidad Química (+Sostenible)</option>
+                    </select>
                 </div>
 
+                <!-- CATEGORÍA 2: AERODINÁMICA -->
                 <div class="categoria-item">
-                    <div class="categoria-info">
-                        <strong>💨 Aerodinámica Activa</strong>
-                        <span>Modos Z (Curvas) y X (Rectas - Alerón Móvil)</span>
+                    <div class="fila-superior">
+                        <div class="categoria-info">
+                            <strong>💨 Aerodinámica Activa</strong>
+                        </div>
+                        <div class="nivel-box" id="pr-aero">PR. 79</div>
                     </div>
-                    <div class="nivel-box">PR. 79</div>
+                    <select class="selector-ingenieria" id="select-aero" onchange="actualizarPR()">
+                        <option value="79">Alerón Delantero Activo de 3 elementos (Flaps móviles)</option>
+                        <option value="84">Alerón Trasero Móvil de 2 elementos (Bajo Drag en Modo X)</option>
+                        <option value="89">Modo Z Completo (Carga máxima en curvas reviradas)</option>
+                        <option value="76">Placas Endplate Interiores de Baja Turbulencia</option>
+                    </select>
                 </div>
 
+                <!-- CATEGORÍA 3: CHASIS -->
                 <div class="categoria-item">
-                    <div class="categoria-info">
-                        <strong>🔧 Chasis y Peso Reducido</strong>
-                        <span>Batalla corta (-20cm) y auto más estrecho</span>
+                    <div class="fila-superior">
+                        <div class="categoria-info">
+                            <strong>🔧 Chasis y Dimensiones 2026</strong>
+                        </div>
+                        <div class="nivel-box" id="pr-chasis">PR. 82</div>
                     </div>
-                    <div class="nivel-box">PR. 82</div>
+                    <select class="selector-ingenieria" id="select-chasis" onchange="actualizarPR()">
+                        <option value="82">Batalla Corta Reglamentaria (Distancia de 3100mm)</option>
+                        <option value="85">Estructura Compacta Estrecha (Ancho total a 1900mm)</option>
+                        <option value="90">Fondo Plano Estrecho con Difusor Rediseñado FIA</option>
+                        <option value="78">Célula de Supervivencia Reforzada contra Impactos</option>
+                    </select>
                 </div>
 
+                <!-- CATEGORÍA 4: SUSPENSIÓN -->
                 <div class="categoria-item">
-                    <div class="categoria-info">
-                        <strong>👟 Sistemas de Suspensión</strong>
-                        <span>Dinámica de neumáticos de perfil bajo</span>
+                    <div class="fila-superior">
+                        <div class="categoria-info">
+                            <strong>👟 Sistemas de Suspensión</strong>
+                        </div>
+                        <div class="nivel-box" id="pr-suspension">PR. 80</div>
                     </div>
-                    <div class="nivel-box">PR. 80</div>
+                    <select class="selector-ingenieria" id="select-suspension" onchange="actualizarPR()">
+                        <option value="80">Llantas de 18 pulgadas con Neumáticos Estrechos Pirelli</option>
+                        <option value="83">Suspensión Mecánica Pull-Rod Delantera Estilizada</option>
+                        <option value="87">Geometría Trasera Push-Rod anti-hundimiento</option>
+                        <option value="75">Bujes de Carbono con Deflectores de Estela de Rueda</option>
+                    </select>
                 </div>
             </div>
 
@@ -342,7 +383,6 @@
     <script>
         let musica = document.getElementById('musica-fondo');
 
-        // PARRILLA OFICIAL TEMPORADA 2026
         const DATOS_F1 = {
             "McLaren": { jefe: "Andrea Stella", pilotos: ["Lando Norris", "Oscar Piastri"] },
             "Ferrari": { jefe: "Frédéric Vasseur", pilotos: ["Charles Leclerc", "Lewis Hamilton"] },
@@ -396,9 +436,8 @@
             cambiarPantalla('pantalla-personal', 'pantalla-taller');
         }
 
-        function comenzarSimulacion() {
-            alert("¡Transición lista!\n\nAquí la música de fondo se detendrá y saltaremos al bucle principal de telemetría de carrera en tiempo real.");
-        }
-    </script>
-</body>
-</html>
+        function actualizarPR() {
+            document.getElementById('pr-pu').innerText = "PR. " + document.getElementById('select-pu').value;
+            document.getElementById('pr-aero').innerText = "PR. " + document.getElementById('select-aero').value;
+            document.getElementById('pr-chasis').innerText = "PR. " + document.getElementById('select-chasis').value;
+            document.getElementById('pr-suspension').innerText = "PR. " + document.getElementById('select-suspension').va
