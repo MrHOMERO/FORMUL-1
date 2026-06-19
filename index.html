@@ -3,16 +3,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>F1 Manager 2026 3D</title>
-    <!-- Cargamos el motor 3D de Three.js desde un servidor seguro -->
+    <title>F1 Engineering Command 3D</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
     <style>
         :root {
             --f1-red: #e10600;
-            --dark-bg: #0f0f14;
-            --panel-bg: #1a1a24;
+            --dark-bg: #09090d;
+            --panel-bg: #13131a;
             --text-light: #ffffff;
-            --text-muted: #88889c;
+            --text-muted: #72728a;
         }
 
         body {
@@ -27,261 +26,331 @@
         .pantalla { display: none; max-width: 100%; padding: 15px; box-sizing: border-box; }
         .activa { display: block; }
 
-        /* CONTENEDOR PARA EL LIENZO 3D REGLAMENTARIO */
         #canvas-3d-contenedor {
             width: 100%;
-            height: 45vh;
-            background-color: #050508;
+            height: 40vh;
+            background-color: #030305;
             position: relative;
+            border-bottom: 2px solid #1a1a26;
         }
 
-        .interfaz-inicio {
-            text-align: center;
-            padding: 20px 15px;
-        }
+        .interfaz-inicio { text-align: center; padding: 15px; }
 
         .btn-grande {
             background-color: var(--f1-red);
-            font-size: 18px;
-            padding: 15px 30px;
+            font-size: 16px;
+            padding: 14px 28px;
             border: none;
             color: white;
             font-weight: bold;
-            border-radius: 6px;
+            border-radius: 4px;
             cursor: pointer;
-            box-shadow: 0 4px 15px rgba(225, 6, 0, 0.4);
-            width: 90%;
-            max-width: 300px;
+            width: 100%;
+            max-width: 320px;
+            letter-spacing: 0.5px;
         }
 
         .btn-verde {
-            background-color: #4caf50;
+            background-color: #00b050;
             font-size: 16px;
-            padding: 12px 25px;
+            padding: 14px;
             border: none;
             color: white;
             font-weight: bold;
-            border-radius: 6px;
+            border-radius: 4px;
             cursor: pointer;
             width: 100%;
             margin-top: 15px;
         }
 
-        .grid-equipos, .grid-pilotos {
-            display: flex;
-            flex-direction: column;
-            gap: 15px;
-            margin-top: 20px;
-        }
+        .grid-equipos, .grid-pilotos { display: flex; flex-direction: column; gap: 12px; margin-top: 15px; }
 
         .tarjeta-seleccion {
             background-color: var(--panel-bg);
-            border: 2px solid #2d2d3d;
-            border-radius: 8px;
-            padding: 15px;
-            text-align: center;
+            border: 1px solid #222230;
+            border-radius: 6px;
+            padding: 14px;
             cursor: pointer;
+            transition: background 0.2s;
         }
 
         .upgrade-card {
-            background: #252533;
+            background: #1c1c28;
             padding: 12px;
-            margin-bottom: 10px;
+            margin-bottom: 12px;
             border-radius: 6px;
         }
 
-        .opciones-piezas {
-            display: flex;
-            flex-direction: column;
-            gap: 8px;
-            margin-top: 10px;
-        }
+        .opciones-piezas { display: flex; flex-direction: column; gap: 8px; margin-top: 8px; }
 
         .btn-pieza {
-            background: #333344;
+            background: #2a2a3a;
             color: white;
-            border: 1px solid #444455;
-            padding: 8px;
+            border: 1px solid #3a3a52;
+            padding: 10px;
             border-radius: 4px;
             font-size: 13px;
             text-align: left;
+            cursor: pointer;
         }
 
         .consola {
             background: #000;
-            color: #00ff00;
+            color: #00ff66;
             font-family: monospace;
             padding: 12px;
-            height: 100px;
+            height: 80px;
             overflow-y: auto;
-            border-radius: 6px;
+            border-radius: 4px;
             font-size: 12px;
-            margin-top: 15px;
+            margin-top: 12px;
+        }
+
+        .tabla-referencia {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 12px;
+            margin-top: 8px;
+            color: #a0a0b5;
+        }
+        .tabla-referencia th, .tabla-referencia td {
+            border: 1px solid #252535;
+            padding: 6px;
+            text-align: left;
+        }
+        .tabla-referencia th { background: #181824; color: white; }
+
+        select {
+            background: #1c1c28;
+            color: white;
+            border: 1px solid #3a3a52;
+            padding: 10px;
+            border-radius: 4px;
+            width: 100%;
+            margin: 8px 0 15px 0;
         }
     </style>
 </head>
 <body>
 
-    <!-- PANTALLA 1: BIENVENIDA 3D -->
-    <div id="p-inicio" class="pantalla activa" style="padding:0;">
-        <!-- Aquí se dibuja el auto en tiempo real -->
-        <div id="canvas-3d-contenedor"></div> 
-        
+    <!-- LIENZO INTERACTIVO GLOBAL 3D -->
+    <div id="canvas-3d-contenedor"></div>
+
+    <!-- PANTALLA 1: CONTROL INICIAL -->
+    <div id="p-inicio" class="pantalla activa">
         <div class="interfaz-inicio">
-            <h1 style="font-size: 32px; margin: 10px 0 5px 0; letter-spacing: 1px;">F1 MANAGER 3D</h1>
-            <p style="color: var(--text-muted); font-size: 14px; margin-bottom: 25px;">Inspecciona el monoplaza prototipo 2026 en el laboratorio virtual.</p>
-            <button class="btn-grande" onclick="iniciarJuego()">ENTRAR AL GARAJE</button>
+            <h1 style="font-size: 28px; margin: 5px 0; letter-spacing: 1px;">F1 LABORATIO 3D</h1>
+            <p style="color: var(--text-muted); font-size: 14px; margin-bottom: 20px;">Inspección del túnel de viento activa.</p>
+            <button class="btn-grande" onclick="sonar(); irAEleccionEquipo();">ENTRAR AL GARAJE</button>
         </div>
     </div>
 
-    <!-- PANTALLA 2: ELEGIR EQUIPO -->
+    <!-- PANTALLA 2: ELEGIR EQUIPO REAL -->
     <div id="p-equipo" class="pantalla">
-        <h2>Paso 1: Selecciona tu escudería</h2>
+        <h2 style="font-size: 18px; margin-top: 0;">Selecciona una Escudería Oficial</h2>
         <div class="grid-equipos" id="contenedor-equipos"></div>
     </div>
 
-    <!-- PANTALLA 3: ELEGIR PILOTO -->
-    <div id="p-piloto" class="pantarma">
-        <h2>Paso 2: Elige tu piloto</h2>
+    <!-- PANTALLA 3: ELEGIR PILOTO REAL -->
+    <div id="p-piloto" class="pantalla">
+        <h2 style="font-size: 18px; margin-top: 0;">Asignación de Ingeniero de Pista</h2>
         <div class="grid-pilotos" id="contenedor-pilotos"></div>
     </div>
 
-    <!-- PANTALLA 4: EL TALLER -->
+    <!-- PANTALLA 4: EL TALLER DE PIEZAS -->
     <div id="p-taller" class="pantalla">
-        <div style="border-bottom: 4px solid var(--f1-red); padding-bottom: 10px; margin-bottom: 20px;">
-            <h1 id="txt-taller-equipo" style="font-size: 24px; margin:0;">ESCUDERÍA</h1>
-            <span id="txt-taller-rol" style="color: var(--text-muted); font-size: 13px;">Ingeniero de Carrera</span>
-            <div style="background: #111; padding: 10px; border-radius: 6px; margin-top:10px;">
-                <div style="font-size: 11px; color: var(--text-muted);">PRESUPUESTO RESTANTE</div>
-                <div id="txt-taller-dinero" style="font-size: 24px; color: #4caf50; font-weight: bold;">$215,000,000</div>
+        <div style="border-bottom: 3px solid var(--f1-red); padding-bottom: 10px; margin-bottom: 15px;">
+            <h1 id="txt-taller-equipo" style="font-size: 22px; margin:0;">ESCUDERÍA</h1>
+            <span id="txt-taller-director" style="color: #00ff66; font-size: 13px; display:block;">Director: </span>
+            <span id="txt-taller-rol" style="color: var(--text-muted); font-size: 12px;">Ingeniero de Carrera</span>
+            <div style="background: #111; padding: 10px; border-radius: 4px; margin-top:8px;">
+                <div style="font-size: 10px; color: var(--text-muted);">LÍMITE PRESUPUESTARIO DISPONIBLE</div>
+                <div id="txt-taller-dinero" style="font-size: 22px; color: #4caf50; font-weight: bold;">$215,000,000</div>
             </div>
         </div>
 
         <div class="upgrade-card">
-            <strong style="color: var(--f1-red);">Alerón Delantero 3D</strong>
+            <strong style="font-size: 14px; color: #ffcc00;">Alerón Delantero Avanzado (Inspección Visual 3D)</strong>
             <div class="opciones-piezas">
-                <button class="btn-pieza" id="btn-aero-1" onclick="comprarPieza('aero', 'Alerón de Alta Carga', 15000000, 'btn-aero-1', 0xff0000)">🔴 Cambiar a Alerón de Alta Carga — $15M</button>
-                <button class="btn-pieza" id="btn-aero-2" onclick="comprarPieza('aero', 'Alerón de Perfil Bajo', 25000000, 'btn-aero-2', 0x00ffcc)">🟢 Cambiar a Alerón de Perfil Bajo — $25M</button>
+                <button class="btn-pieza" id="btn-aero-1" onclick="sonar(); comprarPieza('aero', 'Alerón de Carga Máxima', 20000000, 'btn-aero-1', 0xff0055)">🔴 Kit Carga Máxima (Flujo Curvas) — $20M</button>
+                <button class="btn-pieza" id="btn-aero-2" onclick="sonar(); comprarPieza('aero', 'Alerón de Carga Mínima', 30000000, 'btn-aero-2', 0x00ffcc)">🟢 Kit Carga Mínima (Velocidad Punta) — $30M</button>
             </div>
         </div>
 
-        <div class="consola" id="consola-taller">[SISTEMA]: Simulación de chasis cargada.</div>
-        <button class="btn-verde" onclick="alert('¡Estrategia y telemetría 3D listas en el muro de boxes!')">AVANZAR AL CIRCUITO 🏁</button>
+        <div class="consola" id="consola-taller">[SISTEMA]: Telemetría de chasis montada.</div>
+        <button class="btn-verde" onclick="sonar(); irAMuroBoxes();">AVANZAR AL MURO DE BOXES 🏁</button>
     </div>
 
-    <!-- SCRIPT DEL MOTOR 3D Y LÓGICA -->
+    <!-- PANTALLA 5: MURO DE BOXES (NUEVA PANTALLA DE REQUERIMIENTOS) -->
+    <div id="p-muro" class="pantalla">
+        <div style="background: #1c1c28; padding: 12px; border-radius: 6px; margin-bottom: 15px;">
+            <h2 style="font-size: 18px; margin: 0 0 5px 0; color: var(--f1-red);">CENTRAL DE CLASIFICACIÓN (Q3)</h2>
+            <p style="font-size: 12px; color: var(--text-muted); margin: 0;">Monoplazas situados en la grilla listos para lanzar el intento de vuelta.</p>
+        </div>
+
+        <!-- Muro Central - Referencias de Datos Oficiales -->
+        <div class="upgrade-card">
+            <strong style="color: #ffcc00; font-size:13px;">📊 Tiempos de Referencia Oficiales y Estrategias Usadas</strong>
+            <table class="tabla-referencia">
+                <thead>
+                    <tr>
+                        <th>Circuito</th>
+                        <th>Pole Position (Referencia)</th>
+                        <th>Estrategia Común Usada</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Albert Park</td>
+                        <td>1:15.915</td>
+                        <td>🔴 Blando / 🟡 Medio</td>
+                    </tr>
+                    <tr>
+                        <td>Sakhir</td>
+                        <td>1:29.179</td>
+                        <td>🔴 Blando / ⚪ Duro</td>
+                    </tr>
+                    <tr>
+                        <td>Monza</td>
+                        <td>1:19.301</td>
+                        <td>🟡 Medio / ⚪ Duro</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Formulario de Configuración de Estrategia para Clasificación -->
+        <div class="upgrade-card">
+            <label><strong>Compuesto de Neumáticos (Clasificación):</strong></label>
+            <select id="muro-gomas" onchange="sonar();">
+                <option value="Blandos Nuevos">🔴 Blandos C5 Nuevos (Máximo agarre instantáneo)</option>
+                <option value="Medios Conservadores">🟡 Medios C4 (Menor degradación térmica)</option>
+            </select>
+
+            <label><strong>Modo de Entrega de Potencia (MGU-K / ERS):</strong></label>
+            <select id="muro-motor" onchange="sonar();">
+                <option value="Hot Lap">🔥 Modo Hot Lap (Despliegue de batería al 100%)</option>
+                <option value="Balanced">🔋 Modo Balanceado (Recarga de celdas para segundo intento)</option>
+            </select>
+
+            <button class="btn-grande" style="background:#00b050; width:100%; max-width:none;" onclick="sonar(); simularClasificacion();">LANZAR AUTO A LA PISTA 🚀</button>
+        </div>
+    </div>
+
+    <!-- PANTALLA 6: MONITOR DE TIEMPOS -->
+    <div id="p-cronometro" class="pantalla" style="text-align: center;">
+        <div class="upgrade-card" style="padding: 30px 15px;">
+            <h1 style="color: #00ff66; font-size: 24px; margin-bottom: 5px;">INTENTO COMPLETO</h1>
+            <p id="txt-resultado-vuelta" style="font-size: 14px; line-height: 1.6;"></p>
+            <button class="btn-grande" style="margin-top:20px;" onclick="sonar(); reiniciarSimulador();">VOLVER AL GARAJE</button>
+        </div>
+    </div>
+
+
     <script>
-        // --- MOTOR THREE.JS (GARAJE 3D) ---
-        let escena, camara, renderizador, monoplaza, alerónDelantero;
+        // --- MOTOR AUDIO SINTÉTICO INTEGRADO ---
+        function sonar() {
+            try {
+                const ctx = new (window.AudioContext || window.webkitAudioContext)();
+                const osc = ctx.createOscillator();
+                const gain = ctx.createGain();
+                osc.type = 'sine';
+                osc.frequency.setValueAtTime(880, ctx.currentTime); // Tono agudo electrónico
+                gain.gain.setValueAtTime(0.05, ctx.currentTime);
+                gain.gain.exponentialRampToValueAtTime(0.01, ctx.currentTime + 0.05);
+                osc.connect(gain);
+                gain.connect(ctx.destination);
+                osc.start();
+                osc.stop(ctx.currentTime + 0.05);
+            } catch(e) {}
+        }
+
+        // --- ENTORNO THREE.JS INTERACTIVO ---
+        let escena, camara, renderizador, monoplaza, aleronFrente;
 
         function init3D() {
             const contenedor = document.getElementById('canvas-3d-contenedor');
-            
-            // 1. Crear Escena
             escena = new THREE.Scene();
-            escena.background = new THREE.Color(0x0a0a0f);
+            escena.background = new THREE.Color(0x060609);
 
-            // 2. Crear Cámara
-            camara = new THREE.PerspectiveCamera(60, contenedor.clientWidth / contenedor.clientHeight, 0.1, 1000);
-            camara.position.set(0, 2.5, 6);
+            camara = new THREE.PerspectiveCamera(50, contenedor.clientWidth / contenedor.clientHeight, 0.1, 1000);
+            camara.position.set(0, 2.0, 5.5);
             camara.lookAt(0, 0, 0);
 
-            // 3. Renderizador
             renderizador = new THREE.WebGLRenderer({ antialias: true });
             renderizador.setSize(contenedor.clientWidth, contenedor.clientHeight);
             contenedor.appendChild(renderizador.domElement);
 
-            // 4. Luces de Escudería
-            const luzAmbiental = new THREE.AmbientLight(0xffffff, 0.6);
-            escena.add(luzAmbiental);
+            escena.add(new THREE.AmbientLight(0xffffff, 0.7));
+            const luzPits = new THREE.DirectionalLight(0xffffff, 1.2);
+            luzPits.position.set(4, 8, 5);
+            escena.add(luzPits);
 
-            const luzDirecional = new THREE.DirectionalLight(0xffffff, 1.2);
-            luzDirecional.position.set(5, 10, 7);
-            escena.add(luzDirecional);
-
-            // 5. CONSTRUCCIÓN DEL MONOPLAZA CON PIEZAS 3D
+            // MONOPLAZA GEOMÉTRICO
             monoplaza = new THREE.Group();
 
-            // Chasis principal (Cuerpo del auto)
-            const geoChasis = new THREE.BoxGeometry(1.2, 0.5, 3.5);
-            const matChasis = new THREE.MeshStandardMaterial({ color: 0x1e1e24, roughness: 0.2, metalness: 0.8 });
-            const cuerpoAuto = new THREE.Mesh(geoChasis, matChasis);
-            monoplaza.add(cuerpoAuto);
+            // Chasis
+            const geoChasis = new THREE.BoxGeometry(1.1, 0.4, 3.2);
+            const matChasis = new THREE.MeshStandardMaterial({ color: 0x333333, roughness: 0.3 });
+            const cuerpo = new THREE.Mesh(geoChasis, matChasis);
+            monoplaza.add(cuerpo);
 
-            // Cabina del piloto
-            const geoCabina = new THREE.ConeGeometry(0.4, 1, 4);
-            geoCabina.rotateX(Math.PI / 2);
-            const matCabina = new THREE.MeshStandardMaterial({ color: 0x111111 });
-            const cabina = new THREE.Mesh(geoCabina, matCabina);
-            cabina.position.set(0, 0.3, 0.2);
-            monoplaza.add(cabina);
+            // Alerón Delantero Inicial
+            const geoAleron = new THREE.BoxGeometry(2.2, 0.08, 0.4);
+            const matAleron = new THREE.MeshStandardMaterial({ color: 0xcc0000 });
+            aleronFrente = new THREE.Mesh(geoAleron, matAleron);
+            aleronFrente.position.set(0, -0.1, 1.6);
+            monoplaza.add(aleronFrente);
 
-            // Alerón Delantero Prototipo
-            const geoAleron = new THREE.BoxGeometry(2.4, 0.1, 0.4);
-            const matAleron = new THREE.MeshStandardMaterial({ color: 0xe10600, roughness: 0.5 });
-            alerónDelantero = new THREE.Mesh(geoAleron, matAleron);
-            alerónDelantero.position.set(0, -0.1, 1.8);
-            monoplaza.add(alerónDelantero);
+            // Neumáticos
+            const geoRueda = new THREE.CylinderGeometry(0.4, 0.4, 0.35, 20);
+            geoRueda.rotateZ(Math.PI / 2);
+            const matRueda = new THREE.MeshStandardMaterial({ color: 0x111111, roughness: 0.8 });
 
-            // Alerón Trasero DRS
-            const geoAleronTrasero = new THREE.BoxGeometry(1.6, 0.4, 0.3);
-            const aleronTrasero = new THREE.Mesh(geoAleronTrasero, matAleron);
-            aleronTrasero.position.set(0, 0.5, -1.6);
-            monoplaza.add(aleronTrasero);
-
-            // Neumáticos Pirelli Tridimensionales
-            const geoNeumatico = new THREE.CylinderGeometry(0.45, 0.45, 0.4, 24);
-            geoNeumatico.rotateZ(Math.PI / 2);
-            const matNeumatico = new THREE.MeshStandardMaterial({ color: 0x151515, roughness: 0.9 });
-
-            const posicionesLlantas = [
-                [-0.8, -0.1, 1.2],  // Delantera Izquierda
-                [0.8, -0.1, 1.2],   // Delantera Derecha
-                [-0.8, -0.1, -1.2], // Trasera Izquierda
-                [0.8, -0.1, -1.2]   // Trasera Derecha
-            ];
-
-            posicionesLlantas.forEach(pos => {
-                const llanta = new THREE.Mesh(geoNeumatico, matNeumatico);
-                llanta.position.set(pos[0], pos[1], pos[2]);
-                monoplaza.add(llanta);
+            const ejes = [[-0.75, 1.1], [0.75, 1.1], [-0.75, -1.1], [0.75, -1.1]];
+            ejes.forEach(pos => {
+                const rueda = new THREE.Mesh(geoRueda, matRueda);
+                rueda.position.set(pos[0], -0.05, pos[1]);
+                monoplaza.add(rueda);
             });
 
             escena.add(monoplaza);
 
-            // Piso reflejante de Pits
-            const geoPiso = new THREE.PlaneGeometry(20, 20);
-            const matPiso = new THREE.MeshStandardMaterial({ color: 0x08080c, roughness: 0.4 });
-            const piso = new THREE.Mesh(geoPiso, matPiso);
-            piso.rotation.x = -Math.PI / 2;
-            piso.position.y = -0.55;
-            escena.add(piso);
+            // Grilla de partida (Líneas base en el suelo en 3D)
+            const geoLinea = new THREE.PlaneGeometry(1.5, 0.1);
+            const matLinea = new THREE.MeshBasicMaterial({ color: 0xffffff, side: THREE.DoubleSide });
+            for(let i=0; i<5; i++){
+                const marca = new THREE.Mesh(geoLinea, matLinea);
+                marca.rotation.x = Math.PI/2;
+                marca.position.set(i % 2 === 0 ? -0.8 : 0.8, -0.46, 2 - (i*2));
+                escena.add(marca);
+            }
 
-            // Iniciar bucle de animación
-            animar();
+            animate();
         }
 
-        function animar() {
-            requestAnimationFrame(animar);
-            // El monoplaza rota suavemente en el showroom para poder apreciarlo en 3D
-            if(monoplaza) monoplaza.rotation.y += 0.01;
+        function animate() {
+            requestAnimationFrame(animate);
+            if(monoplaza) monoplaza.rotation.y += 0.008;
             renderizador.render(escena, camara);
         }
 
-        // Ejecutar inicialización 3D al cargar la web
         window.onload = init3D;
 
 
-        // --- LÓGICA DE JUEGO ADAPTADA ---
-        const EQUIPOS_F1 = {
-            "Red Bull Racing": { color: "#0c1f3c" },
-            "Ferrari": { color: "#e10600" },
-            "Mercedes": { color: "#00a19c" },
-            "McLaren": { color: "#ff8700" }
+        // --- ESTRUCTURA DE DATOS REALES ---
+        const ESCUDERIAS = {
+            "Red Bull Racing": { director: "Christian Horner", color: 0x0c1f3c, pilotos: ["Max Verstappen", "Sergio Pérez"] },
+            "Ferrari": { director: "Frédéric Vasseur", color: 0xe10600, pilotos: ["Charles Leclerc", "Lewis Hamilton"] },
+            "Mercedes": { director: "Toto Wolff", color: 0x00a19c, pilotos: ["George Russell", "Kimi Antonelli"] },
+            "McLaren": { director: "Andrea Stella", color: #ff8700, pilotos: ["Lando Norris", "Oscar Piastri"] }
         };
 
-        let miPartida = {
-            presupuestoDesarrollo: 215000000
+        let estadoJuego = {
+            equipo: null,
+            piloto: null,
+            presupuesto: 215000000,
+            mejoraNombre: "Estándar"
         };
 
         function cambiarPantalla(idOcultar, idMostrar) {
@@ -289,48 +358,99 @@
             document.getElementById(idMostrar).style.display = 'block';
         }
 
-        function iniciarJuego() {
+        function irAEleccionEquipo() {
             const contenedor = document.getElementById('contenedor-equipos');
             contenedor.innerHTML = "";
-            Object.keys(EQUIPOS_F1).forEach(key => {
+            Object.keys(ESCUDERIAS).forEach(key => {
                 contenedor.innerHTML += `
-                    <div class="tarjeta-seleccion" style="border-left: 6px solid ${EQUIPOS_F1[key].color}; text-align: left;" onclick="clickEquipo('${key}')">
-                        <strong>${key}</strong>
+                    <div class="tarjeta-seleccion" onclick="sonar(); seleccionarEquipo('${key}')">
+                        <strong style="color:white; font-size:16px;">${key}</strong><br>
+                        <span style="color:var(--text-muted); font-size:12px;">Director: ${ESCUDERIAS[key].director}</span>
                     </div>
                 `;
             });
             cambiarPantalla('p-inicio', 'p-equipo');
         }
 
-        function clickEquipo(nombreEquipo) {
+        function seleccionarEquipo(nombre) {
+            estadoJuego.equipo = nombre;
+            
+            // CAMBIO DINÁMICO DE COLORES EN CALIENTE EN EL AUTO 3D
+            if (monoplaza && monoplaza.children[0]) {
+                monoplaza.children[0].material.color.setHex(ESCUDERIAS[nombre].color);
+            }
+
             const contenedorPilotos = document.getElementById('contenedor-pilotos');
-            contenedorPilotos.innerHTML = `
-                <div class="tarjeta-seleccion" onclick="clickPiloto('Piloto Estrella')">
-                    <strong>Piloto Titular A (${nombreEquipo})</strong>
-                </div>
-            `;
+            contenedorPilotos.innerHTML = "";
+            ESCUDERIAS[nombre].pilotos.forEach(piloto => {
+                contenedorPilotos.innerHTML += `
+                    <div class="tarjeta-seleccion" onclick="sonar(); seleccionarPiloto('${piloto}')">
+                        <strong>${piloto}</strong><br>
+                        <span style="color: #00ff66; font-size:11px;">Piloto Oficial Escudería</span>
+                    </div>
+                `;
+            });
             cambiarPantalla('p-equipo', 'p-piloto');
         }
 
-        function clickPiloto(nombrePiloto) {
+        function seleccionarPiloto(nombre) {
+            estadoJuego.piloto = nombre;
+            document.getElementById('txt-taller-equipo').innerText = estadoJuego.equipo.toUpperCase();
+            document.getElementById('txt-taller-director').innerText = `Director de Equipo: ${ESCUDERIAS[estadoJuego.equipo].director}`;
+            document.getElementById('txt-taller-rol').innerText = `Ingeniero asignado a: ${nombre}`;
             cambiarPantalla('p-piloto', 'p-taller');
         }
 
-        // INTERACCIÓN DINÁMICA: Cambiar colores de la pieza 3D en vivo
-        function comprarPieza(categoria, nombrePieza, costo, botonId, colorHex) {
-            if (miPartida.presupuestoDesarrollo - costo >= 0) {
-                miPartida.presupuestoDesarrollo -= costo;
-                document.getElementById('txt-taller-dinero').innerText = '$' + miPartida.presupuestoDesarrollo.toLocaleString();
+        function comprarPieza(cat, nombre, costo, botonId, hexColor) {
+            if (estadoJuego.presupuesto - costo >= 0) {
+                estadoJuego.presupuesto -= costo;
+                estadoJuego.mejoraNombre = nombre;
+                document.getElementById('txt-taller-dinero').innerText = '$' + estadoJuego.presupuesto.toLocaleString();
                 
-                // ¡CAMBIAMOS EL COLOR DEL ALERÓN EN TIEMPO REAL EN EL MOTOR 3D!
-                if(alerónDelantero) {
-                    alerónDelantero.material.color.setHex(colorHex);
+                if(aleronFrente) {
+                    aleronFrente.material.color.setHex(hexColor);
                 }
 
                 document.getElementById(botonId).disabled = true;
-                document.getElementById(botonId).innerText = `✅ Montado e Inyectado`;
-                document.getElementById('consola-taller').innerHTML += `<br><span style="color:#00ff00">[NUEVO ALERÓN]: Modificado color del elemento de carga.</span>`;
+                document.getElementById(botonId).innerText = `✅ Montado en el Chasis`;
+                document.getElementById('consola-taller').innerHTML += `<br><span style="color:#00ff66">[CONFIG]: Cambiado perfil aerodinámico.</span>`;
             }
+        }
+
+        function irAMuroBoxes() {
+            cambiarPantalla('p-taller', 'p-muro');
+        }
+
+        function simularClasificacion() {
+            const gomas = document.getElementById('muro-gomas').value;
+            const motor = document.getElementById('muro-motor').value;
+            
+            let tiempoBase = 75.915; // Tiempo de referencia de Albert Park
+            
+            if(gomas === "Blandos Nuevos") tiempoBase -= 0.4;
+            if(motor === "Hot Lap") tiempoBase -= 0.3;
+            if(estadoJuego.mejoraNombre !== "Estándar") tiempoBase -= 0.2;
+
+            // Variación aleatoria milimétrica de simulación de carrera
+            tiempoBase += Math.random() * 0.15;
+
+            const minutos = Math.floor(tiempoBase / 60);
+            const segundos = (tiempoBase % 60).toFixed(3);
+
+            document.getElementById('txt-resultado-vuelta').innerHTML = `
+                <strong>Ingeniero de Carrera informa:</strong><br>
+                Vuelta de Clasificación completada en Albert Park.<br><br>
+                Monoplaza: <span style="color:var(--f1-red); font-weight:bold;">${estadoJuego.equipo}</span><br>
+                Piloto: <strong>${estadoJuego.piloto}</strong><br><br>
+                ⏱️ Tiempo Obtenido: <span style="font-size:22px; color:#ffcc00; font-family:monospace; display:block; margin: 10px 0;">${minutos}:${segundos}</span>
+                Referencia de Pole del año pasado: <strong>1:15.915</strong>
+            `;
+
+            cambiarPantalla('p-muro', 'p-cronometro');
+        }
+
+        function reiniciarSimulador() {
+            location.reload();
         }
     </script>
 </body>
