@@ -24,12 +24,12 @@
         .pantalla { display: none; max-width: 100%; margin: 0 auto; }
         .activa { display: block; }
 
-        /* PANTALLA DE INICIO - Optimizado para Celular con Fondo de F1 */
+        /* PANTALLA DE INICIO - Optimizado con Fondo de Monoplaza de F1 Real */
         .pantalla-inicio {
             text-align: center;
             padding: 80px 15px;
             background: linear-gradient(rgba(15,15,20,0.75), rgba(15,15,20,0.9)), 
-                        url('https://images.unsplash.com/photo-1568605117036-5fe5e7bab0b7?q=80&w=1000') center/cover;
+                        url('https://images.unsplash.com/photo-1560674457-12073ed6c46b?q=80&w=1000') center/cover;
             border-radius: 12px;
             box-shadow: inset 0 0 80px rgba(0,0,0,0.9);
             margin-top: 20px;
@@ -49,7 +49,7 @@
             max-width: 300px;
         }
 
-        /* DISEÑO ADAPTADO A MÓVILES (Layout vertical para pantallas chicas) */
+        /* DISEÑO PARA CELULARES (Disposición vertical clara) */
         .grid-equipos, .grid-pilotos {
             display: flex;
             flex-direction: column;
@@ -121,9 +121,6 @@
 </head>
 <body>
 
-    <!-- MÚSICA DE FONDO -->
-    <audio id="musica-fondo" loop src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3"></audio>
-
     <!-- PANTALLA 1: BIENVENIDA -->
     <div id="p-inicio" class="pantalla activa">
         <div class="pantalla-inicio">
@@ -191,18 +188,13 @@
     </div>
 
     <script>
-        const musica = document.getElementById('musica-fondo');
-
         function cambiarPantalla(idOcultar, idMostrar) {
             document.getElementById(idOcultar).style.display = 'none';
             document.getElementById(idMostrar).style.display = 'block';
-            window.scrollTo(0,0); // Sube la pantalla automáticamente en el celular
+            window.scrollTo(0,0); // Sube automáticamente la pantalla al cambiar en móviles
         }
 
         function iniciarJuego() {
-            musica.volume = 0.15;
-            musica.play().catch(e => console.log("Audio en espera"));
-            
             const contenedor = document.getElementById('contenedor-equipos');
             contenedor.innerHTML = "";
             
