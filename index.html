@@ -222,12 +222,10 @@
             width: 100%;
             margin-top: 15px;
             box-shadow: 0 4px 15px rgba(0, 255, 102, 0.4);
-            transition: all 0.2s ease;
         }
-        .btn-simular:hover { filter: brightness(1.1); box-shadow: 0 6px 20px rgba(0, 255, 102, 0.6); }
         .btn-simular:active { transform: scale(0.98); }
 
-        /* --- ESTILOS DE LA COMPUTADORA DE COCKPIT / TELEMETRÍA --- */
+        /* --- ESTILOS DE LA COMPUTADORA DE COCKPIT --- */
         .cockpit-pantalla {
             background: #050508;
             border: 4px solid #1a1a24;
@@ -254,9 +252,7 @@
 
         .telemetria-card span { font-size: 10px; color: var(--text-muted); display: block; text-transform: uppercase;}
         .telemetria-card strong { font-size: 16px; color: var(--neon-green); }
-        .telemetria-card strong.alerta { color: var(--f1-red); }
 
-        /* Monoplaza visto desde atrás hecho con CSS Estilizado */
         .vista-trasera-auto {
             width: 100%;
             height: 120px;
@@ -271,7 +267,6 @@
             overflow: hidden;
         }
 
-        /* Alerón Trasero DRS */
         .auto-aleron {
             position: absolute;
             top: 25px;
@@ -282,7 +277,6 @@
             border-radius: 2px;
         }
         
-        /* Neumáticos Traseros Anchos */
         .rueda-izq, .rueda-der {
             position: absolute;
             bottom: 10px;
@@ -295,7 +289,6 @@
         .rueda-izq { left: 20px; }
         .rueda-der { right: 20px; }
 
-        /* Difusor y Luz de Lluvia de F1 Parpadeante */
         .auto-difusor {
             position: absolute;
             bottom: 10px;
@@ -478,4 +471,6 @@
             "Aston Martin": { jefe: "Mike Krack", pilotos: ["Fernando Alonso", "Lance Stroll"], color: "#006f62", bg: "rgba(0, 111, 98, 0.1)", presupuesto: "$131,000,000", basePR: 84 },
             "Alpine": { jefe: "Oliver Oakes", pilotos: ["Pierre Gasly", "Franco Colapinto"], color: "#ff85b3", bg: "rgba(255, 133, 179, 0.08)", presupuesto: "$126,000,000", basePR: 82 },
             "Haas": { jefe: "Ayao Komatsu", pilotos: ["Esteban Ocon", "Oliver Bearman"], color: "#ffffff", bg: "rgba(255, 255, 255, 0.05)", presupuesto: "$122,000,000", basePR: 81 },
-            "Racing Bulls": { jefe: "Laurent Mekies", pilotos: ["Liam Lawson", "Arvid Lindblad"], color: "#1c34f4", bg: "rgba(28, 52, 244, 0.0
+            "Racing Bulls": { jefe: "Laurent Mekies", pilotos: ["Liam Lawson", "Arvid Lindblad"], color: "#1c34f4", bg: "rgba(28, 52, 244, 0.08)", presupuesto: "$124,500,000", basePR: 80 },
+            "Williams": { jefe: "James Vowles", pilotos: ["Alexander Albon", "Carlos Sainz"], color: "#005aff", bg: "rgba(0, 90, 255, 0.08)", presupuesto: "$128,000,000", basePR: 82 },
+            "Audi": { jefe: "Mattia Binotto", pilotos: ["Nico Hülkenberg", "Gabriel Bortoleto"], color: "#ff0044", bg: "rgba(255, 0, 68, 0.08)", presupuesto: "$135,000,000", basePR: 78
