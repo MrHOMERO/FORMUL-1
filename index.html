@@ -11,7 +11,6 @@
             --panel-bg: rgba(0, 0, 0, 0.75); 
             --text-light: #ffffff;
             --text-muted: #aaaaaa;
-            --neon-gold: #ffcc00;
         }
 
         body {
@@ -163,25 +162,7 @@
         .foto-jefe { border-color: #ffcc00; }
         .foto-jefe::before, .foto-jefe::after { background: #ffcc00; }
 
-        /* MARCADOR DE PRESUPUESTO CAP LIMIT */
-        .contenedor-presupuesto {
-            background: rgba(0, 0, 0, 0.6);
-            border: 1px dashed var(--neon-gold);
-            border-radius: 10px;
-            padding: 12px;
-            margin-bottom: 18px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-        .monto-dinero {
-            font-size: 20px;
-            font-weight: bold;
-            color: var(--neon-gold);
-            font-family: monospace;
-            text-shadow: 0 0 10px rgba(255, 204, 0, 0.3);
-        }
-
+        /* CONTENEDOR DINÁMICO DE IDENTIDAD DE ESCUDERÍA */
         .contenedor-auto {
             background: rgba(255, 255, 255, 0.04);
             border-radius: 12px;
@@ -203,21 +184,17 @@
             transition: color 0.3s ease, text-shadow 0.3s ease;
         }
 
-        /* FILAS MENÚ DEL TALLER */
         .categoria-item {
             background: rgba(15, 15, 25, 0.9);
             border: 1px solid #2a2a40;
             border-radius: 8px;
-            padding: 14px 12px;
+            padding: 12px;
             margin-bottom: 10px;
             text-align: left;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            cursor: pointer;
-            transition: background 0.2s, transform 0.2s;
         }
-        .categoria-item:active { transform: scale(0.98); background: rgba(30, 30, 45, 0.9); }
 
         .categoria-info strong { font-size: 14px; color: #fff; display: block; }
         .categoria-info span { font-size: 11px; color: var(--text-muted); }
@@ -231,46 +208,6 @@
             font-size: 12px;
             font-weight: bold;
             font-family: monospace;
-        }
-
-        /* OPCIONES DE LA SUBPÁGINA */
-        .opcion-desplegada {
-            background: rgba(20, 20, 35, 0.85);
-            border: 1px solid #3d3d5c;
-            border-radius: 8px;
-            padding: 14px;
-            margin-bottom: 10px;
-            text-align: left;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            cursor: pointer;
-        }
-        .opcion-desplegada.seleccionada {
-            border-color: #00ff66;
-            background: rgba(0, 255, 102, 0.08);
-        }
-        .costo-tag {
-            font-family: monospace;
-            color: var(--neon-gold);
-            font-weight: bold;
-            font-size: 13px;
-        }
-        .opcion-desplegada.seleccionada .costo-tag {
-            color: #00ff66;
-        }
-
-        .btn-volver {
-            background: #222;
-            color: #fff;
-            border: 1px solid #444;
-            padding: 10px;
-            border-radius: 6px;
-            width: 100%;
-            font-weight: bold;
-            cursor: pointer;
-            text-transform: uppercase;
-            margin-top: 15px;
         }
 
         .btn-simular {
@@ -297,12 +234,14 @@
 
     <div class="portada">
         
+        <!-- PANTALLA 1: INICIO -->
         <div id="pantalla-inicio" class="pantalla activa">
             <div class="titulo-juego">F1<br>Sensation</div>
             <div class="subtitulo-juego">Simulación Pro</div>
             <button class="btn-comenzar" onclick="comenzarJuego()">Comenzar a Jugar</button>
         </div>
 
+        <!-- PANTALLA 2: SELECCIÓN DE ESCUDERÍAS -->
         <div id="pantalla-escuderia" class="pantalla">
             <div class="titulo-pantalla">Selecciona Escudería</div>
             <div class="grid-escuderias">
@@ -320,6 +259,7 @@
             </div>
         </div>
 
+        <!-- PANTALLA 3: JERARQUÍA DEL EQUIPO -->
         <div id="pantalla-personal" class="pantalla">
             <div class="titulo-pantalla" id="titulo-equipo-activa">Estructura</div>
             
@@ -335,152 +275,137 @@
             <div id="lista-pilotos"></div>
         </div>
 
+        <!-- PANTALLA 4: TALLER DE INGENIERÍA CON MODELO DINÁMICO -->
         <div id="pantalla-taller" class="pantalla">
             <div class="titulo-pantalla">Taller de Ingeniería</div>
+            <span style="font-size: 11px; color: #00ff66; font-weight: bold; letter-spacing: 1px; display: block; margin-bottom: 10px;">MONOPLAZA ESPECIFICACIÓN 2026</span>
             
-            <div class="contenedor-presupuesto">
-                <div style="text-align: left;">
-                    <span style="font-size: 10px; color: var(--text-muted); font-weight: bold; display: block;">PRESUPUESTO CAP LIMIT</span>
-                    <strong style="font-size: 12px; color: white;">TEMPORADA 2026</strong>
-                </div>
-                <div class="monto-dinero" id="marcador-dinero">$135,000,000</div>
-            </div>
-            
+            <!-- Nombre y Logo de Escudería Dinámico -->
             <div class="contenedor-auto" id="contenedor-marca-taller">
                 <div class="f1-logo-badge" id="logo-equipo-taller">MCLAREN</div>
-                <span id="piloto-asignado-auto" style="font-size: 13px; color: #fff; font-weight: bold;">Piloto: -</span>
+                <div id="piloto-asignado-auto" style="font-size: 13px; color: #fff; font-weight: bold; margin-bottom: 4px;">Piloto: -</div>
+                <!-- NUEVO ELEMENTO: Presupuesto total del taller -->
+                <div id="presupuesto-equipo-taller" style="font-size: 11px; color: #ffcc00; font-weight: bold; font-family: monospace;">Presupuesto: $000M</div>
             </div>
 
+            <!-- Las 4 Categorías Obligatorias de Rendimiento -->
             <div id="categorias-auto">
-                <div class="categoria-item" onclick="abrirSubpagina('pu')">
+                <div class="categoria-item">
                     <div class="categoria-info">
                         <strong>⚡ Unidad de Potencia (PU)</strong>
-                        <span id="txt-pu">MGU-K Estándar</span>
+                        <span>Motor 2026 (50% Eléctrico / Biocombustible)</span>
                     </div>
-                    <div class="nivel-box" id="box-pu">PR. 85</div>
+                    <div class="nivel-box">PR. 85</div>
                 </div>
 
-                <div class="categoria-item" onclick="abrirSubpagina('aero')">
+                <div class="categoria-item">
                     <div class="categoria-info">
                         <strong>💨 Aerodinámica Activa</strong>
-                        <span id="txt-aero">Flaps de Alerón Regular</span>
+                        <span>Modos Z (Curvas) y X (Rectas - Alerón Móvil)</span>
                     </div>
-                    <div class="nivel-box" id="box-aero">PR. 79</div>
+                    <div class="nivel-box">PR. 79</div>
                 </div>
 
-                <div class="categoria-item" onclick="abrirSubpagina('chasis')">
+                <div class="categoria-item">
                     <div class="categoria-info">
                         <strong>🔧 Chasis y Peso Reducido</strong>
-                        <span id="txt-chasis">Batalla Base 3100mm</span>
+                        <span>Batalla corta (-20cm) y auto más estrecho</span>
                     </div>
-                    <div class="nivel-box" id="box-chasis">PR. 82</div>
+                    <div class="nivel-box">PR. 82</div>
                 </div>
 
-                <div class="categoria-item" onclick="abrirSubpagina('suspension')">
+                <div class="categoria-item">
                     <div class="categoria-info">
                         <strong>👟 Sistemas de Suspensión</strong>
-                        <span id="txt-suspension">Configuración Base 18"</span>
+                        <span>Dinámica de neumáticos de perfil bajo</span>
                     </div>
-                    <div class="nivel-box" id="box-suspension">PR. 80</div>
-                </div>
-
-                <div class="categoria-item" onclick="abrirSubpagina('llantas')">
-                    <div class="categoria-info">
-                        <strong>⭕ Llantas y Compuestos</strong>
-                        <span id="txt-llantas">Compuestos Estándar FIA</span>
-                    </div>
-                    <div class="nivel-box" id="box-llantas">PR. 78</div>
+                    <div class="nivel-box">PR. 80</div>
                 </div>
             </div>
 
             <button class="btn-simular" onclick="comenzarSimulacion()">Iniciar Simulación de Carrera</button>
         </div>
 
-        <div id="pantalla-subpagina" class="pantalla">
-            <div class="titulo-pantalla" id="subpagina-titulo">Configuración</div>
-            
-            <div class="contenedor-presupuesto">
-                <div style="text-align: left;">
-                    <span style="font-size: 10px; color: var(--text-muted); font-weight: bold; display: block;">PRESUPUESTO DISPONIBLE</span>
-                </div>
-                <div class="monto-dinero" id="marcador-dinero-sub">$135,000,000</div>
-            </div>
-
-            <p style="font-size: 12px; text-align: left; color: var(--text-muted); margin-bottom: 15px; text-transform: uppercase; font-weight: bold;">Selecciona una especificación técnica:</p>
-            
-            <div id="contenedor-opciones-subpagina">
-                </div>
-
-            <button class="btn-volver" onclick="volverAlTaller()">💾 Confirmar y Volver</button>
-        </div>
-
     </div>
 
     <script>
         let music = document.getElementById('musica-fondo');
-        let escuderiaSeleccionada = ""; 
-        let categoriaActiva = "";
+        let escuderiaSeleccionada = ""; // Almacena el equipo activo globalmente
 
-        // Presupuesto y elecciones del jugador
-        const presupuestoBase = 135000000;
-        let elecciones = {
-            pu: { nombre: "MGU-K Estándar 350kW", pr: 85, costo: 0 },
-            aero: { nombre: "Flaps de Alerón Regular", pr: 79, costo: 0 },
-            chasis: { nombre: "Batalla Base 3100mm", pr: 82, costo: 0 },
-            suspension: { nombre: "Configuración Base 18\"", pr: 80, costo: 0 },
-            llantas: { nombre: "Compuestos Estándar FIA", pr: 78, costo: 0 }
-        };
-
-        // Base de datos de opciones de mejora por categoría
-        const OPCIONES_TECNICAS = {
-            pu: {
-                titulo: "⚡ UNIDAD DE POTENCIA",
-                items: [
-                    { nombre: "MGU-K Estándar 350kW", pr: 85, costo: 0 },
-                    { nombre: "E-Fuel Biológico Avanzado", pr: 87, costo: 4000000 },
-                    { nombre: "Mapeado de Carrera Max", pr: 89, costo: 9000000 },
-                    { nombre: "Modo Boost Híbrido V26", pr: 93, costo: 16000000 }
-                ]
-            },
-            aero: {
-                titulo: "💨 AERODINÁMICA ACTIVA",
-                items: [
-                    { nombre: "Flaps de Alerón Regular", pr: 79, costo: 0 },
-                    { nombre: "Deflectores Endplates F1", pr: 82, costo: 3000000 },
-                    { nombre: "Modo X (Alerón en Rectas)", pr: 86, costo: 11000000 },
-                    { nombre: "Modo Z (Carga Dinámica)", pr: 91, costo: 19000000 }
-                ]
-            },
-            chasis: {
-                titulo: "🔧 CHASIS Y PESO",
-                items: [
-                    { nombre: "Batalla Base 3100mm", pr: 82, costo: 0 },
-                    { nombre: "Ancho Reducido Estrecho", pr: 85, costo: 5000000 },
-                    { nombre: "Fibra de Carbono Aligerada", pr: 88, costo: 10000000 },
-                    { nombre: "Fondo Plano de Efecto Suelo", pr: 92, costo: 17000000 }
-                ]
-            },
-            suspension: {
-                titulo: "👟 SISTEMAS DE SUSPENSIÓN",
-                items: [
-                    { nombre: "Configuración Base 18\"", pr: 80, costo: 0 },
-                    { nombre: "Bujes de Carbono Reforzado", pr: 83, costo: 2000000 },
-                    { nombre: "Pull-Rod Delantero Pro", pr: 86, costo: 7000000 },
-                    { nombre: "Push-Rod Trasero Integrado", pr: 90, costo: 12000000 }
-                ]
-            },
-            llantas: {
-                titulo: "⭕ LLANTAS Y COMPUESTOS",
-                items: [
-                    { nombre: "Compuestos Estándar FIA", pr: 78, costo: 0 },
-                    { nombre: "Llantas con Sensor Térmico", pr: 82, costo: 3000000 },
-                    { nombre: "Tratamiento de Vulcanización", pr: 85, costo: 6000000 },
-                    { nombre: "Mantas Térmicas de Precisión", pr: 89, costo: 10000000 }
-                ]
-            }
-        };
-
+        // PARRILLA OFICIAL TEMPORADA 2026 CON PRESUPUESTOS (Nivel de Límite Presupuestario FIA)
         const DATOS_F1 = {
-            "McLaren": { jefe: "Andrea Stella", pilotos: ["Lando Norris", "Oscar Piastri"], color: "#ff8700", bg: "rgba(255, 135, 0, 0.08)" },
-            "Ferrari": { jefe: "Frédéric Vasseur", pilotos: ["Charles Leclerc", "Lewis Hamilton"], color: "#e10600", bg: "rgba(225, 6, 0, 0.08)" },
-            "Red Bull": { jefe: "Christian Horner", pilotos: ["Max Verstappen", "Isa
+            "McLaren": { jefe: "Andrea Stella", pilotos: ["Lando Norris", "Oscar Piastri"], color: "#ff8700", bg: "rgba(255, 135, 0, 0.08)", presupuesto: "$135,000,000" },
+            "Ferrari": { jefe: "Frédéric Vasseur", pilotos: ["Charles Leclerc", "Lewis Hamilton"], color: "#e10600", bg: "rgba(225, 6, 0, 0.08)", presupuesto: "$135,000,000" },
+            "Red Bull": { jefe: "Christian Horner", pilotos: ["Max Verstappen", "Isack Hadjar"], color: "#0c1f3c", bg: "rgba(12, 31, 60, 0.2)", presupuesto: "$133,500,000" },
+            "Mercedes": { jefe: "Toto Wolff", pilotos: ["George Russell", "Kimi Antonelli"], color: "#00a19c", bg: "rgba(0, 161, 156, 0.08)", presupuesto: "$134,000,000" },
+            "Aston Martin": { jefe: "Mike Krack", pilotos: ["Fernando Alonso", "Lance Stroll"], color: "#006f62", bg: "rgba(0, 111, 98, 0.1)", presupuesto: "$131,000,000" },
+            "Alpine": { jefe: "Oliver Oakes", pilotos: ["Pierre Gasly", "Franco Colapinto"], color: "#ff85b3", bg: "rgba(255, 133, 179, 0.08)", presupuesto: "$126,000,000" },
+            "Haas": { jefe: "Ayao Komatsu", pilotos: ["Esteban Ocon", "Oliver Bearman"], color: "#ffffff", bg: "rgba(255, 255, 255, 0.05)", presupuesto: "$122,000,000" },
+            "Racing Bulls": { jefe: "Laurent Mekies", pilotos: ["Liam Lawson", "Arvid Lindblad"], color: "#1c34f4", bg: "rgba(28, 52, 244, 0.08)", presupuesto: "$124,500,000" },
+            "Williams": { jefe: "James Vowles", pilotos: ["Alexander Albon", "Carlos Sainz"], color: "#005aff", bg: "rgba(0, 90, 255, 0.08)", presupuesto: "$128,000,000" },
+            "Audi": { jefe: "Mattia Binotto", pilotos: ["Nico Hülkenberg", "Gabriel Bortoleto"], color: "#ff0044", bg: "rgba(255, 0, 68, 0.08)", presupuesto: "$135,000,000" },
+            "Cadillac": { jefe: "Mario Andretti", pilotos: ["Sergio Pérez", "Valtteri Bottas"], color: "#cbd5e1", bg: "rgba(203, 213, 225, 0.08)", presupuesto: "$130,000,000" }
+        };
+
+        function comenzarJuego() {
+            music.volume = 0.5; 
+            music.play().catch(error => console.log("Audio bloqueado:", error));
+            cambiarPantalla('pantalla-inicio', 'pantalla-escuderia');
+        }
+
+        function cambiarPantalla(ocultar, mostrar) {
+            document.getElementById(ocultar).style.display = 'none';
+            document.getElementById(mostrar).style.display = 'block';
+        }
+
+        function seleccionarEscuderia(equipo) {
+            escuderiaSeleccionada = equipo; 
+            const info = DATOS_F1[equipo];
+            document.getElementById('titulo-equipo-activa').innerText = equipo.toUpperCase();
+            document.getElementById('nombre-director').innerText = info.jefe;
+
+            const contenedorPilotos = document.getElementById('lista-pilotos');
+            contenedorPilotos.innerHTML = "";
+
+            info.pilotos.forEach(piloto => {
+                contenedorPilotos.innerHTML += `
+                    <div class="tarjeta-piloto" onclick="irAlTaller('${piloto}')">
+                        <div class="recuadro-foto"></div>
+                        <div>
+                            <strong style="font-size: 15px; color: white; display: block;">${piloto}</strong>
+                            <span style="font-size: 11px; color: #00ff66;">Configurar monoplaza de ingeniería</span>
+                        </div>
+                    </div>
+                `;
+            });
+
+            cambiarPantalla('pantalla-escuderia', 'pantalla-personal');
+        }
+
+        function irAlTaller(nombrePiloto) {
+            const info = DATOS_F1[escuderiaSeleccionada];
+            const logoContainer = document.getElementById('logo-equipo-taller');
+            const cajaContenedora = document.getElementById('contenedor-marca-taller');
+            const presupuestoContainer = document.getElementById('presupuesto-equipo-taller');
+
+            // Actualizamos dinámicamente el texto, colores y sombreados de marca
+            logoContainer.innerText = escuderiaSeleccionada.toUpperCase();
+            logoContainer.style.color = info.color;
+            logoContainer.style.textShadow = `0 0 15px ${info.color}66`; 
+            cajaContenedora.style.background = info.bg;
+            cajaContenedora.style.borderColor = info.color + "44"; 
+
+            document.getElementById('piloto-asignado-auto').innerText = "Piloto: " + nombrePiloto;
+            
+            // NUEVA LÓGICA: Inyectar el presupuesto asignado en el taller
+            presupuestoContainer.innerText = "PRESUPUESTO DISPONIBLE: " + info.presupuesto;
+
+            cambiarPantalla('pantalla-personal', 'pantalla-taller');
+        }
+
+        function comenzarSimulacion() {
+            alert("¡Transición lista!\n\nAquí la música de fondo se detendrá y saltaremos al bucle principal de telemetría de carrera en tiempo real.");
+        }
+    </script>
+</body>
+</html>
