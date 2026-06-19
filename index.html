@@ -18,94 +18,89 @@
             background-color: var(--dark-bg);
             color: var(--text-light);
             margin: 0;
-            padding: 20px;
+            padding: 15px;
         }
 
-        .pantalla { display: none; max-width: 900px; margin: 0 auto; }
+        .pantalla { display: none; max-width: 100%; margin: 0 auto; }
         .activa { display: block; }
 
-        /* Pantalla de Inicio */
+        /* PANTALLA DE INICIO - Optimizado para Celular con Fondo de F1 */
         .pantalla-inicio {
             text-align: center;
-            padding: 100px 20px;
-            background: linear-gradient(rgba(15,15,20,0.8), rgba(15,15,20,0.9)), url('https://images.unsplash.com/photo-1568605117036-5fe5e7bab0b7?q=80&w=1000') center/cover;
+            padding: 80px 15px;
+            background: linear-gradient(rgba(15,15,20,0.75), rgba(15,15,20,0.9)), 
+                        url('https://images.unsplash.com/photo-1568605117036-5fe5e7bab0b7?q=80&w=1000') center/cover;
             border-radius: 12px;
-            box-shadow: inset 0 0 100px rgba(0,0,0,0.8);
+            box-shadow: inset 0 0 80px rgba(0,0,0,0.9);
+            margin-top: 20px;
         }
 
         .btn-grande {
             background-color: var(--f1-red);
-            font-size: 22px;
-            padding: 15px 40px;
+            font-size: 18px;
+            padding: 15px 30px;
             border: none;
             color: white;
             font-weight: bold;
-            border-radius: 5px;
+            border-radius: 6px;
             cursor: pointer;
             box-shadow: 0 4px 15px rgba(225, 6, 0, 0.4);
-            transition: 0.2s;
+            width: 90%;
+            max-width: 300px;
         }
-        .btn-grande:hover { transform: scale(1.05); }
 
-        /* Grid de Selección */
+        /* DISEÑO ADAPTADO A MÓVILES (Layout vertical para pantallas chicas) */
         .grid-equipos, .grid-pilotos {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-            gap: 20px;
-            margin-top: 30px;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            margin-top: 20px;
         }
 
         .tarjeta-seleccion {
             background-color: var(--panel-bg);
             border: 2px solid #2d2d3d;
             border-radius: 8px;
-            padding: 20px;
+            padding: 15px;
             text-align: center;
             cursor: pointer;
-            transition: 0.2s;
-        }
-        .tarjeta-seleccion:hover {
-            border-color: var(--f1-red);
-            transform: translateY(-5px);
+            -webkit-tap-highlight-color: transparent;
         }
 
-        /* Estructura Taller principal */
         .header-taller {
             border-bottom: 4px solid var(--f1-red);
             padding-bottom: 10px;
             margin-bottom: 20px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
         }
 
         .taller-layout {
-            display: grid;
-            grid-template-columns: 1fr 2fr;
+            display: flex;
+            flex-direction: column;
             gap: 20px;
         }
 
         .panel {
             background-color: var(--panel-bg);
-            padding: 20px;
+            padding: 15px;
             border-radius: 8px;
         }
 
         .upgrade-card {
             background: #252533;
-            padding: 15px;
+            padding: 12px;
             margin-bottom: 10px;
             border-radius: 6px;
             display: flex;
             justify-content: space-between;
             align-items: center;
+            font-size: 14px;
         }
 
         button.action-btn {
             background: var(--f1-red);
             color: white;
             border: none;
-            padding: 8px 15px;
+            padding: 10px 15px;
             font-weight: bold;
             border-radius: 4px;
             cursor: pointer;
@@ -115,80 +110,78 @@
             background: #000;
             color: #00ff00;
             font-family: monospace;
-            padding: 15px;
-            height: 120px;
+            padding: 12px;
+            height: 100px;
             overflow-y: auto;
             border-radius: 6px;
-            margin-top: 20px;
+            margin-top: 15px;
+            font-size: 12px;
         }
     </style>
 </head>
 <body>
 
-    <!-- ELEMENTOS DE AUDIO (Música libre de copy y pitidos F1) -->
+    <!-- MÚSICA DE FONDO -->
     <audio id="musica-fondo" loop src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3"></audio>
-    <audio id="snd-click" src="https://actions.google.com/sounds/v1/alarms/digital_watch_alarm_long.ogg"></audio>
 
     <!-- PANTALLA 1: BIENVENIDA -->
     <div id="p-inicio" class="pantalla activa">
         <div class="pantalla-inicio">
-            <h1 style="font-size: 50px; margin-bottom: 10px;">F1 MANAGER 2026</h1>
-            <p style="color: var(--text-muted); font-size: 18px; margin-bottom: 40px;">Entra al muro de boxes bajo la nueva regulación técnica y financiera.</p>
+            <h1 style="font-size: 36px; margin-bottom: 10px; letter-spacing: 1px;">F1 MANAGER<br>2026</h1>
+            <p style="color: var(--text-muted); font-size: 15px; margin-bottom: 40px; padding: 0 10px;">Entra al muro de boxes bajo la nueva regulación técnica y financiera.</p>
             <button class="btn-grande" onclick="iniciarJuego()">INICIAR SIMULACIÓN</button>
         </div>
     </div>
 
     <!-- PANTALLA 2: ELEGIR EQUIPO -->
     <div id="p-equipo" class="pantalla">
-        <h2>Paso 1: Selecciona la escudería para la que vas a trabajar</h2>
-        <p style="color: var(--text-muted)">Tu presupuesto base será ajustado al Budget Cap estricto de $215M.</p>
+        <h2 style="font-size: 20px;">Paso 1: Selecciona tu escudería</h2>
+        <p style="color: var(--text-muted); font-size: 14px;">Tu presupuesto base se ajustará al estricto límite de $215M.</p>
         <div class="grid-equipos" id="contenedor-equipos"></div>
     </div>
 
     <!-- PANTALLA 3: ELEGIR PILOTO PARA SER SU INGENIERO -->
     <div id="p-piloto" class="pantalla">
-        <h2>Paso 2: Elige tu rol en el garaje</h2>
-        <p style="color: var(--text-muted)">Como Director Técnico global, ¿de qué piloto quieres ser además su **Ingeniero de Carrera directo** en la radio?</p>
+        <h2 style="font-size: 20px;">Paso 2: Elige tu rol en el garaje</h2>
+        <p style="color: var(--text-muted); font-size: 14px;">¿De qué piloto serás su <strong>Ingeniero de Carrera directo</strong> en la radio?</p>
         <div class="grid-pilotos" id="contenedor-pilotos"></div>
     </div>
 
     <!-- PANTALLA 4: EL TALLER / GESTIÓN DE PRESUPUESTO -->
     <div id="p-taller" class="pantalla">
         <div class="header-taller">
-            <div>
-                <h1 id="txt-taller-equipo">Nombre Equipo</h1>
-                <span id="txt-taller-rol" style="color: var(--text-muted)">Ingeniero de X</span>
-            </div>
-            <div style="text-align: right;">
-                <div style="font-size: 12px; color: var(--text-muted);">PRESUPUESTO RESTANTE (FIA 2026)</div>
-                <div id="txt-taller-dinero" style="font-size: 28px; color: #4caf50; font-weight: bold;">$215,000,000</div>
+            <h1 id="txt-taller-equipo" style="font-size: 24px; margin: 0 0 5px 0;">Equipo</h1>
+            <span id="txt-taller-rol" style="color: var(--text-muted); font-size: 13px; display: block; margin-bottom: 10px;">Ingeniero</span>
+            <div style="background: #111; padding: 10px; border-radius: 6px;">
+                <div style="font-size: 11px; color: var(--text-muted);">PRESUPUESTO RESTANTE FIA</div>
+                <div id="txt-taller-dinero" style="font-size: 24px; color: #4caf50; font-weight: bold;">$215,000,000</div>
             </div>
         </div>
 
         <div class="taller-layout">
-            <!-- CIRCUITOS DEL CALENDARIO -->
-            <div class="panel">
-                <h3 style="margin-top:0;">Calendario del Campeonato</h3>
-                <div id="lista-circuitos" style="font-size: 14px; line-height: 1.6;"></div>
-            </div>
-
             <!-- MEJORAS DEL MONOPLAZA -->
             <div class="panel">
-                <h3 style="margin-top:0;">Inversión Tecnológica Obligatoria</h3>
-                <p style="font-size: 13px; color: var(--text-muted); margin-bottom: 20px;">Distribuye tus $215M antes del primer Gran Premio.</p>
+                <h3 style="margin-top:0; font-size: 16px;">Inversión Tecnológica 2026</h3>
+                <p style="font-size: 12px; color: var(--text-muted); margin-bottom: 15px;">Mejora el coche antes de ir a pista.</p>
                 
                 <div class="upgrade-card">
-                    <div><strong>Aerodinámica 2026</strong><br><span style="color: var(--text-muted)">Coste: $15M</span></div>
+                    <div><strong>Aerodinámica</strong><br><span style="color: var(--text-muted)">Coste: $15M</span></div>
                     <button class="action-btn" onclick="comprar('aero', 15000000)">Invertir</button>
                 </div>
                 <div class="upgrade-card">
-                    <div><strong>E-Motor (Unidad Eléctrica)</strong><br><span style="color: var(--text-muted)">Coste: $30M</span></div>
+                    <div><strong>E-Motor (Híbrido)</strong><br><span style="color: var(--text-muted)">Coste: $30M</span></div>
                     <button class="action-btn" onclick="comprar('motor', 30000000)">Invertir</button>
                 </div>
                 <div class="upgrade-card">
-                    <div><strong>Evolución de Chasis Ligero</strong><br><span style="color: var(--text-muted)">Coste: $10M</span></div>
+                    <div><strong>Chasis Ligero</strong><br><span style="color: var(--text-muted)">Coste: $10M</span></div>
                     <button class="action-btn" onclick="comprar('chasis', 10000000)">Invertir</button>
                 </div>
+            </div>
+
+            <!-- CIRCUITOS DEL CALENDARIO -->
+            <div class="panel">
+                <h3 style="margin-top:0; font-size: 16px;">Calendario del Campeonato</h3>
+                <div id="lista-circuitos" style="font-size: 13px; line-height: 1.8;"></div>
             </div>
         </div>
 
@@ -198,33 +191,27 @@
     </div>
 
     <script>
-        const soundClick = document.getElementById('snd-click');
         const musica = document.getElementById('musica-fondo');
 
-        function playSound() {
-            soundClick.currentTime = 0;
-            soundClick.play().catch(e => console.log("Audio interactivo bloqueado"));
-        }
-
         function cambiarPantalla(idOcultar, idMostrar) {
-            document.getElementById(idOcultar).classList.remove('activa');
-            document.getElementById(idMostrar).classList.add('activa');
+            document.getElementById(idOcultar).style.display = 'none';
+            document.getElementById(idMostrar).style.display = 'block';
+            window.scrollTo(0,0); // Sube la pantalla automáticamente en el celular
         }
 
         function iniciarJuego() {
-            playSound();
-            musica.volume = 0.2;
-            musica.play().catch(e => console.log("Música requiere interacción previa"));
+            musica.volume = 0.15;
+            musica.play().catch(e => console.log("Audio en espera"));
             
-            // Construir tarjetas de equipos dinámicamente
             const contenedor = document.getElementById('contenedor-equipos');
             contenedor.innerHTML = "";
+            
             Object.keys(EQUIPOS_F1).forEach(key => {
                 const eq = EQUIPOS_F1[key];
                 contenedor.innerHTML += `
-                    <div class="tarjeta-seleccion" style="border-top: 5px solid ${eq.color}" onclick="clickEquipo('${key}')">
-                        <h3>${key}</h3>
-                        <p style="font-size: 13px; color: var(--text-muted)">Director: ${eq.principal}</p>
+                    <div class="tarjeta-seleccion" style="border-left: 6px solid ${eq.color}; text-align: left;" onclick="clickEquipo('${key}')">
+                        <strong style="font-size: 18px;">${key}</strong>
+                        <div style="font-size: 12px; color: var(--text-muted); margin-top: 3px;">Director: ${eq.principal}</div>
                     </div>
                 `;
             });
@@ -233,10 +220,8 @@
         }
 
         function clickEquipo(nombreEquipo) {
-            playSound();
             seleccionarEquipo(nombreEquipo);
             
-            // Filtrar y mostrar los 2 pilotos reales de ese equipo
             const contenedorPilotos = document.getElementById('contenedor-pilotos');
             contenedorPilotos.innerHTML = "";
             const filtrados = PILOTOS_F1.filter(p => p.equipo === nombreEquipo);
@@ -244,8 +229,8 @@
             filtrados.forEach(p => {
                 contenedorPilotos.innerHTML += `
                     <div class="tarjeta-seleccion" onclick="clickPiloto('${p.nombre}')">
-                        <h3>${p.nombre}</h3>
-                        <p style="font-size: 13px; color: var(--text-muted)">Habilidad base: ${p.habilidad}/100</p>
+                        <strong style="font-size: 18px;">${p.nombre}</strong>
+                        <div style="font-size: 12px; color: var(--text-muted); margin-top: 3px;">Habilidad: ${p.habilidad}/100</div>
                     </div>
                 `;
             });
@@ -254,34 +239,30 @@
         }
 
         function clickPiloto(nombrePiloto) {
-            playSound();
             asignarPilotoIngeniero(nombrePiloto);
 
-            // Cargar datos en la pantalla del Taller Financiero
             document.getElementById('txt-taller-equipo').innerText = miPartida.equipoSeleccionado.toUpperCase();
-            document.getElementById('txt-taller-rol').innerText = `Ingeniero de carrera asignado a: ${nombrePiloto}`;
+            document.getElementById('txt-taller-rol').innerText = `Ingeniero de: ${nombrePiloto}`;
             document.getElementById('txt-taller-dinero').innerText = '$' + miPartida.presupuestoDesarrollo.toLocaleString();
 
-            // Desplegar lista de circuitos reales
             const listaCir = document.getElementById('lista-circuitos');
             listaCir.innerHTML = "";
             CIRCUITOS_2026.forEach((c, idx) => {
-                listaCir.innerHTML += `${idx+1}. <strong>${c.nombre}</strong> — ${c.tipo}<br>`;
+                listaCir.innerHTML += `🏁 ${idx+1}. <strong>${c.nombre}</strong> (${c.tipo})<br>`;
             });
 
             cambiarPantalla('p-piloto', 'p-taller');
         }
 
         function comprar(area, costo) {
-            playSound();
             const exito = invertirEnDesarrollo(area, costo);
             const consola = document.getElementById('consola-taller');
             
             if(exito) {
                 document.getElementById('txt-taller-dinero').innerText = '$' + miPartida.presupuestoDesarrollo.toLocaleString();
-                consola.innerHTML += `<br><span style="color: #00ff00">[FÁBRICA]: Inversión de $${costo.toLocaleString()} en ${area.toUpperCase()} completada. Nivel actual: ${miPartida.mejoras[area]}</span>`;
+                consola.innerHTML += `<br><span style="color: #00ff00">[OK]: Inversión en ${area.toUpperCase()}. Nivel: ${miPartida.mejoras[area]}</span>`;
             } else {
-                consola.innerHTML += `<br><span style="color: #ff3333">[ALERTA]: Fondos rechazados para ${area.toUpperCase()}. ¡No podemos romper el límite de la FIA!</span>`;
+                consola.innerHTML += `<br><span style="color: #ff3333">[RECHAZADO]: Fondos insuficientes. Límite FIA.</span>`;
             }
             consola.scrollTop = consola.scrollHeight;
         }
