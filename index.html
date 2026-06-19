@@ -198,7 +198,7 @@
             text-shadow: 0 0 15px rgba(255, 255, 255, 0.2);
         }
 
-        /* BLOQUE DE CATEGORÍAS TIPO BOTONES DE SELECCIÓN */
+        /* CONFIGURACIONES TÉCNICAS */
         .categoria-item {
             background: rgba(18, 18, 28, 0.95);
             border: 1px solid #2e2e46;
@@ -216,7 +216,6 @@
         }
 
         .categoria-info strong { font-size: 14px; color: #fff; display: block; }
-        .categoria-info span { font-size: 11px; color: var(--text-muted); }
 
         .nivel-box {
             background: #051a0e;
@@ -282,7 +281,7 @@
 </head>
 <body>
 
-    <audio id="musica-fondo" loop>
+    <audio id="musica-fondo" loop preload="auto">
         <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-4.mp3" type="audio/mpeg">
     </audio>
 
@@ -300,7 +299,7 @@
                 <button class="btn-escuderia" style="border-left: 5px solid #ff8700;" onclick="seleccionarEscuderia('McLaren')">McLaren<span>Pos. 2025: 1º</span></button>
                 <button class="btn-escuderia" style="border-left: 5px solid #e10600;" onclick="seleccionarEscuderia('Ferrari')">Ferrari<span>Pos. 2025: 2º</span></button>
                 <button class="btn-escuderia" style="border-left: 5px solid #0c1f3c;" onclick="seleccionarEscuderia('Red Bull')">Red Bull<span>Pos. 2025: 3º</span></button>
-                <button class="btn-escuderia" style="border-left: 5px solid #00a19c;" onclick="seleccionarEscuderia('Mercedes')">Mercedes<span>Pos. 2025: 4º</span></button>
+                <button class="btn-escuderia" style="border-left: 5px solid #00a19c;" onclick="Mercedes=true; seleccionarEscuderia('Mercedes')">Mercedes<span>Pos. 2025: 4º</span></button>
                 <button class="btn-escuderia" style="border-left: 5px solid #006f62;" onclick="seleccionarEscuderia('Aston Martin')">Aston Martin<span>Pos. 2025: 5º</span></button>
                 <button class="btn-escuderia" style="border-left: 5px solid #ff85b3;" onclick="seleccionarEscuderia('Alpine')">Alpine<span>Pos. 2025: 6º</span></button>
                 <button class="btn-escuderia" style="border-left: 5px solid #ffffff;" onclick="seleccionarEscuderia('Haas')">Haas<span>Pos. 2025: 7º</span></button>
@@ -430,12 +429,25 @@
             "Cadillac": { jefe: "Mario Andretti", color: "#cbd5e1", pilotos: ["Sergio Pérez", "Valtteri Bottas"] }
         };
 
+        // CORREGIDO: El cambio de pantalla ocurre inmediatamente sin importar el audio
         function comenzarJuego() {
-            musica.volume = 0.5; 
-            musica.play().catch(error => console.log("Audio retenido por el navegador:", error));
             cambiarPantalla('pantalla-inicio', 'pantalla-escuderia');
+            
+            // Intentar reproducir audio de fondo de forma segura
+            if (musica) {
+                musica.volume = 0.3;
+                musica.play().catch(function(error) {
+                    console.log("El navegador bloqueó el auto-play de música inicialmente, el juego continúa.");
+                });
+            }
         }
 
         function cambiarPantalla(ocultar, mostrar) {
             document.getElementById(ocultar).style.display = 'none';
-            document.
+            document.getElementById(mostrar).style.display = 'block';
+        }
+
+        function seleccionarEscuderia(equipo) {
+            equipoActual = equipo;
+            const info = DATOS_F1[equipo];
+            document.getElementById('titulo-equipo-activa').innerText = equipo.toU
