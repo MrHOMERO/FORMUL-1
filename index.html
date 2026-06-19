@@ -8,9 +8,10 @@
         :root {
             --f1-red: #e10600;
             --dark-bg: #0b0b0f;
-            --panel-bg: rgba(0, 0, 0, 0.75); 
+            --panel-bg: rgba(0, 0, 0, 0.85); 
             --text-light: #ffffff;
             --text-muted: #aaaaaa;
+            --neon-green: #00ff66;
             --neon-gold: #ffcc00;
         }
 
@@ -35,13 +36,13 @@
         .portada {
             text-align: center;
             width: 90%;
-            max-width: 420px;
-            padding: 30px 20px;
+            max-width: 440px;
+            padding: 25px 20px;
             background-color: var(--panel-bg); 
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
             border-radius: 16px;
-            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.8);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.9);
             border: 1px solid rgba(255, 255, 255, 0.1);
             margin: 20px 0;
             box-sizing: border-box;
@@ -146,7 +147,7 @@
             text-align: left;
             cursor: pointer;
         }
-        .tarjeta-piloto:active { transform: scale(0.98); border-color: #00ff66; }
+        .tarjeta-piloto:active { transform: scale(0.98); border-color: var(--neon-green); }
 
         .recuadro-foto {
             width: 50px;
@@ -160,8 +161,8 @@
         }
         .recuadro-foto::before { content: ""; width: 22px; height: 22px; background: #8888aa; border-radius: 50%; position: absolute; top: 8px; left: 14px;}
         .recuadro-foto::after { content: ""; width: 36px; height: 24px; background: #8888aa; border-radius: 50% 50% 0 0; position: absolute; bottom: -6px; left: 7px;}
-        .foto-jefe { border-color: #ffcc00; }
-        .foto-jefe::before, .foto-jefe::after { background: #ffcc00; }
+        .foto-jefe { border-color: var(--neon-gold); }
+        .foto-jefe::before, .foto-jefe::after { background: var(--neon-gold); }
 
         .contenedor-auto {
             background: rgba(255, 255, 255, 0.04);
@@ -169,7 +170,6 @@
             padding: 20px 15px;
             margin-bottom: 20px;
             border: 1px solid rgba(255, 255, 255, 0.1);
-            transition: background 0.3s ease;
         }
 
         .f1-logo-badge {
@@ -181,24 +181,19 @@
             margin-bottom: 8px;
             font-style: italic;
             line-height: 1;
-            transition: color 0.3s ease, text-shadow 0.3s ease;
         }
 
         .categoria-item {
             background: rgba(15, 15, 25, 0.9);
             border: 1px solid #2a2a40;
             border-radius: 8px;
-            padding: 14px 12px;
+            padding: 12px;
             margin-bottom: 10px;
             text-align: left;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            cursor: pointer;
-            transition: background 0.2s, transform 0.2s;
         }
-        .categoria-item:hover { background: rgba(25, 25, 40, 0.9); border-color: #3d3d5c; }
-        .categoria-item:active { transform: scale(0.98); }
 
         .categoria-info strong { font-size: 14px; color: #fff; display: block; }
         .categoria-info span { font-size: 11px; color: var(--text-muted); }
@@ -207,57 +202,12 @@
             background: #111;
             padding: 4px 10px;
             border-radius: 4px;
-            border: 1px solid #00ff66;
-            color: #00ff66;
+            border: 1px solid var(--neon-green);
+            color: var(--neon-green);
             font-size: 12px;
             font-weight: bold;
             font-family: monospace;
         }
-
-        .opcion-desplegada {
-            background: rgba(20, 20, 35, 0.85);
-            border: 1px solid #3d3d5c;
-            border-radius: 8px;
-            padding: 14px;
-            margin-bottom: 10px;
-            text-align: left;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            cursor: pointer;
-            transition: all 0.2s ease;
-        }
-        .opcion-desplegada:hover { background: rgba(30, 30, 50, 0.9); }
-        
-        .opcion-desplegada.seleccionada {
-            border-color: #00ff66;
-            background: rgba(0, 255, 102, 0.08);
-            box-shadow: 0 0 10px rgba(0, 255, 102, 0.15);
-        }
-
-        .costo-tag {
-            font-family: monospace;
-            color: var(--neon-gold);
-            font-weight: bold;
-            font-size: 13px;
-        }
-        .opcion-desplegada.seleccionada .costo-tag {
-            color: #00ff66;
-        }
-
-        .btn-volver {
-            background: #1f1f2e;
-            color: white;
-            border: 1px solid #3d3d5c;
-            padding: 12px;
-            border-radius: 6px;
-            width: 100%;
-            font-weight: bold;
-            cursor: pointer;
-            text-transform: uppercase;
-            margin-top: 15px;
-        }
-        .btn-volver:active { transform: scale(0.98); }
 
         .btn-simular {
             background: linear-gradient(135deg, #00ff66 0%, #009944 100%);
@@ -272,6 +222,103 @@
             width: 100%;
             margin-top: 15px;
             box-shadow: 0 4px 15px rgba(0, 255, 102, 0.4);
+            transition: all 0.2s ease;
+        }
+        .btn-simular:hover { filter: brightness(1.1); box-shadow: 0 6px 20px rgba(0, 255, 102, 0.6); }
+        .btn-simular:active { transform: scale(0.98); }
+
+        /* --- ESTILOS DE LA COMPUTADORA DE COCKPIT / TELEMETRÍA --- */
+        .cockpit-pantalla {
+            background: #050508;
+            border: 4px solid #1a1a24;
+            border-radius: 10px;
+            padding: 15px;
+            font-family: monospace;
+            text-align: left;
+            box-shadow: inset 0 0 20px rgba(0,0,0,1), 0 0 15px rgba(0, 255, 102, 0.1);
+        }
+
+        .panel-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 10px;
+            margin-bottom: 15px;
+        }
+
+        .telemetria-card {
+            background: rgba(20, 20, 30, 0.7);
+            border: 1px solid #222233;
+            padding: 8px;
+            border-radius: 5px;
+        }
+
+        .telemetria-card span { font-size: 10px; color: var(--text-muted); display: block; text-transform: uppercase;}
+        .telemetria-card strong { font-size: 16px; color: var(--neon-green); }
+        .telemetria-card strong.alerta { color: var(--f1-red); }
+
+        /* Monoplaza visto desde atrás hecho con CSS Estilizado */
+        .vista-trasera-auto {
+            width: 100%;
+            height: 120px;
+            background: linear-gradient(0deg, #111 0%, #1c1c24 100%);
+            border-radius: 6px;
+            border: 1px solid #333;
+            margin: 15px 0;
+            position: relative;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+        }
+
+        /* Alerón Trasero DRS */
+        .auto-aleron {
+            position: absolute;
+            top: 25px;
+            width: 180px;
+            height: 15px;
+            background: #222;
+            border: 2px solid var(--f1-red);
+            border-radius: 2px;
+        }
+        
+        /* Neumáticos Traseros Anchos */
+        .rueda-izq, .rueda-der {
+            position: absolute;
+            bottom: 10px;
+            width: 45px;
+            height: 75px;
+            background: #151515;
+            border-radius: 6px;
+            border: 1px dashed #333;
+        }
+        .rueda-izq { left: 20px; }
+        .rueda-der { right: 20px; }
+
+        /* Difusor y Luz de Lluvia de F1 Parpadeante */
+        .auto-difusor {
+            position: absolute;
+            bottom: 10px;
+            width: 90px;
+            height: 40px;
+            background: #0a0a0f;
+            border-top: 4px solid #444;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .luz-lluvia {
+            width: 14px;
+            height: 10px;
+            background-color: var(--f1-red);
+            box-shadow: 0 0 12px var(--f1-red);
+            border-radius: 2px;
+            animation: parpadeoF1 0.2s infinite;
+        }
+
+        @keyframes parpadeoF1 {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.1; }
         }
     </style>
 </head>
@@ -300,7 +347,7 @@
                 <button class="btn-escuderia" style="border-left: 5px solid #ff85b3;" onclick="seleccionarEscuderia('Alpine')">Alpine<span>Pos. 2025: 6º</span></button>
                 <button class="btn-escuderia" style="border-left: 5px solid #ffffff;" onclick="seleccionarEscuderia('Haas')">Haas<span>Pos. 2025: 7º</span></button>
                 <button class="btn-escuderia" style="border-left: 5px solid #1c34f4;" onclick="seleccionarEscuderia('Racing Bulls')">Racing Bulls<span>Pos. 2025: 8º</span></button>
-                <button class="btn-escuderia" style="border-left: 5px solid #005aff;" onclick="white-space; selection: Williams;" onclick="seleccionarEscuderia('Williams')">Williams<span>Pos. 2025: 9º</span></button>
+                <button class="btn-escuderia" style="border-left: 5px solid #005aff;" onclick="seleccionarEscuderia('Williams')">Williams<span>Pos. 2025: 9º</span></button>
                 <button class="btn-escuderia" style="border-left: 5px solid #ff0044;" onclick="seleccionarEscuderia('Audi')">Audi<span>Pos. 2025: 10º</span></button>
                 <button class="btn-escuderia" style="border-left: 5px solid #cbd5e1;" onclick="seleccionarEscuderia('Cadillac')">Cadillac<span>Nueva Escudería</span></button>
             </div>
@@ -327,58 +374,92 @@
             
             <div class="contenedor-auto" id="contenedor-marca-taller">
                 <div class="f1-logo-badge" id="logo-equipo-taller">MCLAREN</div>
-                <div id="piloto-assigned-auto" style="font-size: 13px; color: #fff; font-weight: bold; margin-bottom: 4px;">Piloto: -</div>
-                <div id="presupuesto-equipo-taller" style="font-size: 11px; color: #ffcc00; font-weight: bold; font-family: monospace;">PRESUPUESTO DISPONIBLE: $135,000,000</div>
+                <div id="piloto-asignado-auto" style="font-size: 13px; color: #fff; font-weight: bold; margin-bottom: 4px;">Piloto: -</div>
+                <div id="presupuesto-equipo-taller" style="font-size: 11px; color: #ffcc00; font-weight: bold; font-family: monospace;">Presupuesto: $000M</div>
             </div>
 
             <div id="categorias-auto">
-                <div class="categoria-item" onclick="abrirSubpagina('pu')">
+                <div class="categoria-item">
                     <div class="categoria-info">
                         <strong>⚡ Unidad de Potencia (PU)</strong>
-                        <span id="txt-pu">Motor Base Estándar</span>
+                        <span>Motor 2026 (50% Eléctrico / Biocombustible)</span>
                     </div>
-                    <div class="nivel-box" id="box-pu">PR. 85</div>
+                    <div class="nivel-box">PR. 85</div>
                 </div>
-
-                <div class="categoria-item" onclick="abrirSubpagina('aero')">
+                <div class="categoria-item">
                     <div class="categoria-info">
                         <strong>💨 Aerodinámica Activa</strong>
-                        <span id="txt-aero">Configuración de Alerón Estándar</span>
+                        <span>Modos Z (Curvas) y X (Rectas - Alerón Móvil)</span>
                     </div>
-                    <div class="nivel-box" id="box-aero">PR. 79</div>
+                    <div class="nivel-box">PR. 79</div>
                 </div>
-
-                <div class="categoria-item" onclick="abrirSubpagina('chasis')">
+                <div class="categoria-item">
                     <div class="categoria-info">
                         <strong>🔧 Chasis y Peso Reducido</strong>
-                        <span id="txt-chasis">Estructura de Carbono Regular</span>
+                        <span>Batalla corta (-20cm) y auto más estrecho</span>
                     </div>
-                    <div class="nivel-box" id="box-chasis">PR. 82</div>
+                    <div class="nivel-box">PR. 82</div>
                 </div>
-
-                <div class="categoria-item" onclick="abrirSubpagina('suspension')">
+                <div class="categoria-item">
                     <div class="categoria-info">
                         <strong>👟 Sistemas de Suspensión</strong>
-                        <span id="txt-suspension">Amortiguadores Base FIA</span>
+                        <span>Dinámica de neumáticos de perfil bajo</span>
                     </div>
-                    <div class="nivel-box" id="box-suspension">PR. 80</div>
+                    <div class="nivel-box">PR. 80</div>
                 </div>
             </div>
 
-            <button class="btn-simular" onclick="comenzarSimulacion()">Iniciar Simulación de Carrera</button>
+            <button class="btn-simular" onclick="irACarrera()">Ir a la Carrera</button>
         </div>
 
-        <div id="pantalla-subpagina" class="pantalla">
-            <div class="titulo-pantalla" id="subpagina-titulo">Especificación</div>
+        <div id="pantalla-simulacion" class="pantalla">
+            <div class="titulo-pantalla" style="border-color: var(--neon-green);">Race Telemetry Display</div>
             
-            <div style="background: rgba(0,0,0,0.4); padding: 10px; border-radius: 8px; margin-bottom: 15px; border: 1px dashed var(--neon-gold);">
-                <span style="font-size: 10px; color: var(--text-muted); display: block; font-weight: bold;">SALDO DISPONIBLE CAP LIMIT</span>
-                <strong id="presupuesto-subpagina" style="font-size: 16px; color: var(--neon-gold); font-family: monospace;">$135,000,000</strong>
+            <div class="cockpit-pantalla">
+                <div style="font-size: 11px; color: #ff0000; font-weight: bold; margin-bottom: 8px; text-align: center; border-bottom: 1px solid #222; padding-bottom: 4px;">
+                    🔴 LIVE COCKPIT DATA // CIRCUITO: MONZA GP
+                </div>
+
+                <div class="panel-grid">
+                    <div class="telemetria-card">
+                        <span>Tiempo Restante</span>
+                        <strong id="sim-tiempo" style="color: var(--neon-gold);">03:00</strong>
+                    </div>
+                    <div class="telemetria-card">
+                        <span>Posición</span>
+                        <strong id="sim-posicion">P20</strong>
+                    </div>
+                    <div class="telemetria-card">
+                        <span>Última Vuelta</span>
+                        <strong id="sim-laptime">1:21.405</strong>
+                    </div>
+                    <div class="telemetria-card">
+                        <span>Velocidad Máx</span>
+                        <strong id="sim-velocidad">0 km/h</strong>
+                    </div>
+                    <div class="telemetria-card">
+                        <span>Gomas (Tyres)</span>
+                        <strong id="sim-neumaticos">100%</strong>
+                    </div>
+                    <div class="telemetria-card">
+                        <span>Combustible</span>
+                        <strong id="sim-combustible">100.0L</strong>
+                    </div>
+                </div>
+
+                <div class="vista-trasera-auto">
+                    <div class="auto-aleron" id="auto-aleron-color"></div>
+                    <div class="rueda-izq"></div>
+                    <div class="rueda-der"></div>
+                    <div class="auto-difusor">
+                        <div class="luz-lluvia"></div>
+                    </div>
+                </div>
+                
+                <div style="font-size: 10px; color:#555; text-align: center; margin-top: 5px;">
+                    SISTEMA DE ESTRATEGIA EN TIEMPO REAL 2026
+                </div>
             </div>
-
-            <div id="contenedor-opciones-subpagina"></div>
-
-            <button class="btn-volver" onclick="volverAlTaller()">💾 Confirmar y Volver</button>
         </div>
 
     </div>
@@ -386,68 +467,15 @@
     <script>
         let music = document.getElementById('musica-fondo');
         let escuderiaSeleccionada = ""; 
-        let presupuestoNumerico = 0; 
-        let categoriaActiva = ""; 
-
-        const OPCIONES_TECNICAS = {
-            pu: {
-                titulo: "⚡ UNIDAD DE POTENCIA",
-                items: [
-                    { nombre: "Motor Cliente Estándar", pr: 85, costo: 0 },
-                    { nombre: "E-Fuel Biológico Optimizado", pr: 88, costo: 5000000 },
-                    { nombre: "Mapeado de Carrera Pro V26", pr: 92, costo: 12000000 },
-                    { nombre: "Bloque Oficial de Fábrica Híbrido", pr: 96, costo: 25000000 }
-                ]
-            },
-            aero: {
-                titulo: "💨 AERODINÁMICA ACTIVA",
-                items: [
-                    { nombre: "Alerón de Carga Fija Estándar", pr: 79, costo: 0 },
-                    { nombre: "Deflectores Endplates Optimizados", pr: 83, costo: 3000000 },
-                    { nombre: "Modo X Avanzado (Rectas)", pr: 88, costo: 9000000 },
-                    { nombre: "Sistema Activo Inteligente Z-Mode", pr: 93, costo: 18000000 }
-                ]
-            },
-            chasis: {
-                titulo: "🔧 CHASIS Y PESO",
-                items: [
-                    { nombre: "Batalla Corta Base 3100mm", pr: 82, costo: 0 },
-                    { nombre: "Carbono de Densidad Reducida", pr: 85, costo: 4000000 },
-                    { nombre: "Fondo Plano Eficiencia Suelo", pr: 89, costo: 11000000 },
-                    { nombre: "Estructura Monocasco Aligerada", pr: 94, costo: 20000000 }
-                ]
-            },
-            suspension: {
-                titulo: "👟 SISTEMAS DE SUSPENSIÓN",
-                items: [
-                    { nombre: "Bujes y Amortiguadores FIA", pr: 80, costo: 0 },
-                    { nombre: "Geometría Anti-Squat Reforzada", pr: 84, costo: 3500000 },
-                    { nombre: "Pull-Rod Mecánico Delantero", pr: 87, costo: 7000000 },
-                    { nombre: "Suspensión Inteligente Activa", pr: 92, costo: 14000000 }
-                ]
-            }
-        };
-
-        let configuracionAuto = {
-            pu: { nombre: "Motor Cliente Estándar", pr: 85, costo: 0 },
-            aero: { nombre: "Alerón de Carga Fija Estándar", pr: 79, costo: 0 },
-            chasis: { nombre: "Batalla Corta Base 3100mm", pr: 82, costo: 0 },
-            suspension: { nombre: "Bujes y Amortiguadores FIA", pr: 80, costo: 0 }
-        };
+        let nombrePilotoActivo = "";
+        let intervaloSimulacion;
 
         const DATOS_F1 = {
-            "McLaren": { jefe: "Andrea Stella", pilotos: ["Lando Norris", "Oscar Piastri"], color: "#ff8700", bg: "rgba(255, 135, 0, 0.08)", dinero: 135000000 },
-            "Ferrari": { jefe: "Frédéric Vasseur", pilotos: ["Charles Leclerc", "Lewis Hamilton"], color: "#e10600", bg: "rgba(225, 6, 0, 0.08)", dinero: 135000000 },
-            "Red Bull": { jefe: "Christian Horner", pilotos: ["Max Verstappen", "Isack Hadjar"], color: "#0c1f3c", bg: "rgba(12, 31, 60, 0.2)", dinero: 133500000 },
-            "Mercedes": { jefe: "Toto Wolff", pilotos: ["George Russell", "Kimi Antonelli"], color: "#00a19c", bg: "rgba(0, 161, 156, 0.08)", dinero: 134000000 },
-            "Aston Martin": { jefe: "Mike Krack", pilotos: ["Fernando Alonso", "Lance Stroll"], color: "#006f62", bg: "rgba(0, 111, 98, 0.1)", dinero: 131000000 },
-            "Alpine": { jefe: "Oliver Oakes", pilotos: ["Pierre Gasly", "Franco Colapinto"], color: "#ff85b3", bg: "rgba(255, 133, 179, 0.08)", dinero: 126000000 },
-            "Haas": { jefe: "Ayao Komatsu", pilotos: ["Esteban Ocon", "Oliver Bearman"], color: "#ffffff", bg: "rgba(255, 255, 255, 0.05)", dinero: 122000000 },
-            "Racing Bulls": { jefe: "Laurent Mekies", pilotos: ["Liam Lawson", "Arvid Lindblad"], color: "#1c34f4", bg: "rgba(28, 52, 244, 0.08)", dinero: 124500000 },
-            "Williams": { jefe: "James Vowles", pilotos: ["Alexander Albon", "Carlos Sainz"], color: "#005aff", bg: "rgba(0, 90, 255, 0.08)", dinero: 128000000 },
-            "Audi": { jefe: "Mattia Binotto", pilotos: ["Nico Hülkenberg", "Gabriel Bortoleto"], color: "#ff0044", bg: "rgba(255, 0, 68, 0.08)", dinero: 135000000 },
-            "Cadillac": { jefe: "Mario Andretti", pilotos: ["Sergio Pérez", "Valtteri Bottas"], color: "#cbd5e1", bg: "rgba(203, 213, 225, 0.08)", dinero: 130000000 }
-        };
-
-        function comenzarJuego() {
-            music.volu
+            "McLaren": { jefe: "Andrea Stella", pilotos: ["Lando Norris", "Oscar Piastri"], color: "#ff8700", bg: "rgba(255, 135, 0, 0.08)", presupuesto: "$135,000,000", basePR: 90 },
+            "Ferrari": { jefe: "Frédéric Vasseur", pilotos: ["Charles Leclerc", "Lewis Hamilton"], color: "#e10600", bg: "rgba(225, 6, 0, 0.08)", presupuesto: "$135,000,000", basePR: 89 },
+            "Red Bull": { jefe: "Christian Horner", pilotos: ["Max Verstappen", "Isack Hadjar"], color: "#0c1f3c", bg: "rgba(12, 31, 60, 0.2)", presupuesto: "$133,500,000", basePR: 88 },
+            "Mercedes": { jefe: "Toto Wolff", pilotos: ["George Russell", "Kimi Antonelli"], color: "#00a19c", bg: "rgba(0, 161, 156, 0.08)", presupuesto: "$134,000,000", basePR: 87 },
+            "Aston Martin": { jefe: "Mike Krack", pilotos: ["Fernando Alonso", "Lance Stroll"], color: "#006f62", bg: "rgba(0, 111, 98, 0.1)", presupuesto: "$131,000,000", basePR: 84 },
+            "Alpine": { jefe: "Oliver Oakes", pilotos: ["Pierre Gasly", "Franco Colapinto"], color: "#ff85b3", bg: "rgba(255, 133, 179, 0.08)", presupuesto: "$126,000,000", basePR: 82 },
+            "Haas": { jefe: "Ayao Komatsu", pilotos: ["Esteban Ocon", "Oliver Bearman"], color: "#ffffff", bg: "rgba(255, 255, 255, 0.05)", presupuesto: "$122,000,000", basePR: 81 },
+            "Racing Bulls": { jefe: "Laurent Mekies", pilotos: ["Liam Lawson", "Arvid Lindblad"], color: "#1c34f4", bg: "rgba(28, 52, 244, 0.0
