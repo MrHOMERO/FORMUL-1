@@ -37,4 +37,4 @@ function seleccionarEquipo(nombre) {
 function cambiarPantalla(ocultar, mostrar) {
     document.getElementById(ocultar).classList.remove('activa');
     document.getElementById(mostrar).classList.add('activa');
-}
+        }
