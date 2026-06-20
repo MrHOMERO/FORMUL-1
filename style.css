@@ -1,32 +1,29 @@
 :root { --f1-red: #e10600; --dark-bg: #0b0b0f; }
 
-body { 
-    margin: 0; padding: 0; font-family: sans-serif; background: var(--dark-bg); color: white;
-    width: 100vw; height: 100vh; overflow-x: hidden; 
-}
-
+body { margin: 0; background: var(--dark-bg); color: white; width: 100vw; height: 100vh; overflow-x: hidden; font-family: sans-serif; }
 .pantalla { display: none; width: 100vw; height: 100vh; flex-direction: column; align-items: center; justify-content: center; }
 .activa { display: flex; }
 
 /* ANIMACIÓN */
-@keyframes entradaSuave {
-    0% { opacity: 0; transform: translateY(30px); }
-    100% { opacity: 1; transform: translateY(0); }
-}
-.animacion-entrada { animation: entradaSuave 1.5s ease-out forwards; }
+@keyframes entradaSuave { 0% { opacity: 0; transform: translateY(30px); } 100% { opacity: 1; transform: translateY(0); } }
+.animacion-entrada { animation: entradaSuave 1.5s ease-out forwards; display: flex; flex-direction: column; align-items: center; }
 
-/* PORTADA */
-#pantalla-1 { 
-    background-image: url('fondo.jpg'); background-size: cover; background-position: center;
-}
-.titulo-f1 { font-size: 80px; -webkit-text-stroke: 3px black; margin: 0; line-height: 1; }
+/* PORTADA Y EQUIPOS */
+#pantalla-1, #pantalla-2 { background-image: url('fondo.jpg'); background-size: cover; background-position: center; }
+.titulo-f1 { font-size: 80px; -webkit-text-stroke: 3px black; margin: 0; }
 .titulo-sensation { font-size: 50px; color: var(--f1-red); -webkit-text-stroke: 1px black; margin: 0; }
-.subtitulo-cursiva { font-size: 20px; color: black; font-style: italic; background: white; padding: 5px 15px; border-radius: 5px; }
+.grid-equipos { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; width: 90%; margin: 15px 0; }
 
-/* BOTONES Y ESTRUCTURA */
-.btn-comenzar { background: var(--f1-red); color: white; padding: 15px; border: none; border-radius: 6px; width: 85%; font-weight: bold; margin-top: 10px; }
-.btn-escuderia { background: rgba(255,255,255,0.1); border: 1px solid #333; padding: 12px; margin: 5px; width: 85%; border-radius: 8px; color: white; }
+/* BOTONES */
+.btn-comenzar { background: var(--f1-red); color: white; padding: 15px; border: none; border-radius: 6px; width: 85%; font-weight: bold; }
+.btn-escuderia { background: rgba(255,255,255,0.1); border: 1px solid #333; padding: 12px; border-radius: 8px; color: white; }
 .btn-simular { background: #00ff66; padding: 15px; width: 85%; border-radius: 8px; font-weight: bold; border: none; margin-top: 15px; }
+
+/* COLORES EQUIPOS */
+.btn-mclaren { border-left: 5px solid #FF8000; }
+.btn-ferrari { border-left: 5px solid #DC0000; }
+.btn-redbull { border-left: 5px solid #1E41FF; }
+.btn-mercedes { border-left: 5px solid #00D2BE; }
 
 /* SIMULACIÓN */
 #pantalla-simulacion { background-image: url('simulador.jpg'); background-size: cover; background-position: center; }
