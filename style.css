@@ -15,79 +15,40 @@ body {
     overflow-x: hidden;
 }
 
-/* --- ESTRUCTURA --- */
 .pantalla { display: none; min-height: 100vh; }
 .activa { display: flex; flex-direction: column; }
 
-/* --- PANTALLA 1: PORTADA --- */
+/* PANTALLA 1: PORTADA */
 #pantalla-1 {
     background-image: url('fondo.jpg');
     background-size: cover;
     background-position: center;
-    justify-content: flex-end;
+    justify-content: flex-start;
     align-items: center;
-    padding-bottom: 80px;
+    padding-top: 60px;
     text-align: center;
 }
 
 .titulo-f1 {
-    font-size: 80px; font-weight: 900; color: transparent;
-    -webkit-text-stroke: 2px white; line-height: 0.8; margin: 0;
+    font-size: 100px; font-weight: 900; color: transparent;
+    -webkit-text-stroke: 3px black; line-height: 1; margin: 0;
 }
 
 .titulo-sensation {
-    font-size: 60px; color: var(--f1-red); font-weight: 900;
-    text-transform: uppercase; margin: 10px 0;
+    font-size: 70px; color: var(--f1-red); font-weight: 900;
+    text-transform: uppercase; -webkit-text-stroke: 1px black; margin: -10px 0 20px 0;
 }
 
-.subtitulo-cursiva {
-    font-size: 24px; color: black; font-style: italic;
-    background: white; padding: 5px 15px; border-radius: 5px; margin-bottom: 30px;
-}
+/* OTROS ESTILOS */
+.subtitulo-cursiva { font-size: 24px; color: black; font-style: italic; background: white; padding: 5px 15px; border-radius: 5px; margin-bottom: 20px; display: inline-block; }
+.titulo-pantalla { font-size: 22px; text-transform: uppercase; padding: 20px; border-bottom: 2px solid var(--f1-red); }
+.btn-comenzar { background-color: var(--f1-red); color: white; font-size: 18px; font-weight: bold; padding: 20px; border: none; border-radius: 6px; cursor: pointer; width: 80%; max-width: 300px; }
+.btn-escuderia { background: rgba(255, 255, 255, 0.1); border: 1px solid #444; color: white; padding: 15px; margin: 5px; cursor: pointer; border-radius: 8px; width: 80%; }
+.btn-simular { background: linear-gradient(135deg, #00ff66, #009944); color: black; font-weight: bold; padding: 20px; border: none; border-radius: 8px; cursor: pointer; width: 80%; margin-top: 15px; }
 
-/* --- ESTILOS GENERALES Y TALLER --- */
-.titulo-pantalla { 
-    font-size: 22px; text-transform: uppercase; letter-spacing: 2px; 
-    margin-bottom: 20px; color: #ffffff; border-bottom: 2px solid var(--f1-red); 
-    padding: 20px; font-weight: bold;
-}
-
-.btn-comenzar { 
-    background-color: var(--f1-red); color: white; font-size: 18px; 
-    font-weight: bold; padding: 20px 40px; border: none; border-radius: 6px; 
-    cursor: pointer; width: 80%; max-width: 300px;
-}
-
-.btn-escuderia { 
-    background: rgba(255, 255, 255, 0.1); border: 1px solid #444; 
-    color: white; padding: 15px; margin: 5px; cursor: pointer; border-radius: 8px;
-}
-
-.contenedor-auto { background: rgba(255, 255, 255, 0.05); padding: 20px; margin: 20px; border-radius: 12px; }
-
-/* --- PANTALLA 5: SIMULACIÓN DEFINITIVA --- */
-#pantalla-simulacion {
-    background-image: url('simulador.jpg');
-    background-size: cover;
-    background-position: center;
-    justify-content: center;
-    padding: 20px;
-}
-
-.cockpit-pantalla {
-    background: var(--panel-bg);
-    border: 1px solid rgba(255, 255, 255, 0.2);
-    padding: 25px;
-    border-radius: 12px;
-    backdrop-filter: blur(8px);
-}
-
+/* SIMULACIÓN */
+#pantalla-simulacion { background-image: url('simulador.jpg'); background-size: cover; background-position: center; justify-content: center; align-items: center; }
+.cockpit-pantalla { background: var(--panel-bg); border: 1px solid rgba(255, 255, 255, 0.2); padding: 25px; border-radius: 12px; backdrop-filter: blur(8px); width: 85%; }
 .panel-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 20px; }
 .telemetria-card { background: rgba(255, 255, 255, 0.1); padding: 10px; border-radius: 6px; text-align: center; }
-.telemetria-card span { display: block; font-size: 10px; color: var(--text-muted); }
-
-/* --- INDICADOR DE RUEDAS --- */
-.rueda {
-    transition: background-color 0.5s ease;
-    border: 2px solid #000;
-}
+.rueda { transition: background-color 0.5s ease; border: 2px solid #000; }
