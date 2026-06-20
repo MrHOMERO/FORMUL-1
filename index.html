@@ -2,26 +2,27 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <title>F1 Sensation</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>F1 Sensation - Dirección de Equipo</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
     <div class="portada">
+        
         <div id="pantalla-taller" class="pantalla activa">
             <div class="titulo-pantalla">Taller de Ingeniería</div>
             <div class="contenedor-auto">
                 <div class="f1-logo-badge" id="logo-equipo-taller">MCLAREN</div>
-                <div id="piloto-asignado-auto">Piloto: -</div>
-                <div id="presupuesto-equipo-taller">Presupuesto: $000M</div>
+                <div id="piloto-asignado-auto" style="font-weight: bold; margin-bottom: 10px;">Piloto: -</div>
             </div>
 
             <div id="selector-estrategia" style="margin: 20px 0; text-align: left;">
-                <p style="font-size: 12px; color: #aaa;">SELECCIONA ESTRATEGIA:</p>
+                <p style="font-size: 12px; color: #aaa;">ESTRATEGIA DE NEUMÁTICOS:</p>
                 <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 5px;">
-                    <button class="btn-escuderia" onclick="seleccionarEstrategia('Blando')">Blando<span>Rápido</span></button>
+                    <button class="btn-escuderia" onclick="seleccionarEstrategia('Blando')">Blando<span>+Velocidad</span></button>
                     <button class="btn-escuderia" onclick="seleccionarEstrategia('Medio')">Medio<span>Eq.</span></button>
-                    <button class="btn-escuderia" onclick="seleccionarEstrategia('Duro')">Duro<span>Resist.</span></button>
+                    <button class="btn-escuderia" onclick="seleccionarEstrategia('Duro')">Duro<span>-Desgaste</span></button>
                 </div>
             </div>
 
@@ -29,64 +30,24 @@
         </div>
 
         <div id="pantalla-simulacion" class="pantalla">
-            <div class="titulo-pantalla">Telemetría en Vivo</div>
+            <div class="titulo-pantalla">Telemetría de Mando</div>
+            
             <div class="cockpit-pantalla">
-                <div id="sim-vueltas" style="font-size: 20px; font-weight: bold; margin-bottom: 10px;">Vuelta: 1/53</div>
-                <div id="sim-tiempo" style="font-size: 30px; font-weight: bold;">03:00</div>
-                <div class="panel-grid">
-                    <div class="telemetria-card"><span>Posición</span><strong id="sim-posicion">P20</strong></div>
-                    <div class="telemetria-card"><span>Velocidad</span><strong id="sim-velocidad">0 km/h</strong></div>
+                <div id="sim-vueltas" style="font-size: 18px; font-weight: bold; margin-bottom: 10px;">Vuelta: 1/53</div>
+                
+                <div class="panel-grid" style="margin-bottom: 15px;">
+                    <div class="telemetria-card"><span>Motor</span><strong id="stat-motor">100%</strong></div>
+                    <div class="telemetria-card"><span>Gomas</span><strong id="stat-gomas">100%</strong></div>
                 </div>
+
+                <div style="font-size: 28px; font-weight: bold; color: #00ff66; margin-bottom: 15px;" id="sim-velocidad">280 km/h</div>
             </div>
-            <button class="btn-comenzar" style="background: #333;" onclick="location.reload()">Reiniciar</button>
+
+            <button class="btn-simular" style="background: #ffcc00; color: #000; border: none; padding: 15px; width: 100%; border-radius: 8px; font-weight: bold; cursor: pointer;" onclick="ejecutarPitStop()">ENTRAR A PITS (BOX BOX)</button>
+            <button class="btn-comenzar" style="background: #333; margin-top: 10px;" onclick="location.reload()">Reiniciar Sesión</button>
         </div>
     </div>
 
-    <script>
-        const NEUMATICOS = {
-            "Blando": { velocidadMult: 1.15 },
-            "Medio": { velocidadMult: 1.05 },
-            "Duro": { velocidadMult: 0.95 }
-        };
-
-        let estrategiaElegida = "Medio";
-        let vueltasTotales = 53;
-        let vueltaActual = 1;
-        let hizoPitStop = false;
-
-        function seleccionarEstrategia(tipo) {
-            estrategiaElegida = tipo;
-            alert("Estrategia elegida: " + tipo);
-        }
-
-        function cambiarPantalla(ocultar, mostrar) {
-            document.getElementById(ocultar).style.display = 'none';
-            document.getElementById(mostrar).style.display = 'block';
-        }
-
-        function comenzarSimulacion() {
-            cambiarPantalla('pantalla-taller', 'pantalla-simulacion');
-            
-            let intervalo = setInterval(() => {
-                if (vueltaActual <= vueltasTotales) {
-                    document.getElementById('sim-vueltas').innerText = `Vuelta: ${vueltaActual}/${vueltasTotales}`;
-                    
-                    let vel = Math.floor((280 * NEUMATICOS[estrategiaElegida].velocidadMult) + (Math.random() * 20));
-                    document.getElementById('sim-velocidad').innerText = vel + " km/h";
-
-                    // Parada en pits obligatoria en vuelta 25
-                    if (vueltaActual === 25 && !hizoPitStop) {
-                        alert("BOX BOX: Parada obligatoria realizada (+3 seg)");
-                        hizoPitStop = true;
-                    }
-                    
-                    vueltaActual++;
-                } else {
-                    clearInterval(intervalo);
-                    alert("¡Carrera Finalizada!");
-                }
-            }, 1000); 
-        }
-    </script>
+    <script src="script.js"></script>
 </body>
 </html>
