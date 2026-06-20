@@ -2,135 +2,90 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>F1 Sensation</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-    <audio id="musica-fondo" loop>
-        <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-4.mp3" type="audio/mpeg">
-    </audio>
-
     <div class="portada">
-        
-        <div id="pantalla-inicio" class="pantalla activa">
-            <div class="titulo-juego">F1<br>Sensation</div>
-            <div class="subtitulo-juego">Simulación Pro</div>
-            <button class="btn-comenzar" onclick="comenzarJuego()">Comenzar a Jugar</button>
-        </div>
-
-        <div id="pantalla-escuderia" class="pantalla">
-            <div class="titulo-pantalla">Selecciona Escudería</div>
-            <div class="grid-escuderias">
-                <button class="btn-escuderia" style="border-left: 5px solid #ff8700;" onclick="seleccionarEscuderia('McLaren')">McLaren<span>Pos. 2025: 1º</span></button>
-                <button class="btn-escuderia" style="border-left: 5px solid #e10600;" onclick="seleccionarEscuderia('Ferrari')">Ferrari<span>Pos. 2025: 2º</span></button>
-                <button class="btn-escuderia" style="border-left: 5px solid #0c1f3c;" onclick="seleccionarEscuderia('Red Bull')">Red Bull<span>Pos. 2025: 3º</span></button>
-                <button class="btn-escuderia" style="border-left: 5px solid #00a19c;" onclick="seleccionarEscuderia('Mercedes')">Mercedes<span>Pos. 2025: 4º</span></button>
-                <button class="btn-escuderia" style="border-left: 5px solid #006f62;" onclick="seleccionarEscuderia('Aston Martin')">Aston Martin<span>Pos. 2025: 5º</span></button>
-                <button class="btn-escuderia" style="border-left: 5px solid #ff85b3;" onclick="seleccionarEscuderia('Alpine')">Alpine<span>Pos. 2025: 6º</span></button>
-                <button class="btn-escuderia" style="border-left: 5px solid #ffffff;" onclick="seleccionarEscuderia('Haas')">Haas<span>Pos. 2025: 7º</span></button>
-                <button class="btn-escuderia" style="border-left: 5px solid #1c34f4;" onclick="seleccionarEscuderia('Racing Bulls')">Racing Bulls<span>Pos. 2025: 8º</span></button>
-                <button class="btn-escuderia" style="border-left: 5px solid #005aff;" onclick="seleccionarEscuderia('Williams')">Williams<span>Pos. 2025: 9º</span></button>
-                <button class="btn-escuderia" style="border-left: 5px solid #ff0044;" onclick="seleccionarEscuderia('Audi')">Audi<span>Pos. 2025: 10º</span></button>
-                <button class="btn-escuderia" style="border-left: 5px solid #cbd5e1;" onclick="seleccionarEscuderia('Cadillac')">Cadillac<span>Nueva Escudería</span></button>
+        <div id="pantalla-taller" class="pantalla activa">
+            <div class="titulo-pantalla">Taller de Ingeniería</div>
+            <div class="contenedor-auto">
+                <div class="f1-logo-badge" id="logo-equipo-taller">MCLAREN</div>
+                <div id="piloto-asignado-auto">Piloto: -</div>
+                <div id="presupuesto-equipo-taller">Presupuesto: $000M</div>
             </div>
-        </div>
 
-        <div id="pantalla-personal" class="pantalla">
-            <div class="titulo-pantalla" id="titulo-equipo-activa">Estructura</div>
-            <div class="seccion-boss">
-                <div class="recuadro-foto foto-jefe"></div>
-                <div>
-                    <span style="font-size: 11px; color: #ffcc00; font-weight: bold; display: block; letter-spacing: 1px;">DIRECTOR (TÚ)</span>
-                    <strong id="nombre-director" style="font-size: 16px;">Cargando...</strong>
+            <div id="selector-estrategia" style="margin: 20px 0; text-align: left;">
+                <p style="font-size: 12px; color: #aaa;">SELECCIONA ESTRATEGIA:</p>
+                <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 5px;">
+                    <button class="btn-escuderia" onclick="seleccionarEstrategia('Blando')">Blando<span>Rápido</span></button>
+                    <button class="btn-escuderia" onclick="seleccionarEstrategia('Medio')">Medio<span>Eq.</span></button>
+                    <button class="btn-escuderia" onclick="seleccionarEstrategia('Duro')">Duro<span>Resist.</span></button>
                 </div>
             </div>
-            <p style="font-size: 13px; text-align: left; color: var(--text-muted); margin-bottom: 10px; font-weight: bold;">SELECCIONA PILOTO:</p>
-            <div id="lista-pilotos"></div>
-        </div>
 
-        <div id="pantalla-taller" class="pantalla">
-            <div class="titulo-pantalla">Taller de Ingeniería</div>
-            <div class="contenedor-auto" id="contenedor-marca-taller">
-                <div class="f1-logo-badge" id="logo-equipo-taller">MCLAREN</div>
-                <div id="piloto-asignado-auto" style="font-size: 13px; color: #fff; font-weight: bold; margin-bottom: 4px;">Piloto: -</div>
-                <div id="presupuesto-equipo-taller" style="font-size: 11px; color: #ffcc00; font-weight: bold; font-family: monospace;">Presupuesto: $000M</div>
-            </div>
-            <button class="btn-simular" onclick="comenzarSimulacion()">Iniciar Simulación</button>
+            <button class="btn-simular" onclick="comenzarSimulacion()">Iniciar Carrera</button>
         </div>
 
         <div id="pantalla-simulacion" class="pantalla">
             <div class="titulo-pantalla">Telemetría en Vivo</div>
             <div class="cockpit-pantalla">
-                <div style="font-size: 40px; font-weight: bold; margin-bottom: 20px;" id="sim-tiempo">03:00</div>
+                <div id="sim-vueltas" style="font-size: 20px; font-weight: bold; margin-bottom: 10px;">Vuelta: 1/53</div>
+                <div id="sim-tiempo" style="font-size: 30px; font-weight: bold;">03:00</div>
                 <div class="panel-grid">
                     <div class="telemetria-card"><span>Posición</span><strong id="sim-posicion">P20</strong></div>
                     <div class="telemetria-card"><span>Velocidad</span><strong id="sim-velocidad">0 km/h</strong></div>
                 </div>
             </div>
-            <button class="btn-comenzar" style="background: #333; margin-top: 20px;" onclick="location.reload()">Reiniciar Sesión</button>
+            <button class="btn-comenzar" style="background: #333;" onclick="location.reload()">Reiniciar</button>
         </div>
     </div>
 
     <script>
-        let music = document.getElementById('musica-fondo');
-        let escuderiaSeleccionada = ""; 
-
-        const DATOS_F1 = {
-            "McLaren": { jefe: "Andrea Stella", pilotos: ["Lando Norris", "Oscar Piastri"], color: "#ff8700", bg: "rgba(255, 135, 0, 0.08)", presupuesto: "$135M" },
-            "Ferrari": { jefe: "Frédéric Vasseur", pilotos: ["Charles Leclerc", "Lewis Hamilton"], color: "#e10600", bg: "rgba(225, 6, 0, 0.08)", presupuesto: "$135M" },
-            "Red Bull": { jefe: "Christian Horner", pilotos: ["Max Verstappen", "Isack Hadjar"], color: "#0c1f3c", bg: "rgba(12, 31, 60, 0.2)", presupuesto: "$133M" },
-            "Mercedes": { jefe: "Toto Wolff", pilotos: ["George Russell", "Kimi Antonelli"], color: "#00a19c", bg: "rgba(0, 161, 156, 0.08)", presupuesto: "$134M" }
-            // ... (agrega el resto aquí)
+        const NEUMATICOS = {
+            "Blando": { velocidadMult: 1.15 },
+            "Medio": { velocidadMult: 1.05 },
+            "Duro": { velocidadMult: 0.95 }
         };
+
+        let estrategiaElegida = "Medio";
+        let vueltasTotales = 53;
+        let vueltaActual = 1;
+        let hizoPitStop = false;
+
+        function seleccionarEstrategia(tipo) {
+            estrategiaElegida = tipo;
+            alert("Estrategia elegida: " + tipo);
+        }
 
         function cambiarPantalla(ocultar, mostrar) {
             document.getElementById(ocultar).style.display = 'none';
             document.getElementById(mostrar).style.display = 'block';
         }
 
-        function comenzarJuego() {
-            music.play().catch(() => {});
-            cambiarPantalla('pantalla-inicio', 'pantalla-escuderia');
-        }
-
-        function seleccionarEscuderia(equipo) {
-            escuderiaSeleccionada = equipo;
-            const info = DATOS_F1[equipo] || {jefe: "TBD", pilotos: [], color: "#fff", bg: "#000", presupuesto: "0"};
-            document.getElementById('titulo-equipo-activa').innerText = equipo.toUpperCase();
-            document.getElementById('nombre-director').innerText = info.jefe;
-            
-            let lista = document.getElementById('lista-pilotos');
-            lista.innerHTML = "";
-            info.pilotos.forEach(p => {
-                lista.innerHTML += `<div class="tarjeta-piloto" onclick="irAlTaller('${p}')">${p}</div>`;
-            });
-            cambiarPantalla('pantalla-escuderia', 'pantalla-personal');
-        }
-
-        function irAlTaller(piloto) {
-            const info = DATOS_F1[escuderiaSeleccionada];
-            document.getElementById('logo-equipo-taller').innerText = escuderiaSeleccionada.toUpperCase();
-            document.getElementById('piloto-asignado-auto').innerText = "Piloto: " + piloto;
-            document.getElementById('presupuesto-equipo-taller').innerText = "PRESUPUESTO: " + info.presupuesto;
-            cambiarPantalla('pantalla-personal', 'pantalla-taller');
-        }
-
         function comenzarSimulacion() {
             cambiarPantalla('pantalla-taller', 'pantalla-simulacion');
-            let tiempo = 180;
-            let pos = 20;
+            
             let intervalo = setInterval(() => {
-                tiempo--;
-                let m = Math.floor(tiempo/60);
-                let s = tiempo%60;
-                document.getElementById('sim-tiempo').innerText = `${m}:${s.toString().padStart(2,'0')}`;
-                if(Math.random() > 0.7 && pos > 1) pos--;
-                document.getElementById('sim-posicion').innerText = "P" + pos;
-                document.getElementById('sim-velocidad').innerText = Math.floor(280 + Math.random()*50) + " km/h";
-                if(tiempo <= 0) clearInterval(intervalo);
-            }, 1000);
+                if (vueltaActual <= vueltasTotales) {
+                    document.getElementById('sim-vueltas').innerText = `Vuelta: ${vueltaActual}/${vueltasTotales}`;
+                    
+                    let vel = Math.floor((280 * NEUMATICOS[estrategiaElegida].velocidadMult) + (Math.random() * 20));
+                    document.getElementById('sim-velocidad').innerText = vel + " km/h";
+
+                    // Parada en pits obligatoria en vuelta 25
+                    if (vueltaActual === 25 && !hizoPitStop) {
+                        alert("BOX BOX: Parada obligatoria realizada (+3 seg)");
+                        hizoPitStop = true;
+                    }
+                    
+                    vueltaActual++;
+                } else {
+                    clearInterval(intervalo);
+                    alert("¡Carrera Finalizada!");
+                }
+            }, 1000); 
         }
     </script>
 </body>
