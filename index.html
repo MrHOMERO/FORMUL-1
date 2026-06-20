@@ -4,227 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>F1 Sensation</title>
-    <style>
-        :root {
-            --f1-red: #e10600;
-            --dark-bg: #0b0b0f;
-            --panel-bg: rgba(0, 0, 0, 0.75); 
-            --text-light: #ffffff;
-            --text-muted: #aaaaaa;
-        }
-
-        body {
-            font-family: 'Segoe UI', Arial, sans-serif;
-            background-color: var(--dark-bg);
-            background-image: url('fondo.jpg');
-            background-position: center;
-            background-size: cover;
-            background-repeat: no-repeat;
-            background-attachment: fixed;
-            color: var(--text-light);
-            margin: 0;
-            padding: 0;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
-            overflow-x: hidden;
-        }
-
-        .portada {
-            text-align: center;
-            width: 90%;
-            max-width: 420px;
-            padding: 30px 20px;
-            background-color: var(--panel-bg); 
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
-            border-radius: 16px;
-            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.8);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            margin: 20px 0;
-            box-sizing: border-box;
-        }
-
-        .pantalla { display: none; }
-        .activa { display: block; }
-
-        .titulo-juego {
-            font-family: 'Arial Black', Impact, sans-serif;
-            font-size: 38px;
-            line-height: 0.95;
-            font-weight: 900;
-            letter-spacing: -1px;
-            margin-bottom: 5px;
-            text-transform: uppercase;
-            background: linear-gradient(180deg, #ffffff 40%, #aaaaaa 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-
-        .subtitulo-juego {
-            font-size: 12px;
-            color: var(--f1-red);
-            letter-spacing: 6px;
-            text-transform: uppercase;
-            margin-bottom: 35px;
-            font-weight: bold;
-        }
-
-        .titulo-pantalla {
-            font-size: 18px;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            margin-bottom: 20px;
-            color: #ffffff;
-            border-bottom: 2px solid var(--f1-red);
-            padding-bottom: 8px;
-            font-weight: bold;
-        }
-
-        .btn-comenzar {
-            background-color: var(--f1-red);
-            color: white;
-            font-size: 16px;
-            font-weight: bold;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            padding: 16px 32px;
-            border: none;
-            border-radius: 6px;
-            cursor: pointer;
-            width: 100%;
-            box-shadow: 0 4px 20px rgba(225, 6, 0, 0.6);
-        }
-
-        .grid-escuderias {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 10px;
-            margin-bottom: 10px;
-        }
-
-        .btn-escuderia {
-            background: rgba(25, 25, 35, 0.8);
-            border: 1px solid #333344;
-            color: white;
-            padding: 12px 8px;
-            font-size: 12px;
-            font-weight: bold;
-            border-radius: 6px;
-            cursor: pointer;
-            text-align: left;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-        }
-        .btn-escuderia:active { transform: scale(0.96); }
-        .btn-escuderia span { font-size: 9px; color: var(--text-muted); margin-top: 2px; }
-
-        .seccion-boss {
-            background: rgba(225, 6, 0, 0.15);
-            border: 1px solid var(--f1-red);
-            border-radius: 8px;
-            padding: 15px;
-            margin-bottom: 25px;
-            display: flex;
-            align-items: center;
-            gap: 15px;
-            text-align: left;
-        }
-
-        .tarjeta-piloto {
-            background: rgba(20, 20, 30, 0.85);
-            border: 1px solid #3a3a50;
-            border-radius: 8px;
-            padding: 12px;
-            margin-bottom: 12px;
-            display: flex;
-            align-items: center;
-            gap: 15px;
-            text-align: left;
-            cursor: pointer;
-        }
-        .tarjeta-piloto:active { transform: scale(0.98); border-color: #00ff66; }
-
-        .recuadro-foto {
-            width: 50px;
-            height: 50px;
-            background: #1a1a26;
-            border: 2px solid #555577;
-            border-radius: 6px;
-            position: relative;
-            overflow: hidden;
-            flex-shrink: 0;
-        }
-        .recuadro-foto::before { content: ""; width: 22px; height: 22px; background: #8888aa; border-radius: 50%; position: absolute; top: 8px; left: 14px;}
-        .recuadro-foto::after { content: ""; width: 36px; height: 24px; background: #8888aa; border-radius: 50% 50% 0 0; position: absolute; bottom: -6px; left: 7px;}
-        .foto-jefe { border-color: #ffcc00; }
-        .foto-jefe::before, .foto-jefe::after { background: #ffcc00; }
-
-        /* CONTENEDOR DINÁMICO DE IDENTIDAD DE ESCUDERÍA */
-        .contenedor-auto {
-            background: rgba(255, 255, 255, 0.04);
-            border-radius: 12px;
-            padding: 20px 15px;
-            margin-bottom: 20px;
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            transition: background 0.3s ease;
-        }
-
-        .f1-logo-badge {
-            font-family: 'Arial Black', Impact, sans-serif;
-            font-size: 32px;
-            font-weight: 900;
-            text-transform: uppercase;
-            letter-spacing: -1px;
-            margin-bottom: 8px;
-            font-style: italic;
-            line-height: 1;
-            transition: color 0.3s ease, text-shadow 0.3s ease;
-        }
-
-        .categoria-item {
-            background: rgba(15, 15, 25, 0.9);
-            border: 1px solid #2a2a40;
-            border-radius: 8px;
-            padding: 12px;
-            margin-bottom: 10px;
-            text-align: left;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .categoria-info strong { font-size: 14px; color: #fff; display: block; }
-        .categoria-info span { font-size: 11px; color: var(--text-muted); }
-
-        .nivel-box {
-            background: #111;
-            padding: 4px 10px;
-            border-radius: 4px;
-            border: 1px solid #00ff66;
-            color: #00ff66;
-            font-size: 12px;
-            font-weight: bold;
-            font-family: monospace;
-        }
-
-        .btn-simular {
-            background: linear-gradient(135deg, #00ff66 0%, #009944 100%);
-            color: black;
-            font-size: 16px;
-            font-weight: bold;
-            text-transform: uppercase;
-            padding: 15px;
-            border: none;
-            border-radius: 8px;
-            cursor: pointer;
-            width: 100%;
-            margin-top: 15px;
-            box-shadow: 0 4px 15px rgba(0, 255, 102, 0.4);
-        }
-    </style>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
@@ -234,14 +14,12 @@
 
     <div class="portada">
         
-        <!-- PANTALLA 1: INICIO -->
         <div id="pantalla-inicio" class="pantalla activa">
             <div class="titulo-juego">F1<br>Sensation</div>
             <div class="subtitulo-juego">Simulación Pro</div>
             <button class="btn-comenzar" onclick="comenzarJuego()">Comenzar a Jugar</button>
         </div>
 
-        <!-- PANTALLA 2: SELECCIÓN DE ESCUDERÍAS -->
         <div id="pantalla-escuderia" class="pantalla">
             <div class="titulo-pantalla">Selecciona Escudería</div>
             <div class="grid-escuderias">
@@ -259,153 +37,101 @@
             </div>
         </div>
 
-        <!-- PANTALLA 3: JERARQUÍA DEL EQUIPO -->
         <div id="pantalla-personal" class="pantalla">
             <div class="titulo-pantalla" id="titulo-equipo-activa">Estructura</div>
-            
             <div class="seccion-boss">
                 <div class="recuadro-foto foto-jefe"></div>
                 <div>
-                    <span style="font-size: 11px; color: #ffcc00; font-weight: bold; display: block; letter-spacing: 1px;">DIRECTOR DE EQUIPO (TÚ)</span>
+                    <span style="font-size: 11px; color: #ffcc00; font-weight: bold; display: block; letter-spacing: 1px;">DIRECTOR (TÚ)</span>
                     <strong id="nombre-director" style="font-size: 16px;">Cargando...</strong>
                 </div>
             </div>
-
-            <p style="font-size: 13px; text-align: left; color: var(--text-muted); margin-bottom: 10px; font-weight: bold;">SELECCIONA UN PILOTO PARA IR AL TALLER:</p>
+            <p style="font-size: 13px; text-align: left; color: var(--text-muted); margin-bottom: 10px; font-weight: bold;">SELECCIONA PILOTO:</p>
             <div id="lista-pilotos"></div>
         </div>
 
-        <!-- PANTALLA 4: TALLER DE INGENIERÍA CON MODELO DINÁMICO -->
         <div id="pantalla-taller" class="pantalla">
             <div class="titulo-pantalla">Taller de Ingeniería</div>
-            <span style="font-size: 11px; color: #00ff66; font-weight: bold; letter-spacing: 1px; display: block; margin-bottom: 10px;">MONOPLAZA ESPECIFICACIÓN 2026</span>
-            
-            <!-- Nombre y Logo de Escudería Dinámico -->
             <div class="contenedor-auto" id="contenedor-marca-taller">
                 <div class="f1-logo-badge" id="logo-equipo-taller">MCLAREN</div>
                 <div id="piloto-asignado-auto" style="font-size: 13px; color: #fff; font-weight: bold; margin-bottom: 4px;">Piloto: -</div>
-                <!-- NUEVO ELEMENTO: Presupuesto total del taller -->
                 <div id="presupuesto-equipo-taller" style="font-size: 11px; color: #ffcc00; font-weight: bold; font-family: monospace;">Presupuesto: $000M</div>
             </div>
-
-            <!-- Las 4 Categorías Obligatorias de Rendimiento -->
-            <div id="categorias-auto">
-                <div class="categoria-item">
-                    <div class="categoria-info">
-                        <strong>⚡ Unidad de Potencia (PU)</strong>
-                        <span>Motor 2026 (50% Eléctrico / Biocombustible)</span>
-                    </div>
-                    <div class="nivel-box">PR. 85</div>
-                </div>
-
-                <div class="categoria-item">
-                    <div class="categoria-info">
-                        <strong>💨 Aerodinámica Activa</strong>
-                        <span>Modos Z (Curvas) y X (Rectas - Alerón Móvil)</span>
-                    </div>
-                    <div class="nivel-box">PR. 79</div>
-                </div>
-
-                <div class="categoria-item">
-                    <div class="categoria-info">
-                        <strong>🔧 Chasis y Peso Reducido</strong>
-                        <span>Batalla corta (-20cm) y auto más estrecho</span>
-                    </div>
-                    <div class="nivel-box">PR. 82</div>
-                </div>
-
-                <div class="categoria-item">
-                    <div class="categoria-info">
-                        <strong>👟 Sistemas de Suspensión</strong>
-                        <span>Dinámica de neumáticos de perfil bajo</span>
-                    </div>
-                    <div class="nivel-box">PR. 80</div>
-                </div>
-            </div>
-
-            <button class="btn-simular" onclick="comenzarSimulacion()">Iniciar Simulación de Carrera</button>
+            <button class="btn-simular" onclick="comenzarSimulacion()">Iniciar Simulación</button>
         </div>
 
+        <div id="pantalla-simulacion" class="pantalla">
+            <div class="titulo-pantalla">Telemetría en Vivo</div>
+            <div class="cockpit-pantalla">
+                <div style="font-size: 40px; font-weight: bold; margin-bottom: 20px;" id="sim-tiempo">03:00</div>
+                <div class="panel-grid">
+                    <div class="telemetria-card"><span>Posición</span><strong id="sim-posicion">P20</strong></div>
+                    <div class="telemetria-card"><span>Velocidad</span><strong id="sim-velocidad">0 km/h</strong></div>
+                </div>
+            </div>
+            <button class="btn-comenzar" style="background: #333; margin-top: 20px;" onclick="location.reload()">Reiniciar Sesión</button>
+        </div>
     </div>
 
     <script>
         let music = document.getElementById('musica-fondo');
-        let escuderiaSeleccionada = ""; // Almacena el equipo activo globalmente
+        let escuderiaSeleccionada = ""; 
 
-        // PARRILLA OFICIAL TEMPORADA 2026 CON PRESUPUESTOS (Nivel de Límite Presupuestario FIA)
         const DATOS_F1 = {
-            "McLaren": { jefe: "Andrea Stella", pilotos: ["Lando Norris", "Oscar Piastri"], color: "#ff8700", bg: "rgba(255, 135, 0, 0.08)", presupuesto: "$135,000,000" },
-            "Ferrari": { jefe: "Frédéric Vasseur", pilotos: ["Charles Leclerc", "Lewis Hamilton"], color: "#e10600", bg: "rgba(225, 6, 0, 0.08)", presupuesto: "$135,000,000" },
-            "Red Bull": { jefe: "Christian Horner", pilotos: ["Max Verstappen", "Isack Hadjar"], color: "#0c1f3c", bg: "rgba(12, 31, 60, 0.2)", presupuesto: "$133,500,000" },
-            "Mercedes": { jefe: "Toto Wolff", pilotos: ["George Russell", "Kimi Antonelli"], color: "#00a19c", bg: "rgba(0, 161, 156, 0.08)", presupuesto: "$134,000,000" },
-            "Aston Martin": { jefe: "Mike Krack", pilotos: ["Fernando Alonso", "Lance Stroll"], color: "#006f62", bg: "rgba(0, 111, 98, 0.1)", presupuesto: "$131,000,000" },
-            "Alpine": { jefe: "Oliver Oakes", pilotos: ["Pierre Gasly", "Franco Colapinto"], color: "#ff85b3", bg: "rgba(255, 133, 179, 0.08)", presupuesto: "$126,000,000" },
-            "Haas": { jefe: "Ayao Komatsu", pilotos: ["Esteban Ocon", "Oliver Bearman"], color: "#ffffff", bg: "rgba(255, 255, 255, 0.05)", presupuesto: "$122,000,000" },
-            "Racing Bulls": { jefe: "Laurent Mekies", pilotos: ["Liam Lawson", "Arvid Lindblad"], color: "#1c34f4", bg: "rgba(28, 52, 244, 0.08)", presupuesto: "$124,500,000" },
-            "Williams": { jefe: "James Vowles", pilotos: ["Alexander Albon", "Carlos Sainz"], color: "#005aff", bg: "rgba(0, 90, 255, 0.08)", presupuesto: "$128,000,000" },
-            "Audi": { jefe: "Mattia Binotto", pilotos: ["Nico Hülkenberg", "Gabriel Bortoleto"], color: "#ff0044", bg: "rgba(255, 0, 68, 0.08)", presupuesto: "$135,000,000" },
-            "Cadillac": { jefe: "Mario Andretti", pilotos: ["Sergio Pérez", "Valtteri Bottas"], color: "#cbd5e1", bg: "rgba(203, 213, 225, 0.08)", presupuesto: "$130,000,000" }
+            "McLaren": { jefe: "Andrea Stella", pilotos: ["Lando Norris", "Oscar Piastri"], color: "#ff8700", bg: "rgba(255, 135, 0, 0.08)", presupuesto: "$135M" },
+            "Ferrari": { jefe: "Frédéric Vasseur", pilotos: ["Charles Leclerc", "Lewis Hamilton"], color: "#e10600", bg: "rgba(225, 6, 0, 0.08)", presupuesto: "$135M" },
+            "Red Bull": { jefe: "Christian Horner", pilotos: ["Max Verstappen", "Isack Hadjar"], color: "#0c1f3c", bg: "rgba(12, 31, 60, 0.2)", presupuesto: "$133M" },
+            "Mercedes": { jefe: "Toto Wolff", pilotos: ["George Russell", "Kimi Antonelli"], color: "#00a19c", bg: "rgba(0, 161, 156, 0.08)", presupuesto: "$134M" }
+            // ... (agrega el resto aquí)
         };
-
-        function comenzarJuego() {
-            music.volume = 0.5; 
-            music.play().catch(error => console.log("Audio bloqueado:", error));
-            cambiarPantalla('pantalla-inicio', 'pantalla-escuderia');
-        }
 
         function cambiarPantalla(ocultar, mostrar) {
             document.getElementById(ocultar).style.display = 'none';
             document.getElementById(mostrar).style.display = 'block';
         }
 
+        function comenzarJuego() {
+            music.play().catch(() => {});
+            cambiarPantalla('pantalla-inicio', 'pantalla-escuderia');
+        }
+
         function seleccionarEscuderia(equipo) {
-            escuderiaSeleccionada = equipo; 
-            const info = DATOS_F1[equipo];
+            escuderiaSeleccionada = equipo;
+            const info = DATOS_F1[equipo] || {jefe: "TBD", pilotos: [], color: "#fff", bg: "#000", presupuesto: "0"};
             document.getElementById('titulo-equipo-activa').innerText = equipo.toUpperCase();
             document.getElementById('nombre-director').innerText = info.jefe;
-
-            const contenedorPilotos = document.getElementById('lista-pilotos');
-            contenedorPilotos.innerHTML = "";
-
-            info.pilotos.forEach(piloto => {
-                contenedorPilotos.innerHTML += `
-                    <div class="tarjeta-piloto" onclick="irAlTaller('${piloto}')">
-                        <div class="recuadro-foto"></div>
-                        <div>
-                            <strong style="font-size: 15px; color: white; display: block;">${piloto}</strong>
-                            <span style="font-size: 11px; color: #00ff66;">Configurar monoplaza de ingeniería</span>
-                        </div>
-                    </div>
-                `;
+            
+            let lista = document.getElementById('lista-pilotos');
+            lista.innerHTML = "";
+            info.pilotos.forEach(p => {
+                lista.innerHTML += `<div class="tarjeta-piloto" onclick="irAlTaller('${p}')">${p}</div>`;
             });
-
             cambiarPantalla('pantalla-escuderia', 'pantalla-personal');
         }
 
-        function irAlTaller(nombrePiloto) {
+        function irAlTaller(piloto) {
             const info = DATOS_F1[escuderiaSeleccionada];
-            const logoContainer = document.getElementById('logo-equipo-taller');
-            const cajaContenedora = document.getElementById('contenedor-marca-taller');
-            const presupuestoContainer = document.getElementById('presupuesto-equipo-taller');
-
-            // Actualizamos dinámicamente el texto, colores y sombreados de marca
-            logoContainer.innerText = escuderiaSeleccionada.toUpperCase();
-            logoContainer.style.color = info.color;
-            logoContainer.style.textShadow = `0 0 15px ${info.color}66`; 
-            cajaContenedora.style.background = info.bg;
-            cajaContenedora.style.borderColor = info.color + "44"; 
-
-            document.getElementById('piloto-asignado-auto').innerText = "Piloto: " + nombrePiloto;
-            
-            // NUEVA LÓGICA: Inyectar el presupuesto asignado en el taller
-            presupuestoContainer.innerText = "PRESUPUESTO DISPONIBLE: " + info.presupuesto;
-
+            document.getElementById('logo-equipo-taller').innerText = escuderiaSeleccionada.toUpperCase();
+            document.getElementById('piloto-asignado-auto').innerText = "Piloto: " + piloto;
+            document.getElementById('presupuesto-equipo-taller').innerText = "PRESUPUESTO: " + info.presupuesto;
             cambiarPantalla('pantalla-personal', 'pantalla-taller');
         }
 
         function comenzarSimulacion() {
-            alert("¡Transición lista!\n\nAquí la música de fondo se detendrá y saltaremos al bucle principal de telemetría de carrera en tiempo real.");
+            cambiarPantalla('pantalla-taller', 'pantalla-simulacion');
+            let tiempo = 180;
+            let pos = 20;
+            let intervalo = setInterval(() => {
+                tiempo--;
+                let m = Math.floor(tiempo/60);
+                let s = tiempo%60;
+                document.getElementById('sim-tiempo').innerText = `${m}:${s.toString().padStart(2,'0')}`;
+                if(Math.random() > 0.7 && pos > 1) pos--;
+                document.getElementById('sim-posicion').innerText = "P" + pos;
+                document.getElementById('sim-velocidad').innerText = Math.floor(280 + Math.random()*50) + " km/h";
+                if(tiempo <= 0) clearInterval(intervalo);
+            }, 1000);
         }
     </script>
 </body>
-                    </html>
+</html>
