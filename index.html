@@ -3,60 +3,78 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>F1 Sensation</title>
+    <title>F1 Sensation - Manager Edition</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-    <div class="portada">
-        <!-- PANTALLA 1: PORTADA -->
-        <div id="pantalla-1" class="pantalla activa">
-            <div class="titulo-juego">F1 SENSATION</div>
-            <div class="subtitulo-juego">Manager Edition</div>
-            <button class="btn-comenzar" onclick="cambiarPantalla('pantalla-1', 'pantalla-2')">Comenzar Juego</button>
-        </div>
+    <!-- PANTALLA 1: PORTADA IMPACTANTE -->
+    <div id="pantalla-1" class="pantalla activa">
+        <h1 class="titulo-f1">F1</h1>
+        <h2 class="titulo-sensation">SENSATION</h2>
+        <div class="subtitulo-cursiva">Juego de simulador</div>
+        <button class="btn-comenzar" onclick="cambiarPantalla('pantalla-1', 'pantalla-2')">COMENZAR JUEGO</button>
+    </div>
 
-        <!-- PANTALLA 2: SELECCIÓN DE ESCUDERÍA -->
-        <div id="pantalla-2" class="pantalla">
-            <div class="titulo-pantalla">Elige tu equipo</div>
-            <div class="grid-escuderias">
-                <button class="btn-escuderia" onclick="seleccionarEquipo('McLaren')">McLaren<span>Woking, UK</span></button>
-                <button class="btn-escuderia" onclick="seleccionarEquipo('Ferrari')">Ferrari<span>Maranello, IT</span></button>
+    <!-- PANTALLA 2: SELECCIÓN DE EQUIPO -->
+    <div id="pantalla-2" class="pantalla">
+        <div class="titulo-pantalla">Elige tu equipo</div>
+        <button class="btn-escuderia" onclick="seleccionarEquipo('McLaren')">McLaren</button>
+        <button class="btn-escuderia" onclick="seleccionarEquipo('Ferrari')">Ferrari</button>
+        <button class="btn-comenzar" style="margin-top:20px;" onclick="cambiarPantalla('pantalla-2', 'pantalla-3')">Siguiente</button>
+    </div>
+
+    <!-- PANTALLA 3: PRESUPUESTO -->
+    <div id="pantalla-3" class="pantalla">
+        <div class="titulo-pantalla">Gestión de Presupuesto</div>
+        <button class="btn-escuderia" onclick="seleccionarPresupuesto(100)">100M - Privado</button>
+        <button class="btn-escuderia" onclick="seleccionarPresupuesto(500)">500M - Oficial</button>
+        <button class="btn-comenzar" style="margin-top:20px;" onclick="cambiarPantalla('pantalla-3', 'pantalla-taller')">Ir al Taller</button>
+    </div>
+
+    <!-- PANTALLA 4: TALLER -->
+    <div id="pantalla-taller" class="pantalla">
+        <div class="titulo-pantalla">Taller de Ingeniería</div>
+        <div class="contenedor-auto">
+            <div id="nombre-equipo-display" style="font-weight:bold; font-size: 24px;">EQUIPO</div>
+        </div>
+        <div id="selector-estrategia" style="padding: 20px;">
+            <p>ESTRATEGIA DE NEUMÁTICOS:</p>
+            <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 5px;">
+                <button class="btn-escuderia" onclick="seleccionarEstrategia('Blando')">Blando</button>
+                <button class="btn-escuderia" onclick="seleccionarEstrategia('Medio')">Medio</button>
+                <button class="btn-escuderia" onclick="seleccionarEstrategia('Duro')">Duro</button>
             </div>
-            <button class="btn-comenzar" style="margin-top:20px;" onclick="cambiarPantalla('pantalla-2', 'pantalla-3')">Siguiente</button>
         </div>
+        <button class="btn-simular" onclick="comenzarSimulacion()">INICIAR CARRERA</button>
+    </div>
 
-        <!-- PANTALLA 3: PRESUPUESTO -->
-        <div id="pantalla-3" class="pantalla">
-            <div class="titulo-pantalla">Gestión de Presupuesto</div>
-            <p>Selecciona tu capital inicial:</p>
-            <button class="btn-escuderia" onclick="seleccionarPresupuesto(100)">100M - Equipo Privado</button>
-            <button class="btn-escuderia" onclick="seleccionarPresupuesto(500)">500M - Equipo Oficial</button>
-            <button class="btn-comenzar" style="margin-top:20px;" onclick="cambiarPantalla('pantalla-3', 'pantalla-taller')">Ir al Taller</button>
-        </div>
-
-        <!-- PANTALLA 4: TALLER -->
-        <div id="pantalla-taller" class="pantalla">
-            <div class="titulo-pantalla">Taller de Ingeniería</div>
-            <div class="contenedor-auto">
-                <div class="f1-logo-badge" id="nombre-equipo-display">EQUIPO</div>
-            </div>
-            <div id="selector-estrategia">
-                <p>SELECCIONA TIPO DE GOMA:</p>
-                <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 5px;">
-                    <button class="btn-escuderia" onclick="seleccionarEstrategia('Blando')">Blando</button>
-                    <button class="btn-escuderia" onclick="seleccionarEstrategia('Medio')">Medio</button>
-                    <button class="btn-escuderia" onclick="seleccionarEstrategia('Duro')">Duro</button>
+    <!-- PANTALLA 5: SIMULACIÓN DE TELEMETRÍA (Fondo Simulador) -->
+    <div id="pantalla-simulacion" class="pantalla">
+        <div class="cockpit-pantalla">
+            <div style="display: flex; justify-content: space-between; align-items: start; margin-bottom: 15px;">
+                <div id="sim-vueltas" style="font-weight: bold;">Vuelta: 1/53</div>
+                <div style="text-align: right;">
+                    <span style="font-size: 9px; color: #aaa;">POSICIÓN</span>
+                    <div id="sim-posicion" style="font-size: 18px; font-weight: bold;">P11</div>
                 </div>
             </div>
-            <button class="btn-simular" onclick="comenzarSimulacion()">Iniciar Carrera</button>
+
+            <div id="auto-telemetria" style="width: 100%; height: 70px; background: rgba(0,0,0,0.5); border-radius: 8px; display: flex; justify-content: space-around; align-items: center; border: 1px solid #444;">
+                <div class="rueda" id="rueda-fl" style="width: 18px; height: 18px; border-radius: 50%; background: #00ff66;"></div>
+                <div class="rueda" id="rueda-fr" style="width: 18px; height: 18px; border-radius: 50%; background: #00ff66;"></div>
+            </div>
+
+            <div id="sim-velocidad" style="font-size: 26px; font-weight: bold; color: #00ff66; margin: 10px 0;">267 km/h</div>
+            
+            <div class="panel-grid">
+                <div class="telemetria-card"><span>Motor</span><strong id="stat-motor">100%</strong></div>
+                <div class="telemetria-card"><span>Gomas</span><strong id="stat-gomas">100%</strong></div>
+            </div>
         </div>
 
-        <!-- PANTALLA 5: SIMULACIÓN -->
-        <div id="pantalla-simulacion" class="pantalla">
-            <!-- (Tu contenido de Telemetría aquí) -->
-            <button class="btn-comenzar" onclick="location.reload()">Reiniciar</button>
-        </div>
+        <button class="btn-simular" style="background: #ffcc00; color: #000; margin-top: 20px;" onclick="ejecutarPitStop()">ENTRAR A PITS</button>
+        <button class="btn-comenzar" style="background: #333; margin-top: 10px;" onclick="location.reload()">Reiniciar</button>
     </div>
 
     <script src="script.js"></script>
