@@ -4,7 +4,6 @@
     --panel-bg: rgba(0, 0, 0, 0.85);
     --text-light: #ffffff;
     --text-muted: #aaaaaa;
-    --accent-yellow: #ffcc00;
 }
 
 body {
@@ -13,60 +12,81 @@ body {
     color: var(--text-light);
     margin: 0;
     padding: 0;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    min-height: 100vh;
     overflow-x: hidden;
 }
 
-.portada {
+/* --- ESTRUCTURA --- */
+.pantalla { display: none; min-height: 100vh; }
+.activa { display: flex; flex-direction: column; }
+
+/* --- PANTALLA 1: PORTADA --- */
+#pantalla-1 {
+    background-image: url('fondo.jpg');
+    background-size: cover;
+    background-position: center;
+    justify-content: flex-end;
+    align-items: center;
+    padding-bottom: 80px;
     text-align: center;
-    width: 90%;
-    max-width: 420px;
-    padding: 20px;
-    box-sizing: border-box;
 }
 
-.pantalla { display: none; }
-.activa { display: block; }
+.titulo-f1 {
+    font-size: 80px; font-weight: 900; color: transparent;
+    -webkit-text-stroke: 2px white; line-height: 0.8; margin: 0;
+}
 
-/* Títulos y Botones */
-.titulo-pantalla { font-size: 18px; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 20px; color: #ffffff; border-bottom: 2px solid var(--f1-red); padding-bottom: 8px; font-weight: bold; }
-.btn-simular { background: linear-gradient(135deg, #00ff66 0%, #009944 100%); color: black; font-size: 16px; font-weight: bold; text-transform: uppercase; padding: 15px; border: none; border-radius: 8px; cursor: pointer; width: 100%; margin-top: 15px; }
-.btn-comenzar { background-color: var(--f1-red); color: white; font-size: 16px; font-weight: bold; text-transform: uppercase; padding: 16px; border: none; border-radius: 6px; cursor: pointer; width: 100%; }
+.titulo-sensation {
+    font-size: 60px; color: var(--f1-red); font-weight: 900;
+    text-transform: uppercase; margin: 10px 0;
+}
 
-/* Estilos de Taller */
-.contenedor-auto { background: rgba(255, 255, 255, 0.04); border-radius: 12px; padding: 20px; border: 1px solid rgba(255, 255, 255, 0.1); margin-bottom: 20px; }
-.f1-logo-badge { font-family: 'Arial Black', Impact, sans-serif; font-size: 32px; font-weight: 900; text-transform: uppercase; font-style: italic; }
-.btn-escuderia { background: rgba(25, 25, 35, 0.8); border: 1px solid #333344; color: white; padding: 10px; font-size: 11px; font-weight: bold; border-radius: 6px; cursor: pointer; display: flex; flex-direction: column; }
+.subtitulo-cursiva {
+    font-size: 24px; color: black; font-style: italic;
+    background: white; padding: 5px 15px; border-radius: 5px; margin-bottom: 30px;
+}
 
-/* --- SIMULACIÓN Y TELEMETRÍA (Definitivos) --- */
+/* --- ESTILOS GENERALES Y TALLER --- */
+.titulo-pantalla { 
+    font-size: 22px; text-transform: uppercase; letter-spacing: 2px; 
+    margin-bottom: 20px; color: #ffffff; border-bottom: 2px solid var(--f1-red); 
+    padding: 20px; font-weight: bold;
+}
+
+.btn-comenzar { 
+    background-color: var(--f1-red); color: white; font-size: 18px; 
+    font-weight: bold; padding: 20px 40px; border: none; border-radius: 6px; 
+    cursor: pointer; width: 80%; max-width: 300px;
+}
+
+.btn-escuderia { 
+    background: rgba(255, 255, 255, 0.1); border: 1px solid #444; 
+    color: white; padding: 15px; margin: 5px; cursor: pointer; border-radius: 8px;
+}
+
+.contenedor-auto { background: rgba(255, 255, 255, 0.05); padding: 20px; margin: 20px; border-radius: 12px; }
+
+/* --- PANTALLA 5: SIMULACIÓN DEFINITIVA --- */
 #pantalla-simulacion {
     background-image: url('simulador.jpg');
     background-size: cover;
     background-position: center;
-    background-repeat: no-repeat;
-    min-height: 100vh;
+    justify-content: center;
     padding: 20px;
-    display: none;
 }
 
 .cockpit-pantalla {
     background: var(--panel-bg);
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    padding: 20px;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    padding: 25px;
     border-radius: 12px;
     backdrop-filter: blur(8px);
-    margin-top: 10vh;
-    color: white;
 }
 
-.panel-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 15px; }
-.telemetria-card { background: rgba(255, 255, 255, 0.05); padding: 8px; border-radius: 6px; text-align: center; }
-.telemetria-card span { display: block; font-size: 9px; color: var(--text-muted); text-transform: uppercase; }
+.panel-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 20px; }
+.telemetria-card { background: rgba(255, 255, 255, 0.1); padding: 10px; border-radius: 6px; text-align: center; }
+.telemetria-card span { display: block; font-size: 10px; color: var(--text-muted); }
 
-/* Estilo para las ruedas del auto */
+/* --- INDICADOR DE RUEDAS --- */
 .rueda {
     transition: background-color 0.5s ease;
     border: 2px solid #000;
